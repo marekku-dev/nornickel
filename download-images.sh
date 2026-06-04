@@ -166,6 +166,53 @@ download "https://cdn.prod.website-files.com/66d87d589c1f239397d2931b/69d2c7b82e
 # Outro глава 3 (фон)
 download "https://cdn.prod.website-files.com/66d87d589c1f239397d2931b/69b29a477c3a161a4519848c_622f1c056e8d0.jpeg"                                                                                               "ch3-outro-bg.jpg"
 
+
+# ─────────────────────────────────────────────────────────────
+# ГЛАВА 4 — Как мир реагирует на изменение климата
+# ─────────────────────────────────────────────────────────────
+
+# Hero bg (тот же файл, что ch3-outro-bg, но сохраняем отдельно)
+download "https://cdn.prod.website-files.com/66d87d589c1f239397d2931b/69b29a477c3a161a4519848c_622f1c056e8d0.jpeg"                                                                                               "ch4-hero-bg.jpg"
+
+# Outro bg (уникальный для гл. 4)
+download "https://cdn.prod.website-files.com/66d87d589c1f239397d2931b/69b29a28bd96e522db0b66c5_39_%D0%9F%D0%9B%D0%90%D0%A2%D0%9E_%D0%9F%D0%A3%D0%A2%D0%9E%D0%A0%D0%90%D0%9D%D0%90_%D0%98%D0%AE%D0%9B%D0%AC_2022_%D0%94%D0%B5%D0%BD%D0%B8%D1%81%20%D0%93%D0%B0%D1%81%D1%8C%D0%BA%D0%BE%D0%B2.jpeg"  "ch4-outro-bg.jpg"
+
+# Иконка скролла (SVG — для assets/scroll.svg)
+mkdir -p assets
+echo -n "  assets/scroll.svg ... "
+curl -sL "https://cdn.prod.website-files.com/66d87d589c1f239397d2931b/69b2a4ec002f4b3acc9a8d15_icon__scroll.svg" -o "assets/scroll.svg" && echo "OK" || echo "FAIL"
+
+# Фото: конференция в Киото (РКИК ООН)
+download "https://www.figma.com/api/mcp/asset/36751bce-f9ba-473b-a833-a9d33335c336"    "ch4-unfccc-hall.jpg"
+
+# Фото: подписание Парижского соглашения
+download "https://www.figma.com/api/mcp/asset/b974c2ed-eed2-4cf0-a95c-2a0b3efb7a53"    "ch4-paris-signing.jpg"
+
+# Инфографика: 17 целей ООН (SDG grid)
+download "https://www.figma.com/api/mcp/asset/790a767d-2258-41b0-88ed-204f65164c89"    "ch4-sdg-grid.png"
+
+# Инфографика: график CO₂ / МГЭИК
+download "https://www.figma.com/api/mcp/asset/af2baded-04d2-4014-81c0-f67788065dd0"    "ch4-ipcc-graph.png"
+
+# Карта CCPI 2025
+download "https://www.figma.com/api/mcp/asset/fa66307a-12b6-4218-9d80-3ad1f3df5ea4"    "ch4-ccpi-map.png"
+
+# Карточки «Лучшие мировые практики» (6 иллюстраций)
+download "https://www.figma.com/api/mcp/asset/7c353e8b-43f3-49ec-b3df-407efeb89c70"    "ch4-practice-1.png"
+download "https://www.figma.com/api/mcp/asset/c2668914-cd78-43e2-af69-c78bef9c5afa"    "ch4-practice-2.png"
+download "https://www.figma.com/api/mcp/asset/7b3c37f6-5acf-4dde-b84a-900847fc2273"    "ch4-practice-3.png"
+download "https://www.figma.com/api/mcp/asset/a5043533-a593-4116-b6de-9d4304faaf0c"    "ch4-practice-4.png"
+download "https://www.figma.com/api/mcp/asset/a5043533-a593-4116-b6de-9d4304faaf0c"    "ch4-practice-5.png"
+download "https://www.figma.com/api/mcp/asset/096b5de7-2e10-4bd2-ae43-2a932d6333f6"    "ch4-practice-6.png"
+
+# Карта рисков России — 5 слоёв (нужно выгрузить из Figma вручную)
+# Положи в img/ как:
+#   ch4-russia-map-wind.png
+#   ch4-russia-map-rain.png
+#   ch4-russia-map-fire.png
+#   ch4-russia-map-heat.png
+#   ch4-russia-map-drought.png
+
 echo ""
 echo "Done. Files in img/:"
 ls img/ | wc -l

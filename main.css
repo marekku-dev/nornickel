@@ -1518,6 +1518,11 @@ ol {
   padding: 0 40px;
 }
 
+.image-medium {
+  width: 100%;
+  max-width: 900px;
+}
+
 .image-block__img {
   width: 100%;
   border-radius: var(--radius-lg);
@@ -2584,4 +2589,263 @@ ol {
 
   /* expanding-group */
   .expanding-group     { padding: 0 12px; }
+}
+
+/* =============================================================================
+   ГЛАВА 4 — Дополнительные компоненты
+   ============================================================================= */
+
+/* ─── Зелёный вариант аккордеона ─── */
+
+.card-expanding--green {
+  background: #94a491;
+}
+
+/* ─── Блок документов (docs-grid) ─── */
+
+.docs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 960px;
+}
+
+.doc-card {
+  border: 1px solid rgba(26, 26, 26, 0.15);
+  border-radius: var(--radius-md);
+  padding: 28px 28px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.doc-card__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.doc-card__title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.doc-card__text {
+  font-size: 14px;
+  line-height: 1.55;
+  opacity: 0.7;
+  margin: 0;
+}
+
+.doc-card__link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  align-self: flex-start;
+  transition: opacity 0.2s;
+}
+
+.doc-card__link:hover { opacity: 0.7; }
+
+/* ─── Карта рисков ─── */
+
+.risk-map-block {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px 0;
+}
+
+.risk-map__tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.risk-map__tab {
+  padding: 8px 20px;
+  border-radius: 100px;
+  border: 1.5px solid rgba(26, 26, 26, 0.2);
+  background: transparent;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  color: var(--color-text);
+  font-family: inherit;
+}
+
+.risk-map__tab:hover {
+  border-color: var(--color-accent);
+}
+
+.risk-map__tab--active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-white);
+}
+
+.risk-map__image-wrap {
+  width: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-color: var(--color-bg);
+}
+
+.risk-map__img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: opacity 0.3s;
+  mix-blend-mode: darken;
+}
+
+.risk-map__img--fade {
+  opacity: 0;
+}
+
+.risk-map__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  font-size: 13px;
+  opacity: 0.75;
+}
+
+.risk-map__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.risk-map__legend-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* ─── Прогресс-бар Сахалинского эксперимента ─── */
+
+.sakhalin-progress {
+  width: 100%;
+  max-width: 800px;
+  background: var(--color-card-bg);
+  border-radius: var(--radius-lg);
+  padding: 40px 48px 56px;
+  box-sizing: border-box;
+}
+
+.sakhalin-progress__track {
+  position: relative;
+  height: 8px;
+  background: rgba(26, 26, 26, 0.12);
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.sakhalin-progress__bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 64%;
+  background: #94a491;
+  border-radius: 4px;
+}
+
+.sakhalin-progress__years {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  opacity: 0.5;
+  margin-top: 8px;
+}
+
+.sakhalin-progress__points {
+  position: relative;
+  height: 120px;
+  margin-top: 24px;
+}
+
+.sakhalin-progress__point {
+  position: absolute;
+  left: var(--pos);
+  top: 0;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 160px;
+}
+
+.sakhalin-progress__dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #94a491;
+  border: 3px solid var(--color-bg, #fffbf5);
+  box-shadow: 0 0 0 2px #94a491;
+  flex-shrink: 0;
+}
+
+.sakhalin-progress__dot--reached {
+  background: #3a7a3a;
+  box-shadow: 0 0 0 2px #3a7a3a;
+}
+
+.sakhalin-progress__dot--pending {
+  background: rgba(26, 26, 26, 0.2);
+  box-shadow: 0 0 0 2px rgba(26, 26, 26, 0.2);
+}
+
+.sakhalin-progress__label {
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.sakhalin-progress__label strong {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 3px;
+}
+
+.sakhalin-progress__label p {
+  margin: 0;
+  opacity: 0.65;
+}
+
+/* ─── Медиазапросы для новых компонентов ─── */
+
+@media screen and (max-width: 767px) {
+  .docs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sakhalin-progress {
+    padding: 28px 20px 40px;
+    overflow-x: auto;
+  }
+
+  .sakhalin-progress__points {
+    min-width: 560px;
+  }
+
+  .risk-map__tabs {
+    gap: 6px;
+  }
+
+  .risk-map__tab {
+    padding: 7px 14px;
+    font-size: 13px;
+  }
 }
