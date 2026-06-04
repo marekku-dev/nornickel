@@ -1232,7 +1232,7 @@ ol {
 
 .site-footer__inner {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
   justify-content: space-between;
   align-items: stretch;
@@ -1251,6 +1251,7 @@ ol {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+  grid-column: span 2;
 }
 
 .site-footer__tagline {
@@ -1293,6 +1294,7 @@ ol {
   align-items: flex-start;
   gap: 10px;
   height: 100%;
+  grid-column: 4 / 5;
 }
 
 .site-footer__form-label {
