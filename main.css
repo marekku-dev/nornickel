@@ -1,0 +1,2447 @@
+/* =============================================================================
+   NORNICKEL — INFOGRAFIKA
+   main.css
+   =============================================================================
+
+   Структура:
+   1. Переменные
+   2. Reset
+   3. Базовая типографика
+   4. Утилиты
+   5. Лейаут (страница, шапка, прогресс)
+   6. Герой / титульный экран
+   7. Основной контент — секции
+   8. Текстовые блоки
+   9. Двухколоночная сетка
+  10. Графики
+  11. Парниковый эффект — sticky-зона
+  12. Слайдер
+  13. Карточки причин (5 шт.)
+  14. Физические карточки (p5.js)
+  15. Таблица факторов климатических моделей
+  16. Учёные
+  17. Учреждения
+  18. Outro / переход к следующей главе
+  19. Футер
+  20. Тултип
+  21. Медиазапросы
+   ============================================================================= */
+
+
+/* =============================================================================
+   0. ШРИФТЫ
+   ============================================================================= */
+
+@font-face {
+  font-family: 'Mabry Pro';
+  src: url('../fonts/Mabry Pro.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Mabry Pro';
+  src: url('../fonts/Mabry Pro Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Mabry Pro';
+  src: url('../fonts/Mabry Pro Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+/* =============================================================================
+   1. ПЕРЕМЕННЫЕ
+   ============================================================================= */
+
+:root {
+  --color-accent:       #94a491;       /* основной зелёный */
+  --color-accent-faint: rgba(148, 164, 145, 0.1);
+  --color-accent-mid:   rgba(148, 164, 145, 0.3);
+  --color-accent-hover: rgba(148, 164, 145, 0.7);
+
+  --color-bg:           #fffbf5;       /* тёплый белый фон страницы */
+  --color-card-bg:      #f5eee3;       /* фон карточек-графиков */
+  --color-text:         #1a1a1a;
+  --color-white:        #ffffff;
+
+  --font-main:    'Mabry Pro', Arial, sans-serif;
+  --font-heading: 'Mabry Pro', Arial, sans-serif;
+
+  --radius-sm:  8px;
+  --radius-md:  16px;
+  --radius-lg:  40px;
+
+  --max-text:   640px;
+  --large-image: 960px;
+  --max-graph:  1400px;
+  --max-wide:   1400px;
+}
+
+
+/* =============================================================================
+   2. RESET
+   ============================================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  font-family: var(--font-main);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+img {
+  border: 0;
+  vertical-align: middle;
+  max-width: 100%;
+  display: inline-block;
+}
+
+a {
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:active,
+a:hover {
+  outline: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: bold;
+}
+
+p {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding-left: 40px;
+}
+
+
+/* =============================================================================
+   3. БАЗОВАЯ ТИПОГРАФИКА
+   ============================================================================= */
+
+.heading-xl {
+  /* Заголовок главы на герое */
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: 9vw;
+  font-weight: 700;
+  line-height: 7vw;
+  margin: 0;
+}
+
+.heading-lg {
+  /* Заголовок раздела h2 */
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 36px;
+  margin: 0;
+}
+
+.heading-md {
+  /* Подзаголовок раздела h3 */
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  position: relative;
+  z-index: 1;
+  margin: 0;
+}
+
+.heading-sm {
+  /* Заголовок термина / пары погода–климат h4 */
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 28px;
+  margin: 0;
+}
+
+.body-text {
+  /* Основной текст абзаца */
+  font-family: var(--font-main);
+  font-size: 20px;
+  line-height: 28px;
+  position: relative;
+  z-index: 1;
+  margin: 0;
+}
+
+.caption-italic {
+  /* Цитата / подпись курсивом */
+  color: var(--color-accent);
+  font-family: var(--font-main);
+  font-size: 16px;
+  font-style: italic;
+  line-height: 22px;
+}
+
+.caption-label {
+  /* Подпись капсом над графиком */
+  text-align: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: var(--font-main);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+  position: relative;
+  z-index: 1;
+}
+
+.caption-regular {
+  /* Подпись обычным текстом */
+  font-family: var(--font-main);
+  font-size: 16px;
+  line-height: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.caption-date {
+  /* Годы жизни учёного */
+  color: var(--color-accent);
+  font-family: var(--font-main);
+  font-size: 14px;
+  font-style: italic;
+  line-height: 18px;
+}
+
+.caption-note {
+  /* Примечание 16px, зелёный */
+  color: var(--color-accent);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.label-chapter {
+  /* «ГЛАВА 1» и «ВСЕ ГЛАВЫ» */
+  letter-spacing: .15vw;
+  text-transform: uppercase;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+
+/* =============================================================================
+   4. УТИЛИТЫ
+   ============================================================================= */
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.img-darken {
+  mix-blend-mode: darken;
+}
+
+
+/* =============================================================================
+   5. ЛЕЙАУТ СТРАНИЦЫ
+   ============================================================================= */
+
+/* Обёртка всей страницы */
+.page {
+  background-color: var(--color-bg);
+  display: flex;
+  flex-flow: column;
+  width: 100vw;
+  min-height: 100dvh;
+  position: relative;
+}
+
+/* ----- Прогресс-бар скролла ----- */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  width: 0%;
+  height: 4px;
+  background-color: var(--color-accent);
+  transition: width .1s linear;
+}
+
+/* ----- Шапка ----- */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 50px;
+  padding: 4px 20px 4px 10px;
+  /* Цвет текста/иконок шапки — молочный по умолчанию (над фото) */
+  --header-color: var(--color-white);
+  color: var(--header-color);
+  transition: color .3s ease;
+}
+
+/* Над молочным фоном страницы текст шапки становится чёрным */
+.site-header--dark {
+  --header-color: var(--color-text);
+}
+
+.site-header__logo-link {
+  color: var(--header-color);
+  padding: 10px 0;
+  position: relative;
+}
+
+.site-header__logo {
+  display: block;
+  width: 7vw;
+  min-width: 60px;
+  aspect-ratio: 95 / 20;
+  /* Логотип перекрашивается вместе с текстом шапки через маску */
+  background-color: var(--header-color);
+  -webkit-mask: url(img/logo.svg) no-repeat center / contain;
+  mask: url(img/logo.svg) no-repeat center / contain;
+  transition: background-color .3s ease;
+}
+
+/* ----- Навигация по главам ----- */
+.nav-chapters {
+  position: relative;
+  padding: 10px 0;
+  color: var(--header-color);
+  cursor: pointer;
+}
+
+.nav-chapters__toggle {
+  letter-spacing: .15vw;
+  text-transform: uppercase;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+}
+
+.nav-chapters__menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  display: flex;
+  flex-flow: column;
+  align-items: flex-end;
+  gap: 6px;
+  min-width: 320px;
+  padding: 0;
+  background: none;
+  border: none;
+  box-shadow: none;
+  color: var(--header-color);
+  transform-origin: top right;
+  transform: scaleY(1) translateY(0);
+  opacity: 1;
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.nav-chapters__menu[hidden] {
+  display: flex !important;
+  opacity: 0;
+  transform: scaleY(0.92) translateY(-8px);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.nav-chapters__menu-label {
+  font-size: 11px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  font-weight: 700;
+  margin-bottom: 4px;
+  text-align: right;
+  opacity: 0.8;
+}
+
+.nav-chapters__item {
+  display: block;
+  padding: 2px 0;
+  color: var(--header-color);
+  text-align: right;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  transition: opacity .2s;
+}
+
+.nav-chapters__item:hover          { opacity: .7; }
+.nav-chapters__item--active        { font-weight: 700; }
+
+.nav-chapters__arrow {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 6px;
+  transition: transform .2s ease;
+}
+
+.nav-chapters__toggle[aria-expanded="true"] .nav-chapters__arrow {
+  transform: rotate(180deg);
+}
+
+
+
+/* =============================================================================
+   6. ГЕРОЙ / ТИТУЛЬНЫЙ ЭКРАН
+   ============================================================================= */
+
+.hero {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  height: 100dvh;
+  padding: 20px;
+  text-align: center;
+  opacity: .9;
+  color: var(--color-white);
+}
+
+.hero__intro-text {
+  position: relative;
+  z-index: 1;
+  max-width: var(--max-text);
+  text-align: center;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.hero__scroll-icon {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  width: 24px;
+  animation: scroll-hint 2s ease-in-out infinite;
+}
+
+@keyframes scroll-hint {
+  0%   { transform: translateX(-50%) translateY(0); }
+  50%  { transform: translateX(-50%) translateY(8px); }
+  100% { transform: translateX(-50%) translateY(0); }
+}
+
+
+/* =============================================================================
+   7. ОСНОВНОЙ КОНТЕНТ — СЕКЦИИ
+   ============================================================================= */
+
+.content {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  gap: 80px;
+  width: 100%;
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+/* Раздел — крупный вертикальный блок */
+.section {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+
+/* =============================================================================
+   8. ТЕКСТОВЫЕ БЛОКИ
+   ============================================================================= */
+
+/* Контейнер для текста с ограниченной шириной */
+.text-block {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-flow: column;
+  gap: 15px;
+  max-width: var(--max-text);
+  margin-bottom: 20px;
+}
+
+/* Подпись с декоративной иконкой слева */
+.caption-block {
+  position: relative;
+  padding-left: 10px;
+}
+
+.caption-block__icon {
+  position: absolute;
+  top: 2px;
+  left: -34px;
+  width: 24px;
+}
+
+/* Обёртка изображения внутри колонки */
+.col-image {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.col-image img {
+  width: 100%;
+  border-radius: 12px;
+  mix-blend-mode: darken;
+}
+
+/* Термин с тултипом */
+.term-tooltip {
+  cursor: help;
+  display: inline-block;
+  padding: 0 10px;
+  border: 1px solid var(--color-accent-hover);
+  border-radius: var(--radius-sm);
+  position: relative;
+}
+
+
+/* =============================================================================
+   9. ДВУХКОЛОНОЧНАЯ СЕТКА
+   ============================================================================= */
+
+.two-col {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.two-col__col {
+  display: flex;
+  flex-flow: column;
+  gap: 5px;
+}
+
+
+/* =============================================================================
+  10. ГРАФИКИ
+   ============================================================================= */
+
+/* Обёртка широкого графика */
+.graph-wide-wrapper {
+  width: 100%;
+  max-width: 1000px;
+  padding: 0 40px;
+}
+
+.graph-wide {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  padding: 30px 20px 50px;
+  background-color: var(--color-card-bg);
+  border-radius: var(--radius-lg);
+}
+
+/* Обёртка среднего графика */
+.graph-mid {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  max-width: var(--max-graph);
+  margin-bottom: 40px;
+  padding: 40px;
+  background-color: var(--color-card-bg);
+  border-radius: var(--radius-lg);
+}
+
+.graph-mid__title {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 10px;
+  font-family: var(--font-main);
+  font-size: 24px;
+  line-height: 32px;
+}
+
+/* Скролл-контейнер изображения графика */
+.graph-scroll {
+  overflow-x: auto;
+}
+
+.graph-image {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-width: 600px;
+  margin-top: 20px;
+}
+
+/* Контейнер для горизонтально прокручиваемого графика */
+.graph-fullwidth-wrapper {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.graph-fullwidth--desktop {
+  width: 100%;
+  max-width: 1440px;
+  margin: 40px 0;
+}
+
+.graph-fullwidth--mobile {
+  display: none;
+}
+
+
+/* =============================================================================
+  11. ПАРНИКОВЫЙ ЭФФЕКТ — STICKY-ЗОНА
+   ============================================================================= */
+
+/* Внешний контейнер sticky-блока */
+.sticky-section {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+/* Sticky-контейнер с фоновыми изображениями */
+.sticky-images {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.sticky-images__img {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity .5s ease-in-out;
+}
+
+/* Версия для мобильных (стопка без sticky) */
+.sticky-images--mobile {
+  display: none;
+}
+
+.sticky-images--mobile img {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  display: block;
+}
+
+/* Текстовые карточки, которые триггерят смену фото */
+.sticky-text-card {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+  max-width: var(--max-text);
+  margin-top: 5vh;
+  margin-bottom: 100vh;
+  padding: 30px 50px 50px;
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+
+/* =============================================================================
+  12. СЛАЙДЕР
+   ============================================================================= */
+
+.slider {
+  position: relative;
+  width: 100%;
+  max-width: var(--max-graph);
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: transparent;
+  height: auto;
+}
+
+.slider__track {
+  display: flex;
+  transition: transform .5s ease;
+}
+
+.slider__slide {
+  min-width: 100%;
+  flex-shrink: 0;
+}
+
+/* Карточка внутри слайда */
+.slide-card {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  background-color: var(--color-white);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.slide-card__image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  mix-blend-mode: darken;
+}
+
+.slide-card__footer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 15px 10px;
+  color: var(--color-accent);
+}
+
+/* Нумерованный кружок */
+.step-badge {
+  display: inline-flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-white);
+  background-color: var(--color-accent);
+  border-radius: 24px;
+}
+
+/* Кнопки-стрелки */
+.slider__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, .8);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.slider__arrow--prev { left: 10px; }
+.slider__arrow--next { right: 10px; }
+
+.slider__arrow-icon { width: 20px; }
+
+/* Точки пагинации */
+.slider__dots {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  text-align: center;
+}
+
+.slider__dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin: 0 3px;
+  background: rgba(0, 0, 0, .3);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.slider__dot--active {
+  background: var(--color-accent);
+}
+
+
+/* =============================================================================
+  13. КАРТОЧКИ ПРИЧИН (5 ШТ.)
+   ============================================================================= */
+
+/* Сетка на десктопе */
+.causes-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 1640px;
+  margin-bottom: 40px;
+  padding: 0 40px;
+}
+
+.cause-card {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-end;
+  align-items: center;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.cause-card__image {
+  width: 100%;
+  object-fit: cover;
+  mix-blend-mode: darken;
+}
+
+.cause-card__badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.cause-card__caption {
+  padding: 8px;
+  text-align: center;
+  font-size: 13px;
+}
+
+
+/* =============================================================================
+  14. ФИЗИЧЕСКИЕ КАРТОЧКИ (p5.js)
+   ============================================================================= */
+
+.physics-cards {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  max-width: var(--max-wide);
+  margin: 40px 0;
+}
+
+.physics-card {
+  display: flex;
+  flex-flow: column;
+  width: 260px;
+  height: 400px;
+  padding-bottom: 50px;
+  border: 1px solid rgba(0, 0, 0, .1);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.physics-card__canvas {
+  aspect-ratio: 1;
+  width: 100%;
+}
+
+.physics-card__info {
+  display: flex;
+  flex-flow: column;
+  gap: 2px;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px;
+}
+
+.physics-card__desc {
+  color: var(--color-accent);
+  text-align: center;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+
+/* =============================================================================
+  15. ТАБЛИЦА ФАКТОРОВ КЛИМАТИЧЕСКИХ МОДЕЛЕЙ
+   ============================================================================= */
+
+.factors-block {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+  width: 960px;
+  padding: 40px;
+  background-color: var(--color-card-bg);
+  border-radius: var(--radius-lg);
+}
+
+.factors-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 4px;
+  margin-top: 20px;
+}
+
+.factor-tag {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 8px;
+  font-family: var(--font-main);
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  color: var(--color-text);
+  background-color: var(--color-accent-faint);
+  border-radius: var(--radius-sm);
+}
+
+
+/* =============================================================================
+  15б. МОБИЛЬНАЯ КАРТОЧКА УЧЁНОГО (в слайдере)
+   ============================================================================= */
+
+.scientist-slide-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+}
+
+.scientist-slide-card__photo {
+  width: 100%;
+  max-height: 220px;
+  object-fit: contain;
+  mix-blend-mode: darken;
+}
+
+.scientist-slide-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 0 0;
+  text-align: center;
+}
+
+/* Первый sticky-img видим по умолчанию */
+.sticky-images__img--visible {
+  opacity: 1;
+}
+
+
+/* =============================================================================
+  16. УЧЁНЫЕ
+   ============================================================================= */
+
+.scientists-grid {
+  position: relative;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  width: 100%;
+  max-width: 90vw;
+  margin: 20px 0 80px;
+}
+
+.scientist-item {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 15vw;
+  min-width: 130px;
+  cursor: pointer;
+}
+
+.scientist-item__card {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: center;
+  align-self: flex-start;
+  width: 100%;
+  background-color: var(--color-bg);
+}
+
+.scientist-item__photo {
+  width: 100%;
+  object-fit: contain;
+  mix-blend-mode: darken;
+}
+
+.scientist-item__name {
+  position: relative;
+  z-index: 1;
+  margin-top: 5px;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+/* Hover-оверлей с описанием */
+.scientist-item__overlay {
+  position: absolute;
+  top: 0;
+  z-index: 5;
+  display: none;
+  flex-flow: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: calc(100% + 2vw);
+  min-height: calc(100% + 2vw);
+  margin-top: -1vw;
+  margin-left: -1vw;
+  padding: 15px 20px 20px;
+  color: var(--color-white);
+  background-color: var(--color-accent-hover);
+  border-radius: 10px;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+
+.scientist-item:hover .scientist-item__overlay {
+  display: flex;
+}
+
+.scientist-item__overlay-name {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 8px;
+  font-family: var(--font-main);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: left;
+}
+
+
+/* =============================================================================
+  17. УЧРЕЖДЕНИЯ
+   ============================================================================= */
+
+.institutions-grid {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px 60px;
+  width: 100%;
+  max-width: 800px;
+  margin: 20px 0 40px;
+}
+
+.institution-item {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  gap: 5px;
+  width: 200px;
+}
+
+.institution-item__logo {
+  height: 64px;
+  mix-blend-mode: darken;
+}
+
+.institution-item__name {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  font-family: var(--font-main);
+  font-size: 14px;
+  line-height: 18px;
+}
+
+
+/* =============================================================================
+  18. OUTRO / ПЕРЕХОД К СЛЕДУЮЩЕЙ ГЛАВЕ
+   ============================================================================= */
+
+.outro {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.outro__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.outro__content {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  max-width: var(--max-graph);
+  padding-bottom: 150px;
+  text-align: center;
+  color: var(--color-white);
+  opacity: .9;
+}
+
+.outro__next-title {
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: 5vw;
+  font-weight: 900;
+  line-height: 4vw;
+}
+
+.btn-next-chapter {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  padding: 10px 25px;
+  color: var(--color-white);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-family: var(--font-main);
+  background-color: rgba(255, 255, 255, .2);
+  border-radius: 50px;
+  transition: all .2s;
+}
+
+.btn-next-chapter:hover {
+  background-color: rgba(255, 255, 255, .3);
+  padding-left: 35px;
+  padding-right: 35px;
+}
+
+
+/* =============================================================================
+  19. ФУТЕР
+   ============================================================================= */
+
+.site-footer {
+  position: absolute;
+  bottom: 0;
+  z-index: 3;
+  width: 100%;
+  padding: 10px;
+}
+
+.site-footer__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: stretch;
+  width: 100%;
+  min-height: 200px;
+  padding: 20px;
+  color: var(--color-white);
+  background-color: var(--color-accent-mid);
+  border-radius: var(--radius-md);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+
+.site-footer__left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.site-footer__tagline {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-main);
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.site-footer__meta {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.site-footer__copyright {
+  font-family: var(--font-main);
+  font-size: 16px;
+  line-height: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.site-footer__credit {
+  position: relative;
+  z-index: 1;
+  color: rgba(255, 255, 255, .3);
+  font-family: var(--font-main);
+  font-size: 16px;
+  line-height: 20px;
+  text-decoration: none;
+}
+
+.site-footer__right {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  height: 100%;
+}
+
+.site-footer__form-label {
+  font-family: var(--font-main);
+  font-size: 16px;
+  line-height: 20px;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 4px;
+}
+
+.site-footer__form {
+  width: 100%;
+}
+
+.site-footer__input {
+  width: 100%;
+  padding-bottom: 2px;
+  padding-left: 0;
+  color: var(--color-white);
+  font-family: var(--font-main);
+  font-size: 16px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, .2);
+  outline: none;
+}
+
+.site-footer__input::placeholder {
+  color: rgba(255, 255, 255, .5);
+}
+
+.site-footer__submit {
+  margin-top: 8px;
+  padding: 8px 20px;
+  color: var(--color-white);
+  background-color: transparent;
+  border: 1px solid var(--color-white);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-main);
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.site-footer__submit:hover {
+  background: rgba(255, 255, 255, .1);
+}
+
+.site-footer__social {
+  display: flex;
+  flex-flow: row;
+  gap: 8px;
+}
+
+.site-footer__social-link {
+  position: relative;
+  z-index: 1;
+  color: var(--color-white);
+  font-family: var(--font-main);
+  font-size: 16px;
+  line-height: 20px;
+  text-decoration: none;
+}
+
+.site-footer__social-link:hover {
+  opacity: .7;
+}
+
+
+/* =============================================================================
+  20. ТУЛТИП
+   ============================================================================= */
+
+.tooltip {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  width: 480px;
+  max-width: calc(100vw - 20px);
+  padding: 12px;
+  font-family: var(--font-main);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-text);
+  background: var(--color-white);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0 8px rgba(0, 0, 0, .1);
+}
+
+
+/* =============================================================================
+  21. МЕДИАЗАПРОСЫ
+   ============================================================================= */
+
+/* Планшет */
+@media screen and (max-width: 991px) {
+  .two-col {
+    grid-template-columns: 1fr;
+    max-width: 540px;
+  }
+
+  .factors-block {
+    width: calc(100% - 40px);
+  }
+
+  .graph-wide-wrapper {
+    padding: 0 16px;
+  }
+
+  .graph-mid {
+    width: calc(100% - 80px);
+  }
+
+  .scientists-grid {
+    max-width: 540px;
+    justify-content: flex-start;
+  }
+
+  .scientist-item {
+    width: 160px;
+    min-width: 130px;
+  }
+
+  .causes-grid {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0 20px;
+  }
+}
+
+/* Мобильный */
+@media screen and (max-width: 767px) {
+  /* Показываем слайдер, прячем десктопные сетки */
+  .causes-grid   { display: none; }
+  .physics-cards { display: none; }
+  .slider        { display: block; max-width: 100%; }
+
+  /* Слайдер на мобиле во всю ширину */
+  .slider--mobile-full {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0;
+  }
+
+  /* Графики */
+  .graph-wide-wrapper       { padding: 0 12px; }
+  .graph-wide               { padding: 20px 16px 30px; border-radius: var(--radius-md); }
+  .graph-mid                { width: 100%; padding: 20px 16px; border-radius: var(--radius-md); }
+  .graph-fullwidth--desktop { display: none; }
+  .graph-fullwidth--mobile  { display: block; width: 100%; margin: 24px 0; }
+  .factors-block            { width: calc(100% - 24px); padding: 20px 16px; border-radius: var(--radius-md); }
+
+  /* Герой */
+  .heading-xl       { font-size: 15vw; line-height: 12vw; }
+  .hero__intro-text { font-size: 16px; line-height: 22px; }
+
+  /* Контент */
+  .content { gap: 48px; padding-top: 60px; padding-bottom: 60px; }
+  .section { gap: 16px; }
+  .text-block { padding: 0 16px; }
+
+  /* Типографика */
+  .body-text  { font-size: 16px; line-height: 24px; }
+  .heading-lg { font-size: 24px; line-height: 30px; }
+  .heading-md { font-size: 20px; line-height: 26px; }
+
+  /* Sticky-зона */
+  .sticky-section            { margin-bottom: 20px; }
+  .sticky-images             { display: none; }
+  .sticky-images--mobile     { display: flex; flex-direction: column; position: relative; width: 100%; gap: 0; }
+  .sticky-images--mobile img { position: relative; inset: auto; width: 100%; height: 60vw; object-fit: cover; }
+  .sticky-text-card          { margin-bottom: 0; margin-top: 0; padding: 20px 16px; border-radius: 0; max-width: 100%; width: 100%; }
+
+  /* Slider card */
+  .slide-card__image { max-height: 56vw; }
+
+  /* Outro */
+  .outro__next-title { font-size: 10vw; line-height: 9vw; }
+  .outro__content    { padding-bottom: 80px; width: 90%; }
+
+  /* Учёные */
+  .scientists-grid { gap: 20px; max-width: 100%; padding: 0 12px; }
+  .scientist-item  { width: 100px; min-width: 90px; }
+
+  /* Учреждения */
+  .institutions-grid { gap: 24px 30px; padding: 0 16px; }
+  .institution-item  { width: 140px; }
+
+  /* Футер */
+  .site-footer__inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Совсем маленький экран */
+@media screen and (max-width: 479px) {
+  .site-header__logo { width: 80px; }
+  .hero__content     { padding: 20px; }
+  .heading-xl        { font-size: 18vw; line-height: 15vw; }
+  .two-col           { gap: 24px; }
+}
+
+/* Десктоп — явно показываем сетки, прячем слайдер */
+@media screen and (min-width: 768px) {
+  .slider        { display: none; }
+  .causes-grid   { display: grid; }
+  .physics-cards { display: flex; }
+}
+
+
+/* =============================================================================
+  22. КОМПОНЕНТЫ ГЛАВЫ 2
+   ============================================================================= */
+
+/* ----- Блок с одиночным изображением ----- */
+.image-block {
+  width: 100%;
+  max-width: var(--max-graph);
+  padding: 0 40px;
+}
+
+.image-block__img {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  mix-blend-mode: darken;
+}
+
+/* ----- Центрированное изображение с подписью ----- */
+.image-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 600px;
+  padding: 0 20px;
+}
+
+.image-centered__img {
+  width: 100%;
+  border-radius: var(--radius-md);
+}
+
+/* ----- Нумерованные карточки (5 шт., секция «Течения») ----- */
+.numbered-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 1640px;
+  padding: 0 40px;
+  margin-bottom: 20px;
+}
+
+.numbered-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-white);
+  padding-bottom: 12px;
+}
+
+.numbered-card .step-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+}
+
+.numbered-card__image {
+  width: 100%;
+  object-fit: cover;
+  mix-blend-mode: darken;
+}
+
+.numbered-card .caption-italic {
+  padding: 0 10px;
+  text-align: center;
+  font-size: 13px;
+}
+
+/* Варианты цветов badge */
+.step-badge--red    { background-color: #c0392b; }
+.step-badge--yellow { background-color: #d4a017; }
+
+/* ----- Хронология кратера ----- */
+.history-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 40px;
+}
+
+.history-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--color-card-bg);
+}
+
+.history-card .caption-date {
+  padding-top: 6px;
+  font-size: 13px;
+}
+
+.history-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  mix-blend-mode: darken;
+}
+
+/* ----- Before/After слайдер ----- */
+.before-after-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: var(--max-graph);
+  padding: 0 40px;
+}
+
+.before-after {
+  position: relative;
+  width: 100%;
+  max-height: 80vh;
+  overflow: hidden;
+  cursor: ew-resize;
+  user-select: none;
+  border-radius: var(--radius-md);
+  touch-action: none;
+}
+
+.before-after__img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  pointer-events: none;
+}
+
+.before-after__img--bottom {
+  display: block;
+}
+
+.before-after__img--top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  clip-path: inset(0 50% 0 0);
+}
+
+.before-after__divider {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+  background: rgba(26, 26, 26, 0.6);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.before-after__handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 22px;
+  height: 40px;
+  background: var(--color-card-bg);
+  border: 2px solid var(--color-text);
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+/* ----- Портретные карточки (экосистемы) ----- */
+.portrait-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 1640px;
+  padding: 0 40px;
+  margin-bottom: 20px;
+}
+
+.portrait-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-white);
+}
+
+.portrait-card__image {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  mix-blend-mode: darken;
+}
+
+.portrait-card__label {
+  padding: 10px 12px 12px;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+/* В слайдере — вертикальный порядок (сначала текст, потом фото) */
+.slider .portrait-card {
+  flex-direction: column-reverse;
+}
+
+.slider .portrait-card__label {
+  padding: 12px 12px 8px;
+}
+
+/* ----- Таблица влияния на экономику ----- */
+.impact-table-wrapper {
+  width: 100%;
+  max-width: var(--max-wide);
+  padding: 0 40px;
+  overflow-x: auto;
+}
+
+.impact-table {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: collapse;
+  background: var(--color-card-bg);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.impact-table__row {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr;
+}
+
+.impact-table__row--header {
+  background: var(--color-accent-mid);
+}
+
+.impact-table__cell {
+  padding: 16px 20px;
+  font-size: 16px;
+  line-height: 22px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.impact-table__row:last-child .impact-table__cell {
+  border-bottom: none;
+}
+
+.impact-table__cell--header {
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+/* ----- Quiz-виктория ----- */
+.quiz-wrapper {
+  width: 100%;
+  max-width: 640px;
+  padding: 40px;
+  background: var(--color-card-bg);
+  border-radius: var(--radius-lg);
+}
+
+.quiz__label {
+  color: var(--color-accent);
+  letter-spacing: 3px;
+  font-size: 14px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.quiz__question {
+  font-size: 24px;
+  line-height: 1.3;
+  margin-bottom: 32px;
+  font-weight: 500;
+}
+
+.quiz__value {
+  font-size: 32px;
+  color: var(--color-accent);
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.quiz__range {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 10px;
+  background: linear-gradient(var(--color-accent), var(--color-accent)) 0/0% 100% no-repeat,
+              rgba(0,0,0,0.12);
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.quiz__range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--color-bg);
+  border: 2px solid var(--color-text);
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.quiz__range::-moz-range-thumb {
+  width: 22px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--color-bg);
+  border: 2px solid var(--color-text);
+  cursor: pointer;
+}
+
+.quiz__button {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 14px 36px;
+  background: var(--color-accent);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-main);
+  font-size: 18px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.quiz__button:hover { opacity: 0.85; }
+
+.quiz__progress {
+  margin-top: 16px;
+  color: var(--color-accent);
+  font-style: italic;
+  font-size: 15px;
+}
+
+.quiz__answer {
+  font-size: 22px;
+  line-height: 1.4;
+  margin: 24px 0;
+  font-weight: 500;
+}
+
+.quiz__source {
+  margin-top: 16px;
+  font-size: 13px;
+  color: rgba(26,26,26,0.4);
+}
+
+.quiz__source a {
+  color: rgba(26,26,26,0.4);
+  text-decoration: underline;
+}
+
+/* Медиа-адаптация новых компонентов */
+@media screen and (max-width: 991px) {
+  .numbered-cards-grid { grid-template-columns: repeat(3, 1fr); padding: 0 20px; }
+  .portrait-cards-grid  { grid-template-columns: repeat(3, 1fr); padding: 0 20px; }
+  .history-grid         { grid-template-columns: repeat(4, 1fr); padding: 0 20px; }
+  .image-block          { padding: 0 16px; }
+  .before-after-wrapper { padding: 0 16px; }
+  .impact-table-wrapper { padding: 0 20px; }
+}
+
+@media screen and (max-width: 767px) {
+  .numbered-cards-grid  { display: none; }
+  .portrait-cards-grid  { display: none; }
+  .history-grid         { grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 0 12px; }
+  .image-block          { padding: 0; }
+  .image-block__img     { border-radius: 0; }
+  .before-after-wrapper { padding: 0 12px; }
+  .before-after         { border-radius: var(--radius-sm); }
+  .impact-table-wrapper { padding: 0 12px; }
+  .impact-table__row    { grid-template-columns: 1fr; }
+  .impact-table__cell--header:not(:first-child) { display: none; }
+  .quiz-wrapper         { padding: 24px 16px; border-radius: var(--radius-md); }
+  .quiz__question       { font-size: 20px; }
+  .quiz__value          { font-size: 28px; }
+}
+
+@media screen and (min-width: 768px) {
+  .numbered-cards-grid { display: grid; }
+  .portrait-cards-grid { display: grid; }
+}
+
+
+/* =============================================================================
+  23. FADE-IN ПРИ СКРОЛЛЕ
+   ============================================================================= */
+
+/*
+ * Добавьте класс .reveal к любому блоку — он плавно появится
+ * когда попадёт в viewport. Класс .reveal--visible добавляется
+ * через IntersectionObserver в js/components.js.
+ */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity   0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Задержки для дочерних элементов (опционально) */
+.reveal:nth-child(2) { transition-delay: 0.08s; }
+.reveal:nth-child(3) { transition-delay: 0.16s; }
+.reveal:nth-child(4) { transition-delay: 0.24s; }
+
+/* Не анимируем тех, кто предпочитает меньше движения */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+
+/* =============================================================================
+   24. КОМПОНЕНТЫ ГЛАВЫ 3 — «КАК ИЗМЕНЕНИЕ КЛИМАТА ВЛИЯЕТ НА ЭКОНОМИКУ»
+   ============================================================================= */
+
+/* ─── Раскрывающиеся карточки (аккордеон) ─── */
+
+.card-expanding {
+  background: var(--color-accent);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: background 0.2s;
+}
+
+.card-expanding__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 32px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.card-expanding__title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  flex: 1;
+  color: var(--color-white);
+}
+
+.card-expanding__arrow {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-expanding__arrow svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--color-white);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.card-expanding--open .card-expanding__arrow {
+  transform: rotate(180deg);
+}
+
+.card-expanding__body {
+  display: none;
+  padding: 0 32px 28px;
+  font-size: 20px;
+  line-height: 28px;
+  color: var(--color-white);
+}
+
+.card-expanding--open .card-expanding__body {
+  display: block;
+}
+
+.card-expanding__body p + p {
+  margin-top: 12px;
+}
+
+/* ─── Группа раскрывающихся карточек ─── */
+.expanding-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: calc(var(--max-text) + 64px);
+}
+
+/* ─── Белые карточки (транспорт) ─── */
+
+.cards-white-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  width: 100%;
+  max-width: var(--max-wide);
+  gap: 12px;
+  padding: 0 40px;
+}
+
+/* Флип-обёртка */
+.card-white {
+  perspective: 1000px;
+  cursor: default;
+  min-height: 260px;
+}
+
+.card-white__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+  transform-style: preserve-3d;
+  transition: transform .55s cubic-bezier(.4, 0, .2, 1);
+  border-radius: var(--radius-md);
+}
+
+.card-white:hover .card-white__inner {
+  transform: rotateY(180deg);
+}
+
+/* Лицо */
+.card-white__front {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+
+/* Оборот */
+.card-white__back {
+  position: absolute;
+  inset: 0;
+  background: var(--color-card-bg);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: rotateY(180deg);
+  overflow: hidden;
+}
+
+.card-white__back-title {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 10px;
+  color: var(--color-text);
+}
+
+.card-white__back-text {
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(26, 26, 26, 0.72);
+}
+
+.card-white__icon {
+  width: 100%;
+  flex: 1;
+  object-fit: cover;
+  object-position: center;
+}
+
+.card-white__label {
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 500;
+  margin-bottom: 20px;
+  flex-shrink: 0;
+}
+
+/* Подсказка над сеткой */
+.cards-white-hint {
+  text-align: center;
+  font-size: 13px;
+  color: rgba(26, 26, 26, 0.45);
+  padding: 0 40px;
+  margin-bottom: -4px;
+}
+
+/* ─── Карточки углеродного следа ─── */
+.cards-footprint-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  width: 100%;
+  max-width: var(--max-wide);
+  gap: 12px;
+  padding: 0 40px;
+}
+
+.card-footprint {
+  background: #fff;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 24px;
+  overflow: hidden;
+}
+
+.card-footprint__img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center;
+  margin-bottom: 16px;
+}
+
+.card-footprint__title {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: center;
+  color: var(--color-text);
+  padding: 0 12px;
+  margin-bottom: 12px;
+}
+
+.card-footprint__value {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  color: var(--color-text);
+  margin-bottom: 4px;
+}
+
+.card-footprint__unit {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: center;
+  color: rgba(26, 26, 26, 0.55);
+}
+
+/* ─── Трёхколоночная сетка (Киото и т.д.) ─── */
+
+.cards-three-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: var(--large-image);
+  gap: 12px;
+  padding: 0 40px;
+}
+
+.card-3 {
+  background: var(--color-card-bg);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-3__img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  mix-blend-mode: darken;
+  margin: 20px 0;
+}
+
+.card-3__body {
+  padding: 20px 24px 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-3__title {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.card-3__caption {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(26, 26, 26, 0.7);
+}
+
+/* ─── Числовые карточки (углеродный след) ─── */
+
+.cards-numbers-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  padding: 0 40px;
+}
+
+.card-number {
+  background: var(--color-card-bg);
+  border-radius: var(--radius-md);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card-number__value {
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--color-text);
+}
+
+.card-number__label {
+  font-size: 15px;
+  line-height: 1.5;
+  color: rgba(26, 26, 26, 0.7);
+}
+
+/* ─── Полноэкранное изображение ─── */
+
+.image-fullscreen {
+  width: 100%;
+  overflow: hidden;
+}
+
+.image-fullscreen__img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* ─── Изображение с mix-blend-mode: darken ─── */
+
+.image-darken {
+  width: var(--large-image);
+  padding: 0 40px;
+}
+
+.image-darken__img {
+  width: 100%;
+  display: block;
+  border-radius: var(--radius-md);
+  mix-blend-mode: darken;
+}
+
+/* ─── Горизонтальная карточка-график ─── */
+
+.card-horizontal {
+  background: var(--color-card-bg);
+  border-radius: var(--radius-lg);
+  padding: 40px 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+  margin: 0 40px;
+  width: var(--max-graph);
+}
+
+.card-horizontal__text-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card-horizontal__title {
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.card-horizontal__body {
+  font-size: 17px;
+  line-height: 1.7;
+  color: rgba(26, 26, 26, 0.8);
+}
+
+.card-horizontal__img-col img {
+  width: 100%;
+  display: block;
+  border-radius: var(--radius-sm);
+}
+
+/* ─── Секция с таблицей мер адаптации ─── */
+
+.adaptation-table {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 0 32px;
+  background: var(--color-card-bg);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  max-width: calc(var(--max-text) + 64px);
+  margin: 0 auto;
+}
+
+.adaptation-col {
+  padding: 32px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.adaptation-col:last-child {
+  border-right: none;
+}
+
+.adaptation-col__badge {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--color-text);
+}
+
+.adaptation-col__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.adaptation-col__list li {
+  font-size: 15px;
+  line-height: 1.5;
+  color: rgba(26, 26, 26, 0.75);
+  padding-top: 16px;
+  border-top: 1px solid rgba(26, 26, 26, 0.08);
+}
+
+.adaptation-col__list li:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+/* ─── Подпись источника под блоком ─── */
+
+.source-caption {
+  text-align: center;
+  font-style: italic;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(26, 26, 26, 0.45);
+  padding: 0 40px;
+  margin: 0;
+}
+
+/* ─── Одиночная широкая карточка (card-s) ─── */
+
+.card-s {
+  background: var(--color-card-bg);
+  border-radius: var(--radius-lg);
+  padding: 40px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: calc(var(--max-text) + 96px);
+  box-sizing: border-box;
+}
+
+.card-s__title-center {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: center;
+}
+
+/* ─── Обёртка с отступами для inline-svg / изображений в card-s ─── */
+
+.card-s__svg-wrap {
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+}
+
+.card-s__svg-wrap img,
+.card-s__svg-wrap svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ─── Медиа-адаптация chapter-3 ─── */
+
+@media screen and (max-width: 991px) {
+  .cards-white-grid    { grid-template-columns: repeat(3, 1fr); padding: 0 20px; }
+  .cards-three-grid    { padding: 0 20px; }
+  .cards-numbers-grid  { grid-template-columns: repeat(3, 1fr); padding: 0 20px; }
+  .adaptation-table    { margin: 0 20px; padding: 0; }
+  .image-darken        { padding: 0 20px; }
+  .card-horizontal     { margin: 0 20px; padding: 28px 32px; }
+}
+
+@media screen and (max-width: 767px) {
+  .cards-white-grid    { grid-template-columns: repeat(2, 1fr); padding: 0 12px; gap: 8px; }
+  .cards-three-grid    { grid-template-columns: 1fr; padding: 0 12px; }
+  .cards-numbers-grid  { grid-template-columns: repeat(2, 1fr); padding: 0 12px; gap: 8px; }
+  .adaptation-table    { grid-template-columns: 1fr; margin: 0 12px; padding: 0; }
+  .adaptation-col      { border-right: none; border-bottom: 1px solid rgba(26,26,26,0.1); }
+  .adaptation-col:last-child { border-bottom: none; }
+  .card-expanding__header { padding: 20px; }
+  .card-expanding__title  { font-size: 18px; }
+  .card-expanding__body   { padding: 0 20px 20px; font-size: 16px; }
+  .image-darken        { padding: 0; }
+  .image-darken__img   { border-radius: 0; }
+  .card-horizontal     { grid-template-columns: 1fr; margin: 0 12px; padding: 24px 20px; gap: 24px; }
+  .image-fullscreen__img { aspect-ratio: 16 / 9; }
+  .card-number__value  { font-size: 36px; }
+  .card-s              { padding: 24px 20px; border-radius: var(--radius-md); }
+}

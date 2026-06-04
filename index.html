@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Изменение климата — Норникель</title>
+  <meta name="description" content="Спецпроект Норникеля об изменении климата: наука, последствия, экономика и решения.">
+
+  <!-- Open Graph -->
+  <meta property="og:title"       content="Изменение климата — Норникель">
+  <meta property="og:description" content="Спецпроект об изменении климата: наука, последствия, экономика и решения.">
+  <meta property="og:image"       content="img/hero-bg.jpg">
+  <meta property="og:type"        content="website">
+
+  <!-- Fonts -->
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+<!-- Слот шапки -->
+<div data-component="header"></div>
+
+<!-- MAIN WRAPPER -->
+<div class="page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__content">
+      <div class="label-chapter">Спецпроект</div>
+      <h1 class="heading-xl">Изменение климата</h1>
+      <p class="hero__intro-text">Пять глав о том, как устроена климатическая система Земли, какие последствия несёт её изменение и что с этим делать.</p>
+    </div>
+    <img src="img/icon-scroll.png" loading="lazy" alt="" class="hero__scroll-icon" aria-hidden="true">
+    <img src="img/hero-bg.jpg" fetchpriority="high" alt="" class="hero__bg">
+  </section>
+
+  <!-- CHAPTERS LIST -->
+  <main class="content">
+    <section class="section reveal">
+      <div class="text-block">
+        <h2 class="heading-lg">Все главы</h2>
+      </div>
+      <!-- Здесь будет сетка/список глав -->
+    </section>
+  </main>
+
+  <!-- OUTRO / CTA -->
+  <section class="outro">
+    <div class="outro__content">
+      <div class="label-chapter">Глава 1</div>
+      <h2 class="outro__next-title">Основы изменения климата</h2>
+      <a href="chapter-1.html" class="btn-next-chapter">Начать</a>
+    </div>
+    <img src="img/outro-bg.jpg" loading="lazy" alt="" class="outro__bg">
+
+    <!-- Слот подвала -->
+    <div data-component="footer"></div>
+  </section>
+
+</div><!-- /.page -->
+
+<!-- Загрузчик компонентов -->
+<script src="js/components.js"></script>
+
+</body>
+</html>

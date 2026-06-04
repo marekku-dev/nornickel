@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Основы изменения климата — Норникель</title>
+  <meta name="description" content="Погода и климат, парниковый эффект, глобальное потепление — разбираемся в основах изменения климата вместе с Норникелем.">
+
+  <!-- Open Graph -->
+  <meta property="og:title"       content="Основы изменения климата — Норникель">
+  <meta property="og:description" content="Погода и климат, парниковый эффект, глобальное потепление — разбираемся в основах.">
+  <meta property="og:image"       content="img/hero-bg.jpg">
+  <meta property="og:type"        content="article">
+
+  <!-- Preload критичных ресурсов -->
+  <link rel="preload" href="img/hero-bg.jpg" as="image" fetchpriority="high">
+  <link rel="preload" href="js/components.js" as="script">
+
+  <!-- Fonts -->
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="main.css">
+
+  <!-- p5.js (defer — грузится после HTML) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js" defer></script>
+</head>
+<body>
+
+<!-- Слот шапки — заменяется components.js на содержимое components/header.html -->
+<div data-component="header"></div>
+
+<!-- MAIN WRAPPER -->
+<div class="page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__content">
+      <div class="label-chapter">Глава 1</div>
+      <h1 class="heading-xl">Основы изменения климата</h1>
+      <p class="hero__intro-text">«Что происходит сегодня?» — про&nbsp;погоду. «Насколько это&nbsp;вообще вероятно?» — про климат. Разберемся, почему одиночные рекорды не&nbsp;отменяют долгосрочные тренды и&nbsp;как&nbsp;не&nbsp;путать одно с&nbsp;другим.</p>
+    </div>
+    <img src="img/icon-scroll.png" loading="lazy" alt="" class="hero__scroll-icon" aria-hidden="true">
+    <img src="img/hero-bg.jpg" fetchpriority="high" alt="" class="hero__bg">
+  </section>
+
+  <!-- CONTENT -->
+  <main class="content">
+
+    <!-- SECTION 1: Погода vs Климат -->
+    <section class="section reveal" aria-labelledby="heading-weather">
+      <div id="climate" class="two-col">
+        <div class="two-col__col">
+          <h2 class="heading-sm" id="heading-weather">Погода</h2>
+          <p class="body-text">Это состояние атмосферы в&nbsp;конкретном месте и&nbsp;моменте времени. Погода может быстро меняться: утром дождь, а&nbsp;к обеду выглянуло солнце. Изучает и&nbsp;прогнозирует погоду метеорология.</p>
+          <div class="caption-block">
+            <p class="caption-italic">О&nbsp;погоде говорили ещё древние греки: Аристотель, например, в&nbsp;«Метеорологике» искал естественные причины погодных явлений.</p>
+          </div>
+          <div class="col-image">
+            <img src="img/weather-photo.webp" loading="lazy" alt="Погода — состояние атмосферы здесь и сейчас">
+          </div>
+        </div>
+        <div class="two-col__col">
+          <h2 class="heading-sm">Климат</h2>
+          <p class="body-text">Это ансамбль состояний всех слоёв климатической системы — атмосферы, гидросферы, биосферы, криосферы, верхнего слоя литосферы, которые характерны для определённой местности. Изменение климата — процесс, который занимает десятилетия, а&nbsp;иногда и&nbsp;тысячелетия.</p>
+          <div class="caption-block">
+            <p class="caption-italic"><em>Ещё в&nbsp;400 году до&nbsp;н.э. в&nbsp;Греции философы изучали, как климат влияет на&nbsp;развитие общества и&nbsp;разнообразие народов.</em></p>
+          </div>
+          <div class="col-image">
+            <img src="img/climate-photo.webp" loading="lazy" alt="Климат — долгосрочные атмосферные закономерности">
+          </div>
+        </div>
+      </div>
+      <div class="text-block">
+        <p class="body-text">Погода описывает текущие атмосферные условия, а&nbsp;климат — типичные условия в&nbsp;данном регионе на&nbsp;протяжении длительного периода времени.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 2: Климат Земли -->
+    <section class="section reveal" aria-labelledby="heading-earth-climate">
+      <div class="text-block">
+        <h2 class="heading-lg" id="heading-earth-climate">Климат Земли</h2>
+        <p class="body-text">Климат Земли менялся вместе с&nbsp;историей планеты. Наша&nbsp;планета пережила ледниковые периоды и&nbsp;потепления, вместе с&nbsp;этим менялись границы континентов, состав атмосферы, живых существ и&nbsp;растений.</p>
+      </div>
+      <div class="graph-wide-wrapper">
+        <div class="graph-wide">
+          <div class="caption-label">Температура воздуха на&nbsp;планете</div>
+          <div class="graph-scroll">
+            <img src="img/graph-1-temperature-history.png" loading="lazy" alt="График изменения температуры воздуха за историю планеты" class="graph-image">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: Парниковый эффект -->
+    <section class="section" aria-labelledby="heading-greenhouse">
+      <div class="text-block reveal">
+        <h2 class="heading-lg" id="heading-greenhouse">Парниковый эффект</h2>
+        <p class="body-text">Атмосфера Земли — это её естественный терморегулятор. Она&nbsp;сохраняет тепло и&nbsp;создаёт условия для жизни. Температуру планеты определяет не&nbsp;только удалённость от&nbsp;Солнца, но&nbsp;и&nbsp;парниковые газы в&nbsp;атмосфере.</p>
+      </div>
+
+      <div class="sticky-section">
+        <div class="sticky-images">
+          <img src="img/earth-1.jpg" loading="lazy" alt="Земля из космоса — естественный парниковый эффект" class="sticky-images__img sticky-images__img--visible">
+          <img src="img/earth-2.jpg" loading="lazy" alt="Земля — комфортная температура" class="sticky-images__img">
+          <img src="img/earth-3.jpg" loading="lazy" alt="Земля — усиленный парниковый эффект" class="sticky-images__img">
+        </div>
+        <div class="sticky-images--mobile">
+          <img src="img/earth-mobile-1.jpg" loading="lazy" alt="">
+          <img src="img/earth-mobile-2.jpg" loading="lazy" alt="">
+          <img src="img/earth-mobile-3.jpg" loading="lazy" alt="">
+        </div>
+
+        <div class="sticky-text-card">
+          <p class="body-text">Парниковые газы задерживают тепловое инфракрасное излучение поверхности Земли и&nbsp;не дают ему полностью уйти в&nbsp;космос. От&nbsp;этого температура воздуха повышается.</p>
+          <p class="caption-note"><strong>Что влияет на&nbsp;естественный парниковый эффект:</strong> изменения солнечной активности, орбитальные изменения (циклы Миланковича), вулканическая активность и&nbsp;океанические процессы.</p>
+        </div>
+        <div class="sticky-text-card">
+          <p class="body-text">Благодаря парниковому эффекту средняя температура воздуха на&nbsp;Земле поддерживается на&nbsp;комфортном уровне около +15&nbsp;°C. Без него средняя температура на&nbsp;Земле была бы&nbsp;−18&nbsp;°С.</p>
+        </div>
+        <div class="sticky-text-card">
+          <p class="body-text">Активная промышленная деятельность человека усиливает парниковый эффект и&nbsp;приводит к&nbsp;тому, что концентрация парниковых газов в&nbsp;атмосфере растёт.</p>
+          <p class="caption-note"><strong>Что усиливает естественный парниковый эффект:</strong> сжигание ископаемого топлива, вырубка лесов, урбанизация, использование транспорта, увеличение количества отходов, сельское хозяйство и&nbsp;животноводство.</p>
+        </div>
+      </div>
+
+      <div class="text-block reveal">
+        <p class="body-text">Когда концентрация парниковых газов растёт, парниковый эффект усиливается и&nbsp;растёт температура воздуха в&nbsp;нижних слоях атмосферы. Это&nbsp;приводит к&nbsp;глобальному потеплению.</p>
+        <p class="body-text">Термины «глобальное потепление» и&nbsp;«изменение климата» часто путают или используют взаимозаменяемо — это&nbsp;неправильно.</p>
+        <p class="body-text"><span id="span-warming" class="term-tooltip" tabindex="0">Глобальное потепление</span> — повышение совокупных температур приземного воздуха и&nbsp;поверхности моря, усреднённых по&nbsp;земному шару за&nbsp;30-летний период.</p>
+      </div>
+
+      <div class="graph-mid reveal">
+        <div class="graph-mid__title">Средняя температура поверхности Земли увеличилась на&nbsp;1.5&nbsp;°С</div>
+        <p class="body-text">На&nbsp;графике хорошо видно ускорение глобального потепления. Если до&nbsp;середины XX&nbsp;века температура менялась слабо, то&nbsp;в последние 50&nbsp;лет мы&nbsp;наблюдаем беспрецедентно быстрый&nbsp;рост.</p>
+        <div class="graph-scroll">
+          <img src="img/graph-1-temperature-history.png" loading="lazy" alt="График роста средней температуры поверхности Земли" class="graph-image">
+        </div>
+      </div>
+
+      <div class="text-block reveal">
+        <p class="body-text">Изменение климата — это более широкий круг изменений, и&nbsp;глобальное потепление — лишь их часть. Эти изменения происходят на&nbsp;планете с&nbsp;середины XIX века, их спровоцировал рост выбросов парниковых газов от&nbsp;деятельности человека.</p>
+      </div>
+
+      <!-- Mobile slider: causes -->
+      <div class="slider reveal" id="slider-causes" aria-label="Причины изменения климата">
+        <div class="slider__track" id="slider-causes-mask">
+          <div class="slider__slide">
+            <div class="slide-card">
+              <div class="slide-card__footer">
+                <span class="step-badge" aria-label="Шаг 1">1</span>
+                <p class="caption-italic text-center">Деятельность человека — сельское хозяйство, промышленность, вырубка лесов и&nbsp;урбанизация — усиливает нагрузку на&nbsp;окружающую среду</p>
+              </div>
+              <img src="img/cause-1.jpg" loading="lazy" alt="Деятельность человека" class="slide-card__image">
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="slide-card">
+              <img src="img/cause-2.jpg" loading="lazy" alt="Рост концентрации парниковых газов" class="slide-card__image">
+              <div class="slide-card__footer">
+                <span class="step-badge" aria-label="Шаг 2">2</span>
+                <p class="caption-italic text-center">Это приводит к&nbsp;росту концентрации парниковых газов (CH₄, CO₂, N₂O) и&nbsp;нарушению углеродного цикла</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="slide-card">
+              <img src="img/cause-3.jpg" loading="lazy" alt="Усиление парникового эффекта" class="slide-card__image">
+              <div class="slide-card__footer">
+                <span class="step-badge" aria-label="Шаг 3">3</span>
+                <p class="caption-italic text-center">В&nbsp;результате усиливается парниковый эффект, из-за чего больше тепла задерживается в&nbsp;атмосфере</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="slide-card">
+              <img src="img/cause-4.jpg" loading="lazy" alt="Климатические изменения" class="slide-card__image">
+              <div class="slide-card__footer">
+                <span class="step-badge" aria-label="Шаг 4">4</span>
+                <p class="caption-italic text-center">Это вызывает климатические изменения: потепление, изменение осадков, таяние льдов и&nbsp;сдвиги океанических течений</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="slide-card">
+              <img src="img/cause-5.jpg" loading="lazy" alt="Последствия для людей и природы" class="slide-card__image">
+              <div class="slide-card__footer">
+                <span class="step-badge" aria-label="Шаг 5">5</span>
+                <p class="caption-italic text-center">В&nbsp;итоге возникают серьёзные последствия — повышение уровня моря, бедствия, болезни и&nbsp;потеря биоразнообразия</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="slider__arrow slider__arrow--prev" onclick="slideChange('slider-causes', -1)" aria-label="Предыдущий слайд">
+          <img src="img/arrow-left.svg" alt="" class="slider__arrow-icon" aria-hidden="true">
+        </button>
+        <button class="slider__arrow slider__arrow--next" onclick="slideChange('slider-causes', 1)" aria-label="Следующий слайд">
+          <img src="img/arrow-right.svg" alt="" class="slider__arrow-icon" aria-hidden="true">
+        </button>
+        <div class="slider__dots" id="slider-causes-nav" role="tablist" aria-label="Слайды"></div>
+      </div>
+
+      <!-- Desktop 5-cards: causes -->
+      <div class="causes-grid reveal">
+        <div class="cause-card">
+          <span class="cause-card__badge step-badge">1</span>
+          <img src="img/cause-1.jpg" loading="lazy" alt="" class="cause-card__image">
+          <p class="caption-italic text-center cause-card__caption">Деятельность человека — сельское хозяйство, промышленность, вырубка лесов и&nbsp;урбанизация — усиливает нагрузку на&nbsp;окружающую среду</p>
+        </div>
+        <div class="cause-card">
+          <span class="cause-card__badge step-badge">2</span>
+          <img src="img/cause-2.jpg" loading="lazy" alt="" class="cause-card__image">
+          <p class="caption-italic text-center cause-card__caption">Это приводит к&nbsp;росту концентрации парниковых газов (CH₄, CO₂, N₂O)</p>
+        </div>
+        <div class="cause-card">
+          <span class="cause-card__badge step-badge">3</span>
+          <img src="img/cause-3.jpg" loading="lazy" alt="" class="cause-card__image">
+          <p class="caption-italic text-center cause-card__caption">В&nbsp;результате усиливается парниковый эффект</p>
+        </div>
+        <div class="cause-card">
+          <span class="cause-card__badge step-badge">4</span>
+          <img src="img/cause-4.jpg" loading="lazy" alt="" class="cause-card__image">
+          <p class="caption-italic text-center cause-card__caption">Это вызывает климатические изменения: потепление, таяние льдов</p>
+        </div>
+        <div class="cause-card">
+          <span class="cause-card__badge step-badge">5</span>
+          <img src="img/cause-5.jpg" loading="lazy" alt="" class="cause-card__image">
+          <p class="caption-italic text-center cause-card__caption">В&nbsp;итоге возникают серьёзные последствия для людей и&nbsp;природы</p>
+        </div>
+      </div>
+
+      <div class="text-block reveal">
+        <p class="body-text">Разные отрасли экономики генерируют разные парниковые газы и&nbsp;в&nbsp;разных количествах. Больше всего углекислого газа (CO₂) дают энергетика и&nbsp;топливная промышленность. Сельское хозяйство в&nbsp;основном производит метан (CH₄).</p>
+      </div>
+
+      <div class="graph-fullwidth-wrapper reveal">
+        <img src="img/graph-2-gases-desktop.png" loading="lazy" alt="Выбросы парниковых газов по отраслям" class="graph-fullwidth--desktop">
+        <img src="img/graph-2-gases-mobile.png" loading="lazy" alt="Выбросы парниковых газов по отраслям" class="graph-fullwidth--mobile">
+      </div>
+    </section>
+
+    <!-- SECTION 4: Прогнозирование + физика -->
+    <section class="section" aria-labelledby="heading-forecast">
+      <div class="text-block reveal">
+        <h2 class="heading-lg" id="heading-forecast">Можно ли&nbsp;прогнозировать изменение климата</h2>
+        <p class="body-text">Изменения климата можно прогнозировать, и&nbsp;учёные разработали для этого глобальные климатические модели. Под капотом климатической модели — система уравнений, описывающих взаимодействие атмосферы, океанов, суши, ледников, биосферы.</p>
+        <p class="body-text">В&nbsp;моделях на&nbsp;основе физических, химических и&nbsp;биологических процессов рассчитываются ключевые климатические параметры: температура, давление, влажность, ветер.</p>
+      </div>
+
+      <div class="physics-cards reveal">
+        <div class="physics-card">
+          <div class="physics-card__canvas" id="energy-container"></div>
+          <div class="physics-card__info">
+            <div class="caption-regular text-center">Закон сохранения энергии</div>
+            <p class="physics-card__desc">Энергия не&nbsp;исчезает, а&nbsp;переходит из&nbsp;одного вида в&nbsp;другой</p>
+          </div>
+        </div>
+        <div class="physics-card">
+          <div class="physics-card__canvas" id="stefan-container"></div>
+          <div class="physics-card__info">
+            <div class="caption-regular text-center">Закон Стефана-Больцмана</div>
+            <p class="physics-card__desc">Объясняет естественный парниковый эффект</p>
+          </div>
+        </div>
+        <div class="physics-card">
+          <div class="physics-card__canvas" id="clausius-container"></div>
+          <div class="physics-card__info">
+            <div class="caption-regular text-center">Уравнение Клаузиуса-Клапейрона</div>
+            <p class="physics-card__desc">Показывает зависимость давления водяного пара от&nbsp;температуры</p>
+          </div>
+        </div>
+        <div class="physics-card">
+          <div class="physics-card__canvas" id="navier-container"></div>
+          <div class="physics-card__info">
+            <div class="caption-regular text-center">Уравнения Навье-Стокса</div>
+            <p class="physics-card__desc">Описывают движение жидкостей и&nbsp;газов в&nbsp;атмосфере и&nbsp;океане</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-block reveal">
+        <p class="body-text">Чтобы оценить точность климатической модели, результаты моделирования сравнивают с&nbsp;фактическими данными за&nbsp;выбранный исторический период. Такая&nbsp;многократная проверка повышает доверие к&nbsp;климатическим моделям.</p>
+      </div>
+
+      <div class="factors-block reveal">
+        <div>
+          <h3 class="heading-md">Какие факторы учитывают климатические модели</h3>
+          <p class="body-text">Точность климатической модели зависит от&nbsp;того, насколько полно она описывает реальный мир. Вот&nbsp;какие сложные природные процессы заложены в&nbsp;расчёты.</p>
+        </div>
+        <div class="factors-grid">
+          <div class="factor-tag">Растительность</div>
+          <div class="factor-tag">Химические превращения</div>
+          <div class="factor-tag">Углеродный цикл</div>
+          <div class="factor-tag">Вулканическая активность</div>
+          <div class="factor-tag">Способность океана поглощать CO₂</div>
+          <div class="factor-tag">Выбросы сульфатов</div>
+          <div class="factor-tag">Циркуляция в&nbsp;океанах</div>
+          <div class="factor-tag">Солнечная радиация</div>
+          <div class="factor-tag">Реки</div>
+          <div class="factor-tag">Выбросы CO₂</div>
+          <div class="factor-tag">Аэрозоли</div>
+          <div class="factor-tag">Океанические течения</div>
+          <div class="factor-tag">Влияние земной поверхности</div>
+          <div class="factor-tag">Отражательная способность облаков и&nbsp;льда</div>
+          <div class="factor-tag">Осадки</div>
+          <div class="factor-tag">Динамика атмосферы</div>
+          <div class="factor-tag">Турбулентность</div>
+        </div>
+      </div>
+
+      <div class="text-block reveal">
+        <p class="body-text">Начиная с&nbsp;1970-х годов, климатические модели развивались и&nbsp;учитывали всё больше факторов и&nbsp;становились точнее.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 5: Российские учёные -->
+    <section class="section" aria-labelledby="heading-scientists">
+      <div class="text-block reveal">
+        <h2 class="heading-lg" id="heading-scientists">Современная климатология в&nbsp;России</h2>
+        <p class="body-text">Весомый вклад в&nbsp;развитие климатологии внесла и&nbsp;отечественная наука. Её развитие началось задолго до&nbsp;появления компьютерных моделей и&nbsp;было связано с&nbsp;именами выдающихся учёных.</p>
+      </div>
+
+      <!-- Mobile slider: scientists -->
+      <div class="slider reveal" id="slider-scientists" aria-label="Российские учёные-климатологи">
+        <div class="slider__track" id="slider-scientists-mask">
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="img/scientist-budyko.jpg" alt="Михаил Иванович Будыко" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Михаил Иванович Будыко</div>
+                <div class="caption-date">1920—2001</div>
+                <p class="caption-regular">Один из&nbsp;основателей учения о&nbsp;тепловой структуре атмосферы. Создал теорию альбедо-положительного обратной связи в&nbsp;климатической системе.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="img/scientist-voyeykov.jpg" alt="Александр Иванович Воейков" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Александр Иванович Воейков</div>
+                <div class="caption-date">1842—1916</div>
+                <p class="caption-regular">Основоположник российской климатологии. Впервые провёл масштабные исследования климата России и&nbsp;ввёл понятие климатического районирования.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="img/scientist-obukhov.jpg" alt="Александр Михайлович Обухов" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Александр Михайлович Обухов</div>
+                <div class="caption-date">1918—1989</div>
+                <p class="caption-regular">Основатель ИФА РАН. Создал фундаментальную теорию локальной структуры турбулентности, ставшую основой для расчётов движения воздушных масс.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="slider__arrow slider__arrow--prev" onclick="slideChange('slider-scientists', -1)" aria-label="Предыдущий учёный">
+          <img src="img/arrow-left.svg" alt="" class="slider__arrow-icon" aria-hidden="true">
+        </button>
+        <button class="slider__arrow slider__arrow--next" onclick="slideChange('slider-scientists', 1)" aria-label="Следующий учёный">
+          <img src="img/arrow-right.svg" alt="" class="slider__arrow-icon" aria-hidden="true">
+        </button>
+        <div class="slider__dots" id="slider-scientists-nav" role="tablist"></div>
+      </div>
+
+      <!-- Desktop scientists grid -->
+      <div class="scientists-grid reveal">
+        <div class="scientist-item"><div class="scientist-item__card"><img src="img/scientist-budyko.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Михаил Иванович Будыко</div><div class="caption-date">1920—2001</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Михаил Иванович Будыко</div><p class="caption-regular">Один из&nbsp;основателей учения о&nbsp;тепловой структуре атмосферы. Создал теорию альбедо-положительного обратной связи в&nbsp;климатической системе.</p></div></div>
+        <div class="scientist-item"><div class="scientist-item__card"><img src="img/scientist-khromov.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Сергей Петрович Хромов</div><div class="caption-date">1904—1977</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Сергей Петрович Хромов</div><p class="caption-regular">Автор учебников по&nbsp;синоптической метеорологии и&nbsp;климатологии.</p></div></div>
+        <div class="scientist-item"><div class="scientist-item__card"><img src="img/scientist-voyeykov.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Александр Иванович Воейков</div><div class="caption-date">1842—1916</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Александр Иванович Воейков</div><p class="caption-regular">Основоположник российской климатологии.</p></div></div>
+        <div class="scientist-item"><div class="scientist-item__card"><img src="img/scientist-alisov.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Борис Павлович Алисов</div><div class="caption-date">1891—1976</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Борис Павлович Алисов</div><p class="caption-regular">Создал региональную классификацию климатов СССР.</p></div></div>
+        <div class="scientist-item"><div class="scientist-item__card"><img src="img/scientist-izrael.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Юрий Антонович Израэль</div><div class="caption-date">1933—...</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Юрий Антонович Израэль</div><p class="caption-regular">Организатор системы мониторинга окружающей среды в&nbsp;СССР.</p></div></div>
+        <div class="scientist-item"><div class="scientist-item__card"><img src="img/scientist-obukhov.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Александр Михайлович Обухов</div><div class="caption-date">1918—1989</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Александр Михайлович Обухов</div><p class="caption-regular">Основатель ИФА РАН, автор теории локальной структуры турбулентности.</p></div></div>
+        <div class="scientist-item"><div class="scientist-item__card"><img src="img/scientist-mokhov.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Игорь Иванович Мохов</div><div class="caption-date">1950—2025</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Игорь Иванович Мохов</div><p class="caption-regular">Ведущий эксперт в&nbsp;области диагностики и&nbsp;моделирования климатических изменений.</p></div></div>
+        <div class="scientist-item"><div class="scientist-item__card"><img src="img/scientist-golitsyn.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Георгий Сергеевич Голицын</div><div class="caption-date">род. 1935</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Георгий Сергеевич Голицын</div><p class="caption-regular">Академик РАН, автор теории «ядерной зимы».</p></div></div>
+        <div class="scientist-item"><div class="scientist-item__card"><img src="img/scientist-gulyev.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Сергей Константинович Гулёв</div><div class="caption-date">род. 1958</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Сергей Константинович Гулёв</div><p class="caption-regular">Специалист в&nbsp;области взаимодействия океана и&nbsp;атмосферы.</p></div></div>
+        <div class="scientist-item"><div class="scientist-item__card"><img src="img/scientist-marchuk.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Гурий Иванович Марчук</div><div class="caption-date">1925—2013</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Гурий Иванович Марчук</div><p class="caption-regular">Математик, создавший численные методы для прогноза погоды.</p></div></div>
+        <div class="scientist-item"><div class="scientist-item__card"><img src="img/scientist-monin.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Андрей Сергеевич Монин</div><div class="caption-date">1921—2007</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Андрей Сергеевич Монин</div><p class="caption-regular">Соавтор фундаментальной теории подобия Монина–Обухова.</p></div></div>
+        <div class="scientist-item"><div class="scientist-item__card"><img src="img/scientist-lappo.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Сергей Сергеевич Лаппо</div><div class="caption-date">1938—2006</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Сергей Сергеевич Лаппо</div><p class="caption-regular">Океанолог, исследовавший роль Северной Атлантики в&nbsp;глобальном климате.</p></div></div>
+        <div class="scientist-item"><div class="scientist-item__card"><img src="img/scientist-moiseev.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Никита Николаевич Моисеев</div><div class="caption-date">1917—2000</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Никита Николаевич Моисеев</div><p class="caption-regular">Математик, руководивший расчётами модели «ядерной зимы».</p></div></div>
+      </div>
+
+      <div class="text-block reveal">
+        <p class="body-text">В&nbsp;России изменение климата изучают несколько ведущих учреждений.</p>
+      </div>
+
+      <div class="institutions-grid reveal">
+        <div class="institution-item"><img src="img/inst-rosgidromet.png" loading="lazy" alt="" class="institution-item__logo"><div class="institution-item__name">Федеральная служба по&nbsp;гидрометеорологии и&nbsp;мониторингу (Росгидромет)</div></div>
+        <div class="institution-item"><img src="img/inst-ifa.png" loading="lazy" alt="" class="institution-item__logo"><div class="caption-regular">ИФА РАН им. А.&nbsp;М.&nbsp;Обухова</div></div>
+        <div class="institution-item"><img src="img/inst-igke.png" loading="lazy" alt="" class="institution-item__logo"><div class="caption-regular">ИГКЭ им. академика Ю.&nbsp;А.&nbsp;Израэля</div></div>
+        <div class="institution-item"><img src="img/inst-ggo.png" loading="lazy" alt="" class="institution-item__logo"><div class="caption-regular">ГГО им. А.&nbsp;И.&nbsp;Воейкова</div></div>
+        <div class="institution-item"><img src="img/inst-mgu.png" loading="lazy" alt="" class="institution-item__logo"><div class="caption-regular">МГУ им.&nbsp;М.&nbsp;В.&nbsp;Ломоносова</div></div>
+        <div class="institution-item"><img src="img/inst-ivm.png" loading="lazy" alt="" class="institution-item__logo"><div class="caption-regular">ИВМ РАН и&nbsp;ИМКЭС СО&nbsp;РАН</div></div>
+      </div>
+
+      <div class="text-block reveal">
+        <p class="body-text">Теперь, когда понятны научные основы изменения климата, можно перейти к&nbsp;его видимым проявлениям. В&nbsp;следующем разделе расскажем, как тают ледники, меняется океан и&nbsp;что происходит с&nbsp;вечной мерзлотой.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- OUTRO -->
+  <section class="outro">
+    <div class="outro__content">
+      <div class="label-chapter">Глава 2</div>
+      <h2 class="outro__next-title">В&nbsp;чём проявляется изменение климата</h2>
+      <a href="chapter-2.html" class="btn-next-chapter">Изучить</a>
+    </div>
+    <img src="img/outro-bg.jpg" loading="lazy" alt="" class="outro__bg">
+
+    <!-- Слот подвала -->
+    <div data-component="footer"></div>
+  </section>
+
+</div><!-- /.page -->
+
+<!-- TOOLTIP -->
+<div class="tooltip" id="tooltip-global" role="tooltip" aria-live="polite"></div>
+
+<!-- Загрузчик компонентов (header, footer, прогресс-бар, меню, fade-in) -->
+<script src="js/components.js"></script>
+<!-- Интерактивность страницы (слайдеры, sticky, tooltips, физика) -->
+<script src="js/chapter-1.js"></script>
+
+</body>
+</html>
