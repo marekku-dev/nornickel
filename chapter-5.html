@@ -37,8 +37,8 @@
       <h1 class="heading-xl">Как мы&nbsp;можем замедлить изменение климата</h1>
       <p class="hero__intro-text">Международные соглашения и&nbsp;корпоративные стратегии — важная основа. Но&nbsp;реальные перемены происходят тогда, когда миллионы людей меняют привычки, получают знания и&nbsp;выбирают профессии, которые помогают планете.</p>
     </div>
-    <img src="img/icon-scroll.png" loading="lazy" alt="" class="hero__scroll-icon" aria-hidden="true">
-    <img src="img/ch5-hero-bg.jpg" fetchpriority="high" alt="" class="hero__bg">
+    <img src="assets/scroll.svg" loading="lazy" alt="" class="hero__scroll-icon" aria-hidden="true">
+    <img src="img/ch5-intro-bg.jpg" fetchpriority="high" alt="" class="hero__bg">
   </section>
 
   <!-- CONTENT -->
@@ -113,31 +113,73 @@
         <div class="slider__dots" id="slider-footprint-nav" role="tablist" aria-label="Слайды"></div>
       </div>
 
-      <!-- Десктоп: карточки привычек -->
-      <div class="portrait-cards-grid reveal">
-        <div class="portrait-card">
-          <img src="img/ch5-habit-dishes.jpg" loading="lazy" alt="" class="portrait-card__image">
-          <div class="portrait-card__label caption-regular text-center">Пользуйтесь многоразовой посудой</div>
+      <!-- Карточки привычек (desktop: 6 flip-cards) -->
+      <div class="cards-white-grid reveal" style="grid-template-columns: repeat(6, 1fr);">
+        <div class="card-white card-white--portrait">
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="img/ch5-habit-dishes.jpg" loading="lazy" alt="" class="card-white__icon card-white__icon--portrait">
+              <span class="card-white__label">Пользуйтесь многоразовой посудой</span>
+            </div>
+            <div class="card-white__back">
+              <p>Одноразовая посуда — один из&nbsp;крупнейших источников пластикового мусора. Переход на&nbsp;многоразовую посуду снижает объём отходов.</p>
+            </div>
+          </div>
         </div>
-        <div class="portrait-card">
-          <img src="img/ch5-habit-bag.jpg" loading="lazy" alt="" class="portrait-card__image">
-          <div class="portrait-card__label caption-regular text-center">Ходите в&nbsp;магазины со&nbsp;своей сумкой</div>
+        <div class="card-white card-white--portrait">
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="img/ch5-habit-bag.jpg" loading="lazy" alt="" class="card-white__icon card-white__icon--portrait">
+              <span class="card-white__label">Ходите в&nbsp;магазины со&nbsp;своей сумкой</span>
+            </div>
+            <div class="card-white__back">
+              <p>Производство и&nbsp;утилизация пластиковых пакетов требуют значительных ресурсов. Многоразовая сумка — простой шаг к&nbsp;снижению отходов.</p>
+            </div>
+          </div>
         </div>
-        <div class="portrait-card">
-          <img src="img/ch5-habit-sort.jpg" loading="lazy" alt="" class="portrait-card__image">
-          <div class="portrait-card__label caption-regular text-center">Собирайте отходы раздельно</div>
+        <div class="card-white card-white--portrait">
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="img/ch5-habit-sort.jpg" loading="lazy" alt="" class="card-white__icon card-white__icon--portrait">
+              <span class="card-white__label">Собирайте отходы раздельно</span>
+            </div>
+            <div class="card-white__back">
+              <p>Раздельный сбор мусора позволяет перерабатывать материалы, снижая нагрузку на&nbsp;полигоны и&nbsp;сокращая выбросы метана.</p>
+            </div>
+          </div>
         </div>
-        <div class="portrait-card">
-          <img src="img/ch5-habit-ev.jpg" loading="lazy" alt="" class="portrait-card__image">
-          <div class="portrait-card__label caption-regular text-center">Используйте электротранспорт</div>
+        <div class="card-white card-white--portrait">
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="img/ch5-habit-ev.jpg" loading="lazy" alt="" class="card-white__icon card-white__icon--portrait">
+              <span class="card-white__label">Используйте электротранспорт</span>
+            </div>
+            <div class="card-white__back">
+              <p>Транспортный сектор производит четверть всех выбросов CO₂. Электромобили при использовании возобновляемой энергии снижают углеродный след на&nbsp;70–90%.</p>
+            </div>
+          </div>
         </div>
-        <div class="portrait-card">
-          <img src="img/ch5-habit-energy.jpg" loading="lazy" alt="" class="portrait-card__image">
-          <div class="portrait-card__label caption-regular text-center">Экономьте бытовые ресурсы</div>
+        <div class="card-white card-white--portrait">
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="img/ch5-habit-energy.jpg" loading="lazy" alt="" class="card-white__icon card-white__icon--portrait">
+              <span class="card-white__label">Экономьте бытовые ресурсы</span>
+            </div>
+            <div class="card-white__back">
+              <p>Экономия воды и&nbsp;электричества напрямую снижает выбросы на&nbsp;электростанциях и&nbsp;в&nbsp;водоснабжении.</p>
+            </div>
+          </div>
         </div>
-        <div class="portrait-card">
-          <img src="img/ch5-habit-trees.jpg" loading="lazy" alt="" class="portrait-card__image">
-          <div class="portrait-card__label caption-regular text-center">Сажайте деревья</div>
+        <div class="card-white card-white--portrait">
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="img/ch5-habit-trees.jpg" loading="lazy" alt="" class="card-white__icon card-white__icon--portrait">
+              <span class="card-white__label">Сажайте деревья</span>
+            </div>
+            <div class="card-white__back">
+              <p>Леса поглощают около 2,6 млрд тонн CO₂ в&nbsp;год. Каждое посаженное дерево — вклад в&nbsp;естественное поглощение углерода.</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -156,30 +198,32 @@
       </div>
 
       <!-- Цепочка: образование → смягчение климата -->
-      <div class="numbered-cards-grid reveal">
-        <div class="numbered-card">
-          <span class="step-badge">1</span>
-          <img src="img/ch5-edu-step-1.jpg" loading="lazy" alt="" class="numbered-card__image">
-          <p class="caption-regular text-center"><strong>Образование</strong></p>
-          <p class="caption-italic text-center">Качественное образование формирует понимание научных основ климатических процессов и&nbsp;экологической ответственности у&nbsp;будущих поколений</p>
-        </div>
-        <div class="numbered-card">
-          <span class="step-badge">2</span>
-          <img src="img/ch5-edu-step-2.jpg" loading="lazy" alt="" class="numbered-card__image">
-          <p class="caption-regular text-center"><strong>Знания и&nbsp;установки</strong></p>
-          <p class="caption-italic text-center">Полученные знания о&nbsp;причинах и&nbsp;последствиях изменения климата формируют осознанное отношение к&nbsp;окружающей среде и&nbsp;готовность действовать</p>
-        </div>
-        <div class="numbered-card">
-          <span class="step-badge">3</span>
-          <img src="img/ch5-edu-step-3.jpg" loading="lazy" alt="" class="numbered-card__image">
-          <p class="caption-regular text-center"><strong>Действия</strong></p>
-          <p class="caption-italic text-center">Люди с&nbsp;экологическим сознанием принимают конкретные меры: сокращают выбросы углерода, рационально используют ресурсы, поддерживают «зелёные» инициативы и&nbsp;влияют на&nbsp;политические решения</p>
-        </div>
-        <div class="numbered-card">
-          <span class="step-badge">4</span>
-          <img src="img/ch5-edu-step-4.jpg" loading="lazy" alt="" class="numbered-card__image">
-          <p class="caption-regular text-center"><strong>Изменение климата</strong></p>
-          <p class="caption-italic text-center">Массовые индивидуальные и&nbsp;коллективные действия, основанные на&nbsp;образовании, способны замедлить темпы глобального потепления и&nbsp;смягчить его последствия для планеты</p>
+      <div class="edu-chain-block reveal">
+        <div class="caption-label" style="text-align:center; margin-bottom: 24px;">Образование способно смягчить последствия изменения климата</div>
+        <div class="edu-chain">
+          <div class="edu-chain__step">
+            <div class="edu-chain__num">1</div>
+            <div class="edu-chain__title">Образование</div>
+            <p class="edu-chain__text">Качественное образование формирует понимание научных основ климатических процессов и&nbsp;экологической ответственности у&nbsp;будущих поколений.</p>
+          </div>
+          <div class="edu-chain__arrow">→</div>
+          <div class="edu-chain__step">
+            <div class="edu-chain__num">2</div>
+            <div class="edu-chain__title">Знания и&nbsp;установки</div>
+            <p class="edu-chain__text">Полученные знания формируют осознанное отношение к&nbsp;окружающей среде и&nbsp;готовность действовать.</p>
+          </div>
+          <div class="edu-chain__arrow">→</div>
+          <div class="edu-chain__step">
+            <div class="edu-chain__num">3</div>
+            <div class="edu-chain__title">Действия</div>
+            <p class="edu-chain__text">Люди с&nbsp;экологическим сознанием принимают конкретные меры: сокращают выбросы, рационально используют ресурсы, влияют на&nbsp;политические решения.</p>
+          </div>
+          <div class="edu-chain__arrow">→</div>
+          <div class="edu-chain__step">
+            <div class="edu-chain__num">4</div>
+            <div class="edu-chain__title">Изменение климата</div>
+            <p class="edu-chain__text">Массовые индивидуальные и&nbsp;коллективные действия способны замедлить глобальное потепление и&nbsp;смягчить его последствия.</p>
+          </div>
         </div>
       </div>
 
@@ -237,38 +281,80 @@
       </div>
 
       <!-- 4 направления партнёрства -->
+      <div class="caption-label" style="text-align:center; margin-bottom: 24px;">В рамках партнёрства странам предлагают работать в&nbsp;четырёх направлениях</div>
       <div class="cards-white-grid reveal">
         <div class="card-white">
-          <img src="img/ch5-unesco-green.jpg" loading="lazy" alt="Зелёные учебные заведения" class="card-white__icon">
-          <span class="card-white__label">Делать учебные заведения «зелёными»</span>
-          <p class="caption-italic text-center">Школы, колледжи и&nbsp;университеты могут получить специальную аккредитацию, если внедряют у&nbsp;себя экологичные практики</p>
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="img/ch5-unesco-green.jpg" loading="lazy" alt="Зелёные учебные заведения" class="card-white__icon">
+              <span class="card-white__label">Делать учебные заведения «зелёными»</span>
+            </div>
+            <div class="card-white__back">
+              <p>Школы, колледжи и&nbsp;университеты могут получить специальную аккредитацию, если внедряют у&nbsp;себя экологичные практики.</p>
+            </div>
+          </div>
         </div>
         <div class="card-white">
-          <img src="img/ch5-unesco-curriculum.jpg" loading="lazy" alt="Климат в учебных программах" class="card-white__icon">
-          <span class="card-white__label">Включать климат в&nbsp;учебные программы</span>
-          <p class="caption-italic text-center">Темы экологии и&nbsp;климата интегрируют в&nbsp;разные предметы, чтобы студенты понимали их важность для своей будущей профессии</p>
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="img/ch5-unesco-curriculum.jpg" loading="lazy" alt="Климат в учебных программах" class="card-white__icon">
+              <span class="card-white__label">Включать климат в&nbsp;учебные программы</span>
+            </div>
+            <div class="card-white__back">
+              <p>Темы экологии и&nbsp;климата интегрируют в&nbsp;разные предметы, чтобы студенты понимали их важность для своей будущей профессии.</p>
+            </div>
+          </div>
         </div>
         <div class="card-white">
-          <img src="img/ch5-unesco-teachers.jpg" loading="lazy" alt="Подготовка преподавателей" class="card-white__icon">
-          <span class="card-white__label">Готовить преподавателей</span>
-          <p class="caption-italic text-center">Учителей обучают современным методикам, чтобы они могли эффективно рассказывать об&nbsp;изменении климата и&nbsp;вовлекать учеников в&nbsp;практические проекты</p>
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="img/ch5-unesco-teachers.jpg" loading="lazy" alt="Подготовка преподавателей" class="card-white__icon">
+              <span class="card-white__label">Готовить преподавателей</span>
+            </div>
+            <div class="card-white__back">
+              <p>Учителей обучают современным методикам, чтобы они могли эффективно рассказывать об&nbsp;изменении климата и&nbsp;вовлекать учеников в&nbsp;практические проекты.</p>
+            </div>
+          </div>
         </div>
         <div class="card-white">
-          <img src="img/ch5-unesco-society.jpg" loading="lazy" alt="Просвещение общества" class="card-white__icon">
-          <span class="card-white__label">Просвещать общество</span>
-          <p class="caption-italic text-center">Климатическое образование делают доступным для всех через общественные центры и&nbsp;онлайн-курсы, чтобы учиться могли люди любого возраста</p>
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="img/ch5-unesco-society.jpg" loading="lazy" alt="Просвещение общества" class="card-white__icon">
+              <span class="card-white__label">Просвещать общество</span>
+            </div>
+            <div class="card-white__back">
+              <p>Климатическое образование делают доступным для всех через общественные центры и&nbsp;онлайн-курсы, чтобы учиться могли люди любого возраста.</p>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="text-block reveal">
-        <p class="body-text">Недавний доклад ЮНЕСКО показал, что часто образование уделяет слишком много внимания теории, но&nbsp;не&nbsp;мотивирует учеников к&nbsp;действиям. Чтобы это исправить, ЮНЕСКО предлагает два практических инструмента: Руководство по&nbsp;экологизации учебных программ и&nbsp;Стандарт качества для экологичной школы.</p>
+        <p class="body-text">Недавний доклад ЮНЕСКО показал, что часто образование уделяет слишком много внимания теории, но&nbsp;не&nbsp;мотивирует учеников к&nbsp;действиям. Чтобы это исправить, ЮНЕСКО предлагает два практических инструмента:</p>
       </div>
 
-      <div class="card-s reveal" style="text-align: center;">
-        <p class="heading-sm" style="margin-bottom: 16px;">Что говорит статистика?</p>
+      <div class="docs-grid reveal">
+        <div class="doc-card">
+          <div class="doc-card__body">
+            <p class="doc-card__title">Руководство по&nbsp;экологизации учебных программ</p>
+            <p class="doc-card__text">Методическое руководство для педагогов и&nbsp;администраторов по&nbsp;интеграции климатической тематики в&nbsp;образовательные программы.</p>
+          </div>
+          <a href="#" class="doc-card__link">Посмотреть →</a>
+        </div>
+        <div class="doc-card">
+          <div class="doc-card__body">
+            <p class="doc-card__title">Стандарт качества для экологичной школы</p>
+            <p class="doc-card__text">Критерии и&nbsp;показатели, по&nbsp;которым оценивают экологическую устойчивость учебных заведений и&nbsp;качество климатического образования.</p>
+          </div>
+          <a href="#" class="doc-card__link">Посмотреть →</a>
+        </div>
+      </div>
+
+      <div class="caption-block reveal" style="text-align: center;">
+        <p class="caption-label" style="margin-bottom: 8px;">Что говорит статистика?</p>
         <p class="body-text" style="margin-bottom: 8px;">Какой процент учебных программ не&nbsp;упоминают климат?</p>
         <p style="font-size: 72px; font-weight: 700; line-height: 1; margin: 16px 0; color: var(--color-accent);">23%</p>
-        <p class="caption-italic">Источник: данные опросов ЮНЕСКО</p>
+        <p class="source-caption">Источник: данные опросов ЮНЕСКО</p>
       </div>
     </section>
 
@@ -280,46 +366,107 @@
         <p class="body-text">Чтобы понять, насколько страны успешны в&nbsp;этой работе, был создан специальный проект «Мониторинг и&nbsp;оценка коммуникации и&nbsp;образования по&nbsp;вопросам климата» (МОКОВК). Вот основные направления работы проекта:</p>
       </div>
 
-      <div class="cards-three-grid reveal">
-        <div class="card-3">
-          <img src="img/ch5-mecce-data.jpg" loading="lazy" alt="Анализ данных" class="card-3__img">
-          <div class="card-3__body">
-            <p class="card-3__title">Анализ данных</p>
-            <p class="card-3__caption">Проект собирает и&nbsp;визуализирует данные о&nbsp;состоянии климатического образования в&nbsp;разных странах, что позволяет сравнивать их прогресс.</p>
+      <div class="cards-white-grid reveal">
+        <div class="card-white">
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="img/ch5-mecce-data.jpg" loading="lazy" alt="Анализ данных" class="card-white__icon">
+              <span class="card-white__label">Анализ данных</span>
+            </div>
+            <div class="card-white__back">
+              <p>Проект собирает и&nbsp;визуализирует данные о&nbsp;состоянии климатического образования в&nbsp;разных странах, что позволяет сравнивать их прогресс.</p>
+            </div>
           </div>
         </div>
-        <div class="card-3">
-          <img src="img/ch5-mecce-profiles.jpg" loading="lazy" alt="Профили стран" class="card-3__img">
-          <div class="card-3__body">
-            <p class="card-3__title">Профили стран</p>
-            <p class="card-3__caption">Для каждого государства создаётся подробный профиль, где указана информация о&nbsp;законах, бюджетах и&nbsp;программах в&nbsp;сфере климатического образования.</p>
+        <div class="card-white">
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="img/ch5-mecce-profiles.jpg" loading="lazy" alt="Профили стран" class="card-white__icon">
+              <span class="card-white__label">Профили стран</span>
+            </div>
+            <div class="card-white__back">
+              <p>Для каждого государства создаётся подробный профиль, где указана информация о&nbsp;законах, бюджетах и&nbsp;программах в&nbsp;сфере климатического образования.</p>
+            </div>
           </div>
         </div>
-        <div class="card-3">
-          <img src="img/ch5-mecce-compare.jpg" loading="lazy" alt="Сравнительный анализ" class="card-3__img">
-          <div class="card-3__body">
-            <p class="card-3__title">Сравнительный анализ</p>
-            <p class="card-3__caption">МОКОВК помогает странам видеть свой прогресс в&nbsp;достижении Целей устойчивого развития (ЦУР).</p>
+        <div class="card-white">
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="img/ch5-mecce-compare.jpg" loading="lazy" alt="Сравнительный анализ" class="card-white__icon">
+              <span class="card-white__label">Сравнительный анализ</span>
+            </div>
+            <div class="card-white__back">
+              <p>МОКОВК помогает странам видеть свой прогресс в&nbsp;достижении Целей устойчивого развития (ЦУР).</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-white">
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="img/ch5-mecce-partnership.jpg" loading="lazy" alt="Партнёрство с ЮНЕСКО" class="card-white__icon">
+              <span class="card-white__label">Партнёрство с&nbsp;ЮНЕСКО</span>
+            </div>
+            <div class="card-white__back">
+              <p>Совместная работа помогает создавать новые учебные материалы и&nbsp;поддерживать политику в&nbsp;этой области.</p>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="text-block reveal">
-        <p class="body-text">Партнёрство с&nbsp;ЮНЕСКО позволяет создавать новые учебные материалы и&nbsp;поддерживать политику в&nbsp;этой области. Для анализа всех данных на&nbsp;платформе МОКОВК есть интерактивные инструменты — они помогают изучать показатели, связанные с&nbsp;качеством климатического образования и&nbsp;коммуникации по&nbsp;всему миру.</p>
+        <p class="body-text">Для анализа всех этих данных на&nbsp;платформе МОКОВК есть интерактивные инструменты. Они помогают изучать показатели, связанные с&nbsp;качеством климатического образования и&nbsp;коммуникации по&nbsp;всему миру.</p>
       </div>
 
       <!-- Что анализируют в профилях стран -->
-      <div class="factors-block reveal">
-        <div>
-          <h3 class="heading-md">Что именно анализируют в&nbsp;профилях стран</h3>
+      <div class="caption-label" style="text-align:center; margin-bottom: 24px;">Что именно анализируют в&nbsp;профилях стран</div>
+      <div class="cards-white-grid reveal">
+        <div class="card-white">
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="img/ch5-profile-climate.jpg" loading="lazy" alt="Климатические условия" class="card-white__icon">
+              <span class="card-white__label">Климатические условия в&nbsp;стране</span>
+            </div>
+          </div>
         </div>
-        <div class="factors-grid">
-          <div class="factor-tag">Климатические условия в&nbsp;стране</div>
-          <div class="factor-tag">Климатическое образование в&nbsp;школах</div>
-          <div class="factor-tag">Программы в&nbsp;высшем образовании</div>
-          <div class="factor-tag">Обучение для взрослых</div>
-          <div class="factor-tag">Информированность общества</div>
-          <div class="factor-tag">Мониторинг и&nbsp;отчётность</div>
+        <div class="card-white">
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="img/ch5-profile-schools.jpg" loading="lazy" alt="Климатическое образование в школах" class="card-white__icon">
+              <span class="card-white__label">Климатическое образование в&nbsp;школах</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-white">
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="img/ch5-profile-higher.jpg" loading="lazy" alt="Высшее образование" class="card-white__icon">
+              <span class="card-white__label">Программы в&nbsp;высшем образовании</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-white">
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="img/ch5-profile-adults.jpg" loading="lazy" alt="Обучение для взрослых" class="card-white__icon">
+              <span class="card-white__label">Обучение для взрослых</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-white">
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="img/ch5-profile-society.jpg" loading="lazy" alt="Информированность общества" class="card-white__icon">
+              <span class="card-white__label">Информированность общества</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-white">
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="img/ch5-profile-monitoring.jpg" loading="lazy" alt="Мониторинг и отчётность" class="card-white__icon">
+              <span class="card-white__label">Мониторинг и&nbsp;отчётность</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -332,40 +479,13 @@
         <p class="body-text">Что делает государство, чтобы готовить квалифицированные кадры:</p>
       </div>
 
-      <div class="expanding-group reveal">
-        <div class="card-expanding">
-          <div class="card-expanding__header">
-            <span class="card-expanding__title">Подготовка научных кадров высшей квалификации</span>
-            <span class="card-expanding__arrow">
-              <svg viewBox="0 0 20 20"><polyline points="4 7 10 13 16 7"/></svg>
-            </span>
-          </div>
-          <div class="card-expanding__body">
-            <p>Готовит научных сотрудников высшей квалификации, организует обучение студентов старших курсов на&nbsp;базе ведущих научных организаций.</p>
-          </div>
-        </div>
-        <div class="card-expanding">
-          <div class="card-expanding__header">
-            <span class="card-expanding__title">Международные стажировки</span>
-            <span class="card-expanding__arrow">
-              <svg viewBox="0 0 20 20"><polyline points="4 7 10 13 16 7"/></svg>
-            </span>
-          </div>
-          <div class="card-expanding__body">
-            <p>Отправляет одарённых молодых учёных и&nbsp;студентов на&nbsp;стажировки в&nbsp;мировые научные центры.</p>
-          </div>
-        </div>
-        <div class="card-expanding">
-          <div class="card-expanding__header">
-            <span class="card-expanding__title">Дипломаты и&nbsp;консультанты по&nbsp;климату</span>
-            <span class="card-expanding__arrow">
-              <svg viewBox="0 0 20 20"><polyline points="4 7 10 13 16 7"/></svg>
-            </span>
-          </div>
-          <div class="card-expanding__body">
-            <p>Готовит дипломатов и&nbsp;консультантов для ведения международных переговоров по&nbsp;климату.</p>
-          </div>
-        </div>
+      <div class="text-block reveal">
+        <ul class="body-text" style="padding-left: 1.4em; margin-top: -8px;">
+          <li>готовит научных сотрудников высшей квалификации,</li>
+          <li>организует обучение студентов старших курсов на&nbsp;базе ведущих научных организаций,</li>
+          <li>отправляет одарённых молодых учёных и&nbsp;студентов на&nbsp;стажировки в&nbsp;мировые научные центры,</li>
+          <li>готовит дипломатов и&nbsp;консультантов для ведения международных переговоров по&nbsp;климату.</li>
+        </ul>
       </div>
 
       <div class="text-block reveal">
@@ -373,35 +493,47 @@
       </div>
 
       <!-- Полезные ресурсы -->
-      <div class="text-block reveal">
-        <h3 class="heading-md">Полезные ресурсы</h3>
-      </div>
-
-      <div class="institutions-grid reveal">
-        <div class="institution-item">
-          <img src="img/ch5-resource-1.png" loading="lazy" alt="" class="institution-item__logo">
-          <div class="institution-item__name">Профессия климатолог</div>
-          <p class="caption-regular">Расскажет, чем занимаются климатологи, и&nbsp;предложит более 10 вузов по&nbsp;всей стране, где можно получить эту специальность</p>
+      <div class="caption-label reveal" style="text-align:center; margin-bottom: 24px;">Полезные ресурсы</div>
+      <div class="docs-grid reveal" style="grid-template-columns: repeat(5, 1fr);">
+        <div class="doc-card">
+          <div class="doc-card__body">
+            <img src="img/ch5-resource-1.png" loading="lazy" alt="" style="height:56px; mix-blend-mode:darken; object-fit:contain; margin-bottom:12px;">
+            <p class="doc-card__title">Учёба.ру</p>
+            <p class="doc-card__text">Расскажет, чем занимаются климатологи, и&nbsp;предложит более 150 вузов по&nbsp;всей стране, где можно получить эту специальность.</p>
+          </div>
+          <a href="#" class="doc-card__link">Перейти →</a>
         </div>
-        <div class="institution-item">
-          <img src="img/ch5-resource-2.png" loading="lazy" alt="" class="institution-item__logo">
-          <div class="institution-item__name">Зелёная карьера</div>
-          <p class="caption-regular">Социальный проект для развития карьеры в&nbsp;«зелёной» сфере, поиска работы и&nbsp;знакомства с&nbsp;работодателями</p>
+        <div class="doc-card">
+          <div class="doc-card__body">
+            <img src="img/ch5-resource-2.png" loading="lazy" alt="" style="height:56px; mix-blend-mode:darken; object-fit:contain; margin-bottom:12px;">
+            <p class="doc-card__title">Лаборатория ЭкоКарьеры</p>
+            <p class="doc-card__text">Социальный проект для развития карьеры в&nbsp;«зелёной» сфере, поиска работы и&nbsp;знакомства с&nbsp;работодателями.</p>
+          </div>
+          <a href="#" class="doc-card__link">Перейти →</a>
         </div>
-        <div class="institution-item">
-          <img src="img/ch5-resource-3.png" loading="lazy" alt="" class="institution-item__logo">
-          <div class="institution-item__name">Карьера в&nbsp;экологии</div>
-          <p class="caption-regular">Поможет разобраться, как начать карьеру в&nbsp;экологии и&nbsp;устойчивом развитии</p>
+        <div class="doc-card">
+          <div class="doc-card__body">
+            <img src="img/ch5-resource-3.png" loading="lazy" alt="" style="height:56px; mix-blend-mode:darken; object-fit:contain; margin-bottom:12px;">
+            <p class="doc-card__title">Гайд по&nbsp;карьере в&nbsp;сфере охраны климата</p>
+            <p class="doc-card__text">Поможет разобраться, как начать карьеру в&nbsp;экологии и&nbsp;устойчивом развитии.</p>
+          </div>
+          <a href="#" class="doc-card__link">Перейти →</a>
         </div>
-        <div class="institution-item">
-          <img src="img/ch5-resource-4.png" loading="lazy" alt="" class="institution-item__logo">
-          <div class="institution-item__name">Атлас профессий</div>
-          <p class="caption-regular">Альманах перспективных отраслей и&nbsp;профессий на&nbsp;120 лет</p>
+        <div class="doc-card">
+          <div class="doc-card__body">
+            <img src="img/ch5-resource-4.png" loading="lazy" alt="" style="height:56px; mix-blend-mode:darken; object-fit:contain; margin-bottom:12px;">
+            <p class="doc-card__title">Атлас новых профессий</p>
+            <p class="doc-card__text">Альманах перспективных отраслей и&nbsp;профессий на&nbsp;15–20 лет.</p>
+          </div>
+          <a href="#" class="doc-card__link">Перейти →</a>
         </div>
-        <div class="institution-item">
-          <img src="img/ch5-resource-5.png" loading="lazy" alt="" class="institution-item__logo">
-          <div class="institution-item__name">Топ-50 профессий будущего</div>
-          <p class="caption-regular">Список самых востребованных профессий на&nbsp;ближайшие 30 лет</p>
+        <div class="doc-card">
+          <div class="doc-card__body">
+            <img src="img/ch5-resource-5.png" loading="lazy" alt="" style="height:56px; mix-blend-mode:darken; object-fit:contain; margin-bottom:12px;">
+            <p class="doc-card__title">РБК Тренды</p>
+            <p class="doc-card__text">Список самых востребованных профессий на&nbsp;ближайшие 30 лет.</p>
+          </div>
+          <a href="#" class="doc-card__link">Перейти →</a>
         </div>
       </div>
 
