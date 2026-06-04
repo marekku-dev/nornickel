@@ -2043,7 +2043,7 @@ ol {
 .card-white__inner {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 380px;
   min-height: 260px;
   transform-style: preserve-3d;
   transition: transform .55s cubic-bezier(.4, 0, .2, 1);
@@ -2076,6 +2076,7 @@ ol {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   overflow: hidden;
+  aspect-ratio: 2 / 3;
 }
 
 /* Оборот */
@@ -2091,6 +2092,7 @@ ol {
   -webkit-backface-visibility: hidden;
   transform: rotateY(180deg);
   overflow: hidden;
+  aspect-ratio: 2 / 3;
 }
 
 .card-white__back-title {
@@ -2109,7 +2111,7 @@ ol {
 
 .card-white__icon {
   width: 100%;
-  height: 200px;
+  /*height: 200px;*/
   flex-shrink: 0;
   object-fit: cover;
   object-position: center;
@@ -2277,6 +2279,97 @@ ol {
   width: 100%;
   display: block;
   object-fit: cover;
+}
+
+/* ─── Hotspot-подписи поверх fullscreen-картинок ─── */
+/*
+  Использование в HTML:
+  <div class="image-fullscreen image-fullscreen--hotspot reveal">
+    <img src="..." class="image-fullscreen__img">
+    <div class="hotspot" style="--hx: 22%; --hy: 72%;">
+      <div class="hotspot__label">Сфера 1<br><span>Прямые выбросы</span></div>
+    </div>
+  </div>
+*/
+
+.image-fullscreen--hotspot {
+  position: relative;
+}
+
+.hotspot {
+  position: absolute;
+  left: var(--hx);
+  top: var(--hy);
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+/* Пунктирный кружок-индикатор */
+.hotspot::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 32px;
+  border: 2px dashed var(--color-accent);
+  border-radius: 50%;
+  margin: 0 auto 0;
+  animation: hotspot-spin 8s linear infinite;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+  filter: drop-shadow(0 0 3px rgba(0,0,0,0.2));
+}
+
+.hotspot:hover::before {
+  animation-play-state: paused;
+  transform: scale(1.15);
+}
+
+@keyframes hotspot-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* На тачскрине — без анимации */
+@media (hover: none) {
+  .hotspot::before { animation: none; }
+}
+
+.hotspot__label {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: var(--radius-sm, 8px);
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text, #1a1a1a);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.hotspot__label span {
+  font-weight: 400;
+  color: var(--color-text-secondary, #555);
+}
+
+.hotspot:hover .hotspot__label,
+.hotspot.is-visible .hotspot__label {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* На тачскрине — показываем все подписи сразу */
+@media (hover: none) {
+  .hotspot__label {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 /* ─── Изображение с mix-blend-mode: darken ─── */
