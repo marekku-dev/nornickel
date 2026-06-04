@@ -419,6 +419,7 @@ ol {
 
 .nav-chapters__item:hover          { opacity: .7; }
 .nav-chapters__item--active        { font-weight: 700; }
+.nav-chapters__item--disabled      { opacity: .35; cursor: default; pointer-events: none; }
 
 .nav-chapters__arrow {
   display: inline-block;
@@ -2093,6 +2094,7 @@ ol {
   transform: rotateY(180deg);
   overflow: hidden;
   aspect-ratio: 2 / 3;
+  hyphens: auto;
 }
 
 .card-white__back-title {
