@@ -2661,12 +2661,6 @@ ol {
   margin: 0;
 }
 
-.source-caption a {
-  color: inherit;
-  text-decoration: underline;
-  text-decoration-color: rgba(26, 26, 26, 0.25);
-}
-
 /* ─── Одиночная широкая карточка (card-s) ─── */
 
 .card-s {
