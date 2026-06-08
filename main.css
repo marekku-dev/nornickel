@@ -504,6 +504,122 @@ ol {
 
 
 /* =============================================================================
+   6a. ГЛАВЫ НА ГЛАВНОЙ — ПОЛНОЭКРАННЫЕ СЕКЦИИ
+   ============================================================================= */
+
+/* Контейнер списка глав: убираем стандартные отступы .content,
+   чтобы секции шли встык, экран за экраном */
+.content.chapters {
+  gap: 0;
+  padding: 0;
+  width: 100%;
+  max-width: none;
+  align-items: stretch;   /* секции тянутся на всю ширину */
+}
+
+.chapter-screen {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 60px 8vw;
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--color-white);
+  /* фон по секциям с эффектом параллакса */
+  background-image: var(--chapter-bg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Затемнение фона для читаемости.
+   Чуть смещаем градиент в сторону текста */
+.chapter-screen__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.chapter-screen--left .chapter-screen__overlay {
+  background: linear-gradient(
+    90deg,
+    rgba(15, 20, 18, 0.78) 0%,
+    rgba(15, 20, 18, 0.55) 38%,
+    rgba(15, 20, 18, 0.15) 70%,
+    rgba(15, 20, 18, 0.05) 100%
+  );
+}
+
+.chapter-screen--right .chapter-screen__overlay {
+  background: linear-gradient(
+    270deg,
+    rgba(15, 20, 18, 0.78) 0%,
+    rgba(15, 20, 18, 0.55) 38%,
+    rgba(15, 20, 18, 0.15) 70%,
+    rgba(15, 20, 18, 0.05) 100%
+  );
+}
+
+.chapter-screen__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+  max-width: 540px;
+  text-align: left;
+}
+
+/* Чередование стороны текста */
+.chapter-screen--left  { justify-content: flex-start; }
+.chapter-screen--right { justify-content: flex-end; }
+
+.chapter-screen__title {
+  font-family: var(--font-heading);
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 48px;
+  margin: 0;
+}
+
+.chapter-screen__text {
+  font-family: var(--font-main);
+  font-size: 20px;
+  line-height: 28px;
+  margin: 0;
+  opacity: .92;
+}
+
+.chapter-screen__cta {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 8px;
+  padding: 10px 25px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: var(--font-main);
+  font-size: 14px;
+  background-color: rgba(255, 255, 255, .18);
+  border-radius: 50px;
+  transition: all .2s;
+}
+
+.chapter-screen:hover .chapter-screen__cta {
+  background-color: rgba(255, 255, 255, .32);
+  padding-left: 35px;
+  padding-right: 35px;
+}
+
+
+/* =============================================================================
    7. ОСНОВНОЙ КОНТЕНТ — СЕКЦИИ
    ============================================================================= */
 
@@ -1490,6 +1606,25 @@ ol {
   /* Outro */
   .outro__next-title { font-size: 10vw; line-height: 9vw; }
   .outro__content    { padding-bottom: 80px; width: 90%; }
+
+  /* Главы на главной */
+  .chapter-screen {
+    padding: 80px 24px;
+    background-attachment: scroll;   /* fixed ненадёжен на мобильных */
+  }
+  .chapter-screen--left,
+  .chapter-screen--right { justify-content: center; }
+  .chapter-screen__content { max-width: 100%; align-items: center; text-align: center; }
+  .chapter-screen--left  .chapter-screen__overlay,
+  .chapter-screen--right .chapter-screen__overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(15, 20, 18, 0.45) 0%,
+      rgba(15, 20, 18, 0.65) 100%
+    );
+  }
+  .chapter-screen__title { font-size: 30px; line-height: 34px; }
+  .chapter-screen__text  { font-size: 16px; line-height: 24px; }
 
   /* Учёные */
   .scientists-grid { gap: 20px; max-width: 100%; padding: 0 12px; }
