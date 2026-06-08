@@ -769,7 +769,7 @@ ol {
   z-index: 1;
   width: 100%;
   min-width: 600px;
-  margin-top: 20px;
+  margin: 20px 0;
 }
 
 /* Контейнер для горизонтально прокручиваемого графика */
@@ -2036,6 +2036,7 @@ ol {
   .portrait-cards-grid  { grid-template-columns: repeat(3, 1fr); padding: 0 20px; }
   .history-grid         { grid-template-columns: repeat(4, 1fr); padding: 0 20px; }
   .image-block          { padding: 0 16px; }
+  .sdg-grid             { padding: 0 16px; gap: 8px; }
   .before-after-wrapper { padding: 0 16px; }
   .impact-table-wrapper { padding: 0 20px; }
 }
@@ -2046,6 +2047,8 @@ ol {
   .history-grid         { grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 0 12px; }
   .image-block          { padding: 0; }
   .image-block__img     { border-radius: 0; }
+  .sdg-grid             { grid-template-columns: repeat(3, 1fr); padding: 0 12px; gap: 6px; }
+  .sdg-grid__item       { border-radius: 7px; }
   .before-after-wrapper { padding: 0 12px; }
   .before-after         { border-radius: var(--radius-sm); }
   .impact-table-wrapper { padding: 0 12px; }
@@ -2647,6 +2650,32 @@ ol {
 .adaptation-col__list li:first-child {
   padding-top: 0;
   border-top: none;
+}
+
+/* ─── Сетка иконок ЦУР ─── */
+
+.sdg-grid {
+  width: 100%;
+  max-width: var(--max-text);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin-bottom: 40px;
+  gap: 4px;
+}
+
+.sdg-grid__item {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  display: block;
+}
+
+.sdg-grid__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* ─── Подпись источника под блоком ─── */
