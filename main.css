@@ -2036,6 +2036,7 @@ ol {
   margin-top: 12px;
 }
 
+
 /* ─── Группа раскрывающихся карточек ─── */
 .expanding-group {
   display: flex;
@@ -2529,13 +2530,13 @@ ol {
 
 .card-s {
   background: var(--color-card-bg);
-  border-radius: var(--radius-lg);
-  padding: 40px 48px;
+  border-radius: var(--radius-md);
+  padding: 40px 32px;
   display: flex;
   flex-direction: column;
   gap: 16px;
   width: 100%;
-  max-width: calc(var(--max-text) + 96px);
+  max-width: calc(var(--max-text) + 64px);
   box-sizing: border-box;
 }
 
