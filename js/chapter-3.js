@@ -48,7 +48,7 @@
     const isTouchOnly = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
     if (!isTouchOnly) return;
 
-    const cards = Array.from(document.querySelectorAll('.card-white'));
+    const cards = Array.from(document.querySelectorAll('.card-white:not(.card-white--no-flip)'));
     if (!cards.length) return;
 
     // Заменяем подсказку на тач-версию

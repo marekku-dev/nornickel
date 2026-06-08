@@ -2084,7 +2084,7 @@ ol {
 
 /* Десктоп — flip по hover */
 @media (hover: hover) {
-  .card-white:hover .card-white__inner {
+  .card-white:not(.card-white--no-flip):hover .card-white__inner {
     transform: rotateY(180deg);
   }
 }
