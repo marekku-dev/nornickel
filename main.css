@@ -1530,7 +1530,7 @@ ol {
 /* ----- Блок с одиночным изображением ----- */
 .image-block {
   width: 100%;
-  max-width: var(--max-graph);
+  max-width: 1200px;
   padding: 0 40px;
 }
 
@@ -2695,6 +2695,7 @@ ol {
 }
 
 .risk-map__tab {
+  --risk-color: var(--color-accent);
   padding: 8px 20px;
   border-radius: 100px;
   border: 1.5px solid rgba(26, 26, 26, 0.2);
@@ -2708,40 +2709,80 @@ ol {
 }
 
 .risk-map__tab:hover {
-  border-color: var(--color-accent);
+  border-color: var(--risk-color);
 }
 
 .risk-map__tab--active {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
+  background: var(--risk-color);
+  border-color: var(--risk-color);
   color: var(--color-white);
 }
 
-.risk-map__image-wrap {
+/* ─── Интерактивная SVG-карта ─── */
+
+.risk-map__stage {
+  --risk-color: var(--color-accent);
+  position: relative;
   width: 100%;
+  max-width: 1400px;
+  margin: 28px auto 0;
   border-radius: var(--radius-md);
-  overflow: hidden;
   background-color: var(--color-bg);
+  padding: 12px;
+  box-sizing: border-box;
 }
 
-.risk-map__img {
+.risk-map__svg {
   width: 100%;
   height: auto;
   display: block;
-  transition: opacity 0.3s;
-  mix-blend-mode: darken;
 }
 
-.risk-map__img--fade {
-  opacity: 0;
+/* Регионы: базовый «приглушённый» вид и заметная заливка для топ-риска */
+.risk-map__svg path[id^="RU-"] {
+  fill: #e3ddd0;
+  stroke: var(--color-bg);
+  stroke-width: 0.6;
+  stroke-linejoin: round;
+  transition: fill 0.35s ease, opacity 0.2s ease;
+  cursor: default;
 }
 
+.risk-map__svg path[id^="RU-"].is-top {
+  fill: var(--risk-color);
+}
+
+.risk-map__svg path[id^="RU-"].is-hover {
+  fill: color-mix(in srgb, var(--risk-color) 45%, #e3ddd0);
+}
+
+.risk-map__svg path[id^="RU-"].is-top.is-hover {
+  fill: color-mix(in srgb, var(--risk-color) 78%, #1a1a1a);
+}
+
+/* Легенда в левом верхнем углу */
 .risk-map__legend {
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  z-index: 2;
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px 24px;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px;
+  background: rgba(255, 251, 245, 0.92);
+  backdrop-filter: blur(3px);
+  box-shadow: 0 2px 10px rgba(26, 26, 26, 0.06);
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  border-radius: 12px;
   font-size: 13px;
-  opacity: 0.75;
+  pointer-events: none;
+}
+
+.risk-map__legend-title {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 2px;
 }
 
 .risk-map__legend-item {
@@ -2755,6 +2796,30 @@ ol {
   height: 14px;
   border-radius: 3px;
   flex-shrink: 0;
+}
+
+.risk-map__legend-dot--top  { background: var(--risk-color); }
+.risk-map__legend-dot--rest { background: #e3ddd0; }
+
+/* Тултип с названием региона */
+.risk-map__tooltip {
+  position: absolute;
+  z-index: 3;
+  transform: translate(-50%, calc(-100% - 12px));
+  padding: 6px 12px;
+  background: var(--color-text);
+  color: var(--color-white);
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  border-radius: 8px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+
+.risk-map__tooltip.is-visible {
+  opacity: 1;
 }
 
 /* ─── Прогресс-бар Сахалинского эксперимента ─── */
@@ -2873,6 +2938,17 @@ ol {
     padding: 7px 14px;
     font-size: 13px;
   }
+
+  .risk-map__legend {
+    top: 12px;
+    left: 12px;
+    padding: 10px 12px;
+    font-size: 11px;
+    gap: 6px;
+  }
+
+  .risk-map__legend-title { font-size: 12px; }
+  .risk-map__legend-dot { width: 11px; height: 11px; }
 }
 
 /* =============================================================================
@@ -2985,8 +3061,8 @@ ol {
 }
 
 .resources-block__grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 24px;
 }
 
@@ -2994,6 +3070,8 @@ ol {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  flex: 1 1 180px;
+  max-width: 220px;
   background-color: var(--color-bg);
 }
 
@@ -3032,15 +3110,11 @@ ol {
 
 .resources-block__link:hover { opacity: 0.6; }
 
-@media screen and (max-width: 991px) {
-  .resources-block__grid { grid-template-columns: repeat(3, 1fr); }
-}
-
 @media screen and (max-width: 767px) {
   .resources-block { padding: 20px 16px; }
-  .resources-block__grid { grid-template-columns: repeat(2, 1fr); }
+  .resources-block__item { flex: 1 1 140px; max-width: calc(50% - 12px); }
 }
 
 @media screen and (max-width: 480px) {
-  .resources-block__grid { grid-template-columns: 1fr; }
+  .resources-block__item { flex: 1 1 100%; max-width: 100%; }
 }

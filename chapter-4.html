@@ -55,8 +55,8 @@
         <div class="graph-wide">
           <div class="caption-label">Ключевые выводы МГЭИК с&nbsp;1990 года</div>
           <div class="caption-label" style="font-weight: 400; text-transform: none; letter-spacing: 0; margin-top: 4px; margin-bottom: 16px; font-size: 14px; opacity: 0.6;">Концентрация CO₂ (ppm) в&nbsp;атмосфере продолжает расти</div>
-          <div class="graph-scroll">
-            <img src="img/ch4-graph1.svg" loading="lazy" alt="График роста концентрации CO₂ в атмосфере с 1990 по 2020 год" class="graph-image">
+          <div class="graph-scroll" style="overflow-x: auto;">
+            <canvas id="ipcc-chart" style="display: block; min-width: 600px; width: 100%; cursor: default;"></canvas>
           </div>
         </div>
       </div>
@@ -142,7 +142,7 @@
       </div>
 
       <div class="card-s reveal">
-        <p class="heading-sm" style="margin-bottom: 16px;">Цели стран в Парижском соглашении</p>
+        <div class="caption-label">Цели стран в Парижском соглашении</div>
         <div class="card-s__svg-wrap">
           <img src="img/ch4-paris.svg" loading="lazy" alt="Матрица целей стран в Парижском соглашении">
         </div>
@@ -155,7 +155,6 @@
       <div class="text-block reveal">
         <h2 class="heading-lg" id="heading-sdg">17&nbsp;целей ООН в&nbsp;области устойчивого развития</h2>
         <p class="body-text">Борьба с&nbsp;изменением климата — это часть более широкой глобальной задачи по&nbsp;достижению устойчивого развития. Эта концепция основана на&nbsp;трёх компонентах — экономическом росте, социальном благополучии и&nbsp;экологической безопасности — и&nbsp;проблема изменения климата напрямую влияет на&nbsp;каждый из&nbsp;них.</p>
-        <div class="caption-label" style="margin-bottom: 16px;">17 целей в&nbsp;области устойчивого развития</div>
       </div>
 
       <div class="image-block reveal">
@@ -197,7 +196,7 @@
 
       <div class="cards-white-grid reveal">
 
-        <div class="card-white">
+        <div class="card-white card-white--no-flip">
           <div class="card-white__inner">
             <div class="card-white__front">
               <img src="img/ch4-icon1.png" loading="lazy" alt="Углеродные рынки" class="card-white__icon">
@@ -207,7 +206,7 @@
           </div>
         </div>
 
-        <div class="card-white">
+        <div class="card-white card-white--no-flip">
           <div class="card-white__inner">
             <div class="card-white__front">
               <img src="img/ch4-icon2.png" loading="lazy" alt="Налоговые льготы и субсидии" class="card-white__icon">
@@ -217,7 +216,7 @@
           </div>
         </div>
 
-        <div class="card-white">
+        <div class="card-white card-white--no-flip">
           <div class="card-white__inner">
             <div class="card-white__front">
               <img src="img/ch4-icon3.png" loading="lazy" alt="Национальные стратегии" class="card-white__icon">
@@ -226,7 +225,7 @@
           </div>
         </div>
 
-        <div class="card-white">
+        <div class="card-white card-white--no-flip">
           <div class="card-white__inner">
             <div class="card-white__front">
               <img src="img/ch4-icon4.png" loading="lazy" alt="Зелёное финансирование" class="card-white__icon">
@@ -235,7 +234,7 @@
           </div>
         </div>
 
-        <div class="card-white">
+        <div class="card-white card-white--no-flip">
           <div class="card-white__inner">
             <div class="card-white__front">
               <img src="img/ch4-icon5.png" loading="lazy" alt="Трансграничные механизмы" class="card-white__icon">
@@ -245,7 +244,7 @@
           </div>
         </div>
 
-        <div class="card-white">
+        <div class="card-white card-white--no-flip">
           <div class="card-white__inner">
             <div class="card-white__front">
               <img src="img/ch4-icon6.png" loading="lazy" alt="Международное сотрудничество" class="card-white__icon">
@@ -263,12 +262,17 @@
       <div class="text-block reveal">
         <h2 class="heading-lg" id="heading-ccpi">Как измеряют успехи стран?</h2>
         <p class="body-text">Чтобы оценить, насколько эффективно страны борются с&nbsp;изменением климата, был создан Индекс эффективности в&nbsp;области изменения климата (CCPI). Он&nbsp;анализирует 57 стран и&nbsp;Европейский Союз, на&nbsp;которые в&nbsp;совокупности приходится более 90% мировых выбросов парниковых газов.</p>
-        <p class="body-text">Индекс рассчитывается на&nbsp;основе 14 критериев в&nbsp;четырёх категориях: выбросы парниковых газов (вес 40%), возобновляемая энергия (вес 20%), потребление энергии (вес 20%), климатическая политика (вес 20%).</p>
       </div>
 
       <div class="card-s reveal">
         <p class="heading-sm" style="margin-bottom: 16px;">Рейтинг CCPI</p>
-        <p class="body-text" style="margin-bottom: 24px;">Индекс рассчитывается на основе 14 критериев в четырех категориях: Выбросы парниковых газов (вес 40%). Возобновляемая энергия (вес 20%). Потребление энергии (вес 20%). Климатическая политика (вес 20%). </p>
+        <p class="body-text" style="margin-bottom: 12px;">Индекс рассчитывается на основе 14 критериев в четырёх категориях:</p>
+        <ul class="body-text" style="margin: 0 0 24px; padding-left: 20px;">
+          <li>Выбросы парниковых газов (вес <span style="color: #e07b3a; font-weight: 600;">40%</span>).</li>
+          <li>Возобновляемая энергия (вес <span style="color: #5a9e5a; font-weight: 600;">20%</span>).</li>
+          <li>Потребление энергии (вес <span style="color: #7b6bbf; font-weight: 600;">20%</span>).</li>
+          <li>Климатическая политика (вес <span style="color: #c49a2a; font-weight: 600;">20%</span>).</li>
+        </ul>
         <div class="card-s__svg-wrap">
           <img src="img/ch4-ccpi.svg" loading="lazy" alt="Матрица целей стран в Парижском соглашении">
         </div>
@@ -277,15 +281,6 @@
 
       <div class="text-block reveal">
         <p class="body-text"><strong>Главный вывод последнего рейтинга CCPI:</strong> ни одна страна не&nbsp;получила оценку «очень высокая». Никто в&nbsp;полной мере не&nbsp;выполняет требования Парижского соглашения — удержать глобальное потепление на&nbsp;уровне ниже 2&nbsp;°C. Поэтому первые три места в&nbsp;рейтинге традиционно остаются пустыми.</p>
-      </div>
-
-      <div class="graph-wide-wrapper reveal">
-        <div class="graph-wide">
-          <div class="caption-label">Рейтинг CCPI 2025</div>
-          <div class="graph-scroll">
-            <img src="img/ch4-ccpi-map.png" loading="lazy" alt="Карта мира по рейтингу CCPI 2025" class="graph-image">
-          </div>
-        </div>
       </div>
     </section>
 
@@ -303,27 +298,31 @@
       </div>
 
       <!-- Ключевые документы -->
-      <div class="docs-grid reveal">
-        <div class="doc-card">
-          <div class="doc-card__body">
-            <p class="doc-card__title">Климатическая доктрина РФ</p>
-            <p class="doc-card__text">Главный документ, который определяет общую политику страны и&nbsp;ставит цель достичь углеродной нейтральности к&nbsp;2060 году.</p>
+      <div class="resources-block reveal">
+        <div class="caption-label resources-block__label">Ключевые документы</div>
+        <div class="resources-block__grid">
+
+          <div class="resources-block__item">
+            <img src="img/ch5-res3.png" loading="lazy" alt="" class="resources-block__logo">
+            <p class="resources-block__title">Климатическая доктрина РФ</p>
+            <p class="resources-block__text">Главный документ, который определяет общую политику страны и&nbsp;ставит цель достичь углеродной нейтральности к&nbsp;2060 году.</p>
+            <a href="#" class="resources-block__link">Посмотреть →</a>
           </div>
-          <a href="#" class="doc-card__link">Посмотреть →</a>
-        </div>
-        <div class="doc-card">
-          <div class="doc-card__body">
-            <p class="doc-card__title">Стратегия низкоуглеродного развития до&nbsp;2050 года</p>
-            <p class="doc-card__text">Определяет конкретные шаги по&nbsp;достижению углеродной нейтральности, включая развитие возобновляемой энергетики, повышение энергоэффективности и&nbsp;использование поглощающей способности лесов.</p>
+
+          <div class="resources-block__item">
+            <img src="img/ch5-res3.png" loading="lazy" alt="" class="resources-block__logo">
+            <p class="resources-block__title">Стратегия низкоуглеродного развития до&nbsp;2050 года</p>
+            <p class="resources-block__text">Определяет конкретные шаги по&nbsp;достижению углеродной нейтральности, включая развитие возобновляемой энергетики, повышение энергоэффективности и&nbsp;использование поглощающей способности лесов.</p>
+            <a href="#" class="resources-block__link">Посмотреть →</a>
           </div>
-          <a href="#" class="doc-card__link">Посмотреть →</a>
-        </div>
-        <div class="doc-card">
-          <div class="doc-card__body">
-            <p class="doc-card__title">Федеральный закон №&nbsp;296-ФЗ об&nbsp;ограничении выбросов парниковых газов (2021)</p>
-            <p class="doc-card__text">Ввёл обязательную углеродную отчётность для крупных предприятий, механизм климатических проектов и&nbsp;систему углеродных единиц.</p>
+
+          <div class="resources-block__item">
+            <img src="img/ch5-res3.png" loading="lazy" alt="" class="resources-block__logo">
+            <p class="resources-block__title">Федеральный закон №&nbsp;296-ФЗ об&nbsp;ограничении выбросов парниковых газов (2021)</p>
+            <p class="resources-block__text">Ввёл обязательную углеродную отчётность для крупных предприятий, механизм климатических проектов и&nbsp;систему углеродных единиц.</p>
+            <a href="#" class="resources-block__link">Посмотреть →</a>
           </div>
-          <a href="#" class="doc-card__link">Посмотреть →</a>
+
         </div>
       </div>
     </section>
@@ -336,44 +335,48 @@
         <p class="body-text">Климатическая доктрина Российской Федерации определяет упреждающую адаптацию как один из&nbsp;приоритетов и&nbsp;указывает, что все меры должны приниматься с&nbsp;учётом международных договорённостей. Стратегия пространственного развития до&nbsp;2030 года указывает на&nbsp;необходимость снижать уязвимость к&nbsp;негативным последствиям изменения климата и&nbsp;использовать его возможные позитивные эффекты.</p>
       </div>
 
-      <!-- Аккордеон: Этапы национального плана адаптации -->
-      <div class="expanding-group reveal">
-        <div class="card-expanding card-expanding--green">
-          <div class="card-expanding__header">
-            <span class="card-expanding__title">Этапы национального плана адаптации</span>
-            <span class="card-expanding__arrow">
-              <svg viewBox="0 0 20 20"><polyline points="4 7 10 13 16 7"/></svg>
-            </span>
-          </div>
-          <div class="card-expanding__body">
-            <p><strong>1&nbsp;этап (2019–2022)</strong> — Оценка уязвимости отраслей экономики и&nbsp;регионов к&nbsp;изменению климата. Разработка отраслевых планов адаптации.</p>
-            <p><strong>2&nbsp;этап (2023–2025)</strong> — Реализация первоочередных мер адаптации. Внедрение систем мониторинга климатических рисков.</p>
-            <p><strong>3&nbsp;этап (2026–2030)</strong> — Полномасштабное внедрение мер адаптации. Оценка эффективности и&nbsp;корректировка стратегии.</p>
-          </div>
-        </div>
+      <!-- Этапы национального плана адаптации -->
+      <div class="text-block reveal">
+        <h3 class="heading-md">Этапы национального плана адаптации</h3>
+        <p class="body-text">В&nbsp;2022 году завершился первый этап национального плана адаптации. Этот этап был посвящён формированию в&nbsp;России целостной системы, включающей национальные, отраслевые и&nbsp;региональные планы, а&nbsp;также методическую базу. Его главная задача — помочь регионам и&nbsp;отраслям осознать климатические риски, определить их суть и&nbsp;возможный ущерб, а&nbsp;также подобрать меры для адаптации и&nbsp;предотвращения последствий.</p>
+        <p class="body-text">Следующим шагом стал национальный план второго этапа адаптации, рассчитанный до&nbsp;2025 года. Он направлен на&nbsp;актуализацию уже существующих отраслевых, региональных и&nbsp;корпоративных планов. При этом рекомендуется использовать официальные методические рекомендации, разработанные для этой цели.</p>
+        <p class="body-text">Для оценки рисков в&nbsp;регионах была введена система «паспортов климатической безопасности». Чтобы обеспечить единый подход к&nbsp;оценке рисков, ущерба, отбору мероприятий и&nbsp;мониторингу их выполнения, Минэкономразвития России утвердило соответствующие методические рекомендации.</p>
+        <p class="body-text">В&nbsp;результате в&nbsp;России сформировалась многоуровневая система управления адаптацией, в&nbsp;которой трёхлетние национальные планы выполняют роль координирующего инструмента. В&nbsp;2025 году завершается второй план, и&nbsp;уже идёт подготовка третьего, до&nbsp;2028 года. По&nbsp;состоянию на&nbsp;октябрь 2025 года в&nbsp;России утверждено 10 отраслевых и&nbsp;82 региональных плана по&nbsp;адаптации.</p>
+        <p class="body-text">За&nbsp;время реализации первых двух планов был собран большой объём информации о&nbsp;климатических рисках в&nbsp;регионах и&nbsp;связанном с&nbsp;ними ущербе. Поэтому ключевая задача при подготовке третьего плана — найти способы наиболее эффективно использовать эти данные.</p>
       </div>
 
       <!-- Интерактивная карта рисков -->
       <div class="risk-map-block reveal">
-        <div class="caption-label" style="margin-bottom: 20px;">Какие риски стоит учитывать в&nbsp;адаптационных планах</div>
+        <div class="caption-label" style="margin-bottom: 20px;">Распространённые климатические риски</div>
 
         <div class="risk-map__tabs" role="tablist" aria-label="Тип климатического риска">
-          <button class="risk-map__tab risk-map__tab--active" data-risk="wind" role="tab" aria-selected="true">Ветер</button>
-          <button class="risk-map__tab" data-risk="rain" role="tab" aria-selected="false">Осадки</button>
-          <button class="risk-map__tab" data-risk="fire" role="tab" aria-selected="false">Пожары</button>
-          <button class="risk-map__tab" data-risk="heat" role="tab" aria-selected="false">Жара</button>
-          <button class="risk-map__tab" data-risk="drought" role="tab" aria-selected="false">Засуха</button>
+          <button class="risk-map__tab risk-map__tab--active" data-risk="heat" role="tab" aria-selected="true">Волны тепла</button>
+          <button class="risk-map__tab" data-risk="drought" role="tab" aria-selected="false">Водный стресс</button>
+          <button class="risk-map__tab" data-risk="fire" role="tab" aria-selected="false">Лесные пожары</button>
+          <button class="risk-map__tab" data-risk="permafrost" role="tab" aria-selected="false">Вечная мерзлота</button>
+          <button class="risk-map__tab" data-risk="precip" role="tab" aria-selected="false">Сильные осадки</button>
         </div>
 
-        <div class="risk-map__image-wrap">
-          <img
-            id="risk-map-img"
-            src="img/ch4-map1.png"
-            loading="lazy"
-            alt="Карта климатических рисков — Ветер"
-            class="risk-map__img"
-          >
+        <div class="risk-map__stage" id="risk-map-stage">
+          <!-- SVG-карта России инжектится скриптом -->
+          <div class="risk-map__legend" id="risk-map-legend" aria-hidden="true">
+            <div class="risk-map__legend-title" id="risk-map-legend-title">Волны тепла</div>
+            <div class="risk-map__legend-item">
+              <span class="risk-map__legend-dot risk-map__legend-dot--top"></span>
+              <span>Топ-10 регионов риска</span>
+            </div>
+            <div class="risk-map__legend-item">
+              <span class="risk-map__legend-dot risk-map__legend-dot--rest"></span>
+              <span>Остальные регионы</span>
+            </div>
+          </div>
+          <div class="risk-map__tooltip" id="risk-map-tooltip" role="status" aria-live="polite"></div>
         </div>
+
+        <p class="source-caption" style="margin-top: 18px;">
+          Источник: НИУ ВШЭ, «Рейтинг регионов России по&nbsp;необходимости адаптации к&nbsp;изменению климата».
+          Выделены топ-10 регионов по&nbsp;каждому риску («национальный взгляд», сценарий SSP2-4.5).
+        </p>
       </div>
     </section>
 
@@ -384,17 +387,31 @@
         <p class="body-text">Ключевым шагом к&nbsp;созданию национального углеродного рынка в&nbsp;России стал Сахалинский эксперимент. Этот пилотный проект, запущенный в&nbsp;2021 году, работает по&nbsp;простому принципу: компании в&nbsp;регионе получают квоты на&nbsp;выбросы парниковых газов. Если компания смогла снизить свои выбросы и&nbsp;у неё остался излишек квот, она может продать его другим участникам. Это создаёт прямой финансовый стимул для бизнеса внедрять экологически чистые технологии.</p>
       </div>
 
-      <!-- Прогресс-бар Сахалинского эксперимента (Figma SVG) -->
+      <img src="img/ch4-goals.svg" loading="lazy" alt="Сахалинский эксперимент — прогресс по годам" class="graph-image" style="width: 1200px;">
+
+      <div class="text-block reveal">
+        <h3 class="heading-md">Результаты Сахалинского эксперимента</h3>
+        <p class="body-text">К&nbsp;концу 2024 года на&nbsp;природный газ переведут 38 муниципальных и&nbsp;15 ведомственных котельных. Также газифицируют три асфальтобетонных завода. В&nbsp;Сахалинской области на&nbsp;газовое отопление перешли 57% домов — это 4&nbsp;807 семей.</p>
+        <p class="body-text">В&nbsp;2024 году на&nbsp;газ переоборудовали более 5&nbsp;800 автомобилей. В&nbsp;регионе зарегистрировали 420 электромобилей и&nbsp;840 гибридов, а&nbsp;также закупили 253 газовых автобуса. Сеть зарядных станций выросла до&nbsp;329 точек. В&nbsp;Южно-Сахалинске работает электрический каршеринг.</p>
+        <p class="body-text">За&nbsp;год отремонтировали крыши и&nbsp;фасады 392 многоквартирных домов. На&nbsp;улицах заменили свыше 12&nbsp;тыс. светильников на&nbsp;энергоэффективные. Область сократит потребление ресурсов на&nbsp;28 млн кВт·ч и&nbsp;123 тыс. Гкал в&nbsp;год.</p>
+        <p class="body-text">В&nbsp;2022 году запустили солнечную электростанцию на&nbsp;острове Итуруп. К&nbsp;концу 2024 года общая мощность «зелёных» источников достигнет 9&nbsp;МВт. Выработка чистой энергии составит 24&nbsp;млн кВт·ч в&nbsp;год, что снизит выбросы на&nbsp;18 тыс. тонн CO₂-экв.</p>
+        <p class="body-text">В&nbsp;2024 году открыли первый на&nbsp;Дальнем Востоке водородный полигон. Сейчас на&nbsp;Сахалине формируют Восточный водородный кластер. В&nbsp;него войдут водородный завод, поезд и&nbsp;центр компетенций.</p>
+        <p class="body-text">В&nbsp;области внедрили 100% раздельный сбор отходов. К&nbsp;концу 2024 года долю сортировки мусора на&nbsp;полигонах увеличат до&nbsp;38%. Мощность новых и&nbsp;реконструированных очистных сооружений составит 1&nbsp;млн куб. м в&nbsp;год.</p>
+        <p class="body-text">Площадь лесов к&nbsp;концу 2024 года вырастет на&nbsp;8 тыс. га. В&nbsp;результате природа будет поглощать на&nbsp;350 тыс. тонн CO₂-экв. в&nbsp;год больше. Также учёные впервые оценили, сколько углерода удерживают морские побережья и&nbsp;болота.</p>
+      </div>
+
       <div class="graph-wide-wrapper reveal">
         <div class="graph-wide">
+          <div class="caption-label">Сокращение выбросов CO2 в результате экспримента</div>
           <div class="graph-scroll">
-            <img src="img/ch4-sakhalin.svg" loading="lazy" alt="Сахалинский эксперимент — прогресс по годам" class="graph-image" style="width: 100%; max-width: 720px;">
+            <img src="img/ch4-co2-graph.svg" loading="lazy" alt="Сахалинский эксперимент — прогресс по годам" class="graph-image" style="width: 100%;">
           </div>
         </div>
       </div>
 
       <div class="text-block reveal">
         <p class="body-text">Международные соглашения и&nbsp;национальные стратегии — это основа для борьбы с&nbsp;изменением климата. Но&nbsp;они не&nbsp;будут работать без участия каждого из&nbsp;нас.</p>
+        <p class="body-text">Финальный раздел посвящен тому, какой вклад в решение проблемы можете внести вы, как наши привычки влияют на планету и какую роль в этом играет образование.</p>
       </div>
     </section>
 
