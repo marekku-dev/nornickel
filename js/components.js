@@ -71,6 +71,8 @@
         if (Math.abs(dx) > Math.abs(dy)) {
           e.preventDefault();
           el.scrollLeft = startScrollLeft - dx;
+          // Прячем подсказку после первого свайпа
+          el.classList.add('scrolled');
         }
       }, { passive: false });
     });

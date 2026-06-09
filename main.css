@@ -327,7 +327,7 @@ ol {
   align-items: center;
   width: 100vw;
   height: 50px;
-  padding: 4px 20px 4px 10px;
+  padding: 4px 10px;
   /* Цвет текста/иконок шапки — молочный по умолчанию (над фото) */
   --header-color: var(--color-white);
   color: var(--header-color);
@@ -360,9 +360,16 @@ ol {
 /* ----- Навигация по главам ----- */
 .nav-chapters {
   position: relative;
-  padding: 10px 0;
+  padding: 8px 16px;
   color: var(--header-color);
   cursor: pointer;
+  background: rgba(255, 251, 245, 0.88);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(26, 26, 26, 0.07);
+  /*box-shadow: 0 8px 32px rgba(26, 26, 26, 0.12);*/
+  border-radius: var(--radius-md);
+  transition: color .3s ease, border-radius .2s ease;
 }
 
 .nav-chapters__toggle {
@@ -372,22 +379,26 @@ ol {
   font-size: 14px;
   font-weight: 700;
   line-height: 18px;
+  color: var(--color-text);
 }
 
 .nav-chapters__menu {
   position: absolute;
-  top: calc(100% + 12px);
-  right: 0;
+  top: calc(100% + 8px);
+  right: 0px;
   display: flex;
   flex-flow: column;
-  align-items: flex-end;
-  gap: 6px;
-  min-width: 320px;
-  padding: 0;
-  background: none;
-  border: none;
-  box-shadow: none;
-  color: var(--header-color);
+  align-items: stretch;
+  gap: 4px;
+  width: calc(100vw - 40px);
+  max-width: 360px;
+  padding: 8px 16px 12px;
+  background: rgba(255, 251, 245, 0.95);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(26, 26, 26, 0.07);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
   transform-origin: top right;
   transform: scaleY(1) translateY(0);
   opacity: 1;
@@ -408,16 +419,15 @@ ol {
   text-transform: uppercase;
   color: var(--color-accent);
   font-weight: 700;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   text-align: right;
-  opacity: 0.8;
 }
 
 .nav-chapters__item {
   display: block;
-  padding: 2px 0;
-  color: var(--header-color);
-  text-align: right;
+  padding: 4px 0;
+  color: var(--color-text);
+  text-align: left;
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
@@ -764,6 +774,38 @@ ol {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   max-width: 100%;
+  position: relative;
+}
+
+/* Подсказка «свайп» — только мобилка */
+@media (max-width: 767px) {
+  .graph-scroll::after {
+    content: '';
+    position: absolute;
+    left: 12px;
+    bottom: 20px;
+    width: 40px;
+    height: 40px;
+    background: url('../assets/swipe.svg') center / 24px 24px no-repeat,
+                rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10;
+    animation: swipe-hint 1.4s ease-in-out infinite;
+    transition: opacity 0.3s ease;
+  }
+  .graph-scroll.scrolled::after {
+    opacity: 0;
+  }
+}
+
+@keyframes swipe-hint {
+  0%   { transform: translateX(0); }
+  30%  { transform: translateX(-7px); }
+  60%  { transform: translateX(5px); }
+  100% { transform: translateX(0); }
 }
 
 .graph-image {
@@ -2589,7 +2631,6 @@ ol {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  padding-right: 40px;
 }
 
 .card-horizontal__title {
@@ -2602,6 +2643,11 @@ ol {
   font-size: 17px;
   line-height: 1.7;
   color: rgba(26, 26, 26, 0.8);
+}
+
+.card-horizontal__img-col {
+  min-width: 0; /* позволяет флекс-дочернему элементу сжиматься */
+  overflow: hidden;
 }
 
 .card-horizontal__img-col img {
@@ -2777,7 +2823,7 @@ ol {
   .image-fullscreen__img { aspect-ratio: 16 / 9; }
 
   /* Горизонтальная карточка */
-  .card-horizontal     { grid-template-columns: 1fr; margin: 0 12px; padding: 24px 20px; gap: 24px; max-width: calc(100% - 24px); overflow: auto; }
+  .card-horizontal     { grid-template-columns: 1fr; margin: 0 12px; padding: 24px 20px; gap: 24px; width: auto; max-width: calc(100% - 24px); overflow: hidden; display: flex; flex-direction: column; }
 
   /* Числовые карточки */
   .card-number__value  { font-size: 36px; }
