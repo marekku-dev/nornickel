@@ -762,7 +762,8 @@ ol {
 /* Скролл-контейнер изображения графика */
 .graph-scroll {
   overflow-x: auto;
-  max-width: 100vw;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
 }
 
 .graph-image {
@@ -1665,7 +1666,7 @@ ol {
 @media screen and (max-width: 767px) {
   .cards-white-grid--habits-desktop { display: none; }
   .graph-image--scroll-mobile { min-width: 800px; }
-
+  .ipcc-chart-canvas { min-width: 800px; }
 }
 
 
