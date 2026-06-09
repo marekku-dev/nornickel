@@ -2646,8 +2646,8 @@ ol {
 }
 
 .card-horizontal__img-col {
-  min-width: 0; /* позволяет флекс-дочернему элементу сжиматься */
-  overflow: hidden;
+  min-width: 0;
+  width: 100%;
 }
 
 .card-horizontal__img-col img {
@@ -2823,7 +2823,7 @@ ol {
   .image-fullscreen__img { aspect-ratio: 16 / 9; }
 
   /* Горизонтальная карточка */
-  .card-horizontal     { grid-template-columns: 1fr; margin: 0 12px; padding: 24px 20px; gap: 24px; width: auto; max-width: calc(100% - 24px); overflow: hidden; display: flex; flex-direction: column; }
+  .card-horizontal     { grid-template-columns: 1fr; margin: 0 12px; padding: 24px 20px; gap: 24px; width: calc(100% - 24px); max-width: calc(100% - 24px); display: flex; flex-direction: column; }
 
   /* Числовые карточки */
   .card-number__value  { font-size: 36px; }
@@ -2836,6 +2836,9 @@ ol {
   .cards-white-hint--touch { display: block; padding: 0 12px; }
   .card-white          { min-height: 200px; }
   /*.card-white__inner   { min-height: 200px; }*/
+  .card-white__back    { padding: 12px 14px; }
+  .card-white__back-title { font-size: 13px; margin-bottom: 6px; }
+  .card-white__back-text  { font-size: 12px; line-height: 1.5; -webkit-hyphens: auto; }
 
   /* source-caption */
   .source-caption      { padding: 0 12px; }
@@ -3412,6 +3415,17 @@ ol {
   font-size: 16px;
   line-height: 22px;
   margin: 0 !important;
+}
+
+@media screen and (max-width: 767px) {
+  .co-grid { grid-template-columns: repeat(2, 1fr); }
+  .co-card__title,
+  .co-card__text {
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
 }
 
 

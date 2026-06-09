@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 /**
  * fix-nbsp.js
- * Заменяет обычный пробел перед короткими словами (предлоги, союзы, частицы)
- * на неразрывный пробел (&nbsp;) во всех HTML-файлах проекта.
+ * Ставит неразрывный пробел ПОСЛЕ короткого слова (предлога, союза, частицы),
+ * чтобы оно не отрывалось от следующего слова при переносе строки.
+ *
+ * Пример: «в лесу» → «в&nbsp;лесу»
  *
  * Использование: node fix-nbsp.js
  */
@@ -10,7 +12,7 @@
 const fs   = require('fs');
 const path = require('path');
 
-// Короткие слова, перед которыми ставим &nbsp;
+// Короткие слова, после которых ставим &nbsp;
 const SHORT_WORDS = [
   // предлоги
   'в','во','на','по','за','из','от','до','об','обо','над','под','при','про','без','для','из-за','из-под','со','ко',
@@ -20,21 +22,28 @@ const SHORT_WORDS = [
   'её','его','их','всё','все','это','эта','этот','эти','тот','та','те',
 ];
 
-// Найти все HTML-файлы в директории
 const dir = '/sessions/vibrant-jolly-allen/mnt/NN';
 const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
 
 const wordPattern = SHORT_WORDS.map(w => w.replace(/-/g, '\\-')).join('|');
 
+// Шаг 1: откатить прошлые неправильные замены (&nbsp;слово → слово)
+// Шаг 2: расставить правильные (слово&nbsp;)
 let totalFixed = 0;
 
 files.forEach(file => {
   const filePath = path.join(dir, file);
   let content = fs.readFileSync(filePath, 'utf8');
+
+  // Откат старых замен: &nbsp;предлог → пробел+предлог
+  content = content.replace(
+    new RegExp('&nbsp;(' + wordPattern + ')(\\s)', 'gi'),
+    (m, word, after) => ' ' + word + after
+  );
+
   let fileFixed = 0;
 
-  // Обрабатываем только текстовые узлы — между тегами > ... <
-  // Не трогаем атрибуты и содержимое тегов
+  // Правильная замена: пробел после предлога → &nbsp;
   const result = content.replace(/>([^<]+)</g, (match, text) => {
     if (!text.trim()) return match;
 
@@ -42,15 +51,14 @@ files.forEach(file => {
       new RegExp('(\\s)(' + wordPattern + ')(\\s)', 'gi'),
       (m, before, word, after) => {
         fileFixed++;
-        // &nbsp; перед словом, обычный пробел после
-        return '&nbsp;' + word + after;
+        return before + word + '&nbsp;';
       }
     );
     return '>' + fixed + '<';
   });
 
+  fs.writeFileSync(filePath, result, 'utf8');
   if (fileFixed > 0) {
-    fs.writeFileSync(filePath, result, 'utf8');
     console.log(`${file}: исправлено ${fileFixed} мест`);
     totalFixed += fileFixed;
   } else {
