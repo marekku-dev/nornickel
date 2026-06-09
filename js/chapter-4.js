@@ -359,7 +359,8 @@
 
     function resize() {
       const dpr = window.devicePixelRatio || 1;
-      logicalW = Math.max(600, canvas.parentElement.clientWidth);
+      const isMobile = window.innerWidth <= 767;
+      logicalW = isMobile ? Math.max(800, canvas.parentElement.clientWidth) : Math.max(600, canvas.parentElement.clientWidth);
       logicalH = Math.round(logicalW * 0.46);
       canvas.width  = logicalW * dpr;
       canvas.height = logicalH * dpr;

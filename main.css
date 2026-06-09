@@ -1664,6 +1664,8 @@ ol {
 
 @media screen and (max-width: 767px) {
   .cards-white-grid--habits-desktop { display: none; }
+  .graph-image--scroll-mobile { min-width: 800px; }
+
 }
 
 
@@ -2731,7 +2733,6 @@ ol {
 .card-s__svg-wrap {
   width: 100%;
   overflow: hidden;
-  border-radius: var(--radius-sm);
 }
 
 .card-s__svg-wrap img,
@@ -3110,8 +3111,18 @@ ol {
     min-width: 560px;
   }
 
+  .risk-map-block {
+    padding: 0 12px;
+    margin: 24px 0;
+  }
+
+  .risk-map-block .caption-label {
+    text-align: center;
+  }
+
   .risk-map__tabs {
-    gap: 6px;
+    gap: 8px;
+    justify-content: center;
   }
 
   .risk-map__tab {
@@ -3119,16 +3130,33 @@ ol {
     font-size: 13px;
   }
 
-  .risk-map__legend {
-    top: 12px;
-    left: 12px;
-    padding: 10px 12px;
-    font-size: 11px;
-    gap: 6px;
+  .risk-map__stage {
+    padding: 8px;
+    margin-top: 16px;
   }
 
-  .risk-map__legend-title { font-size: 12px; }
+  /* Легенда — вынимаем из absolute, кладём под карту в одну строку */
+  .risk-map__legend {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    font-size: 12px;
+    margin-top: 8px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .risk-map__legend-title {
+    font-size: 13px;
+    margin-bottom: 0;
+    margin-right: auto;
+  }
+
   .risk-map__legend-dot { width: 11px; height: 11px; }
+  .risk-map__legend .risk-map__legend-item:last-child { display: none; }
 }
 
 /* =============================================================================
@@ -3337,4 +3365,103 @@ ol {
   font-size: 16px;
   line-height: 22px;
   margin: 0 !important;
+}
+
+
+/* =============================================================================
+   САХАЛИНСКИЙ ЭКСПЕРИМЕНТ — схема целей/задач/результатов
+   ============================================================================= */
+
+.sakhalin-goals {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.sakhalin-goals__section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.sakhalin-goals__label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: center;
+}
+
+.sakhalin-goals__row {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+}
+
+.sakhalin-goals__row--center {
+  grid-template-columns: 1fr;
+  max-width: 320px;
+}
+
+.sakhalin-goals__row--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.sakhalin-goals__row--4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.sakhalin-goals__row--offset {
+  max-width: calc(75% + 8px); /* 3 из 4 колонок */
+}
+
+.sakhalin-goals__card {
+  border-radius: 16px;
+  padding: 20px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--color-text);
+}
+
+.sakhalin-goals__card strong {
+  display: block;
+  font-weight: 700;
+}
+
+.sakhalin-goals__card p {
+  margin: 4px 0 0;
+}
+
+.sakhalin-goals__card--blue   { background: #c9d9e8; }
+.sakhalin-goals__card--yellow { background: #f5e6b8; }
+.sakhalin-goals__card--gray   { background: #e2ddd6; }
+
+/* Мобильная версия */
+@media screen and (max-width: 767px) {
+  .sakhalin-goals {
+    padding: 0 12px;
+    gap: 28px;
+  }
+
+  .sakhalin-goals__row--3,
+  .sakhalin-goals__row--4 {
+    grid-template-columns: 1fr;
+  }
+
+  .sakhalin-goals__row--center {
+    max-width: 100%;
+  }
+
+  .sakhalin-goals__row--offset {
+    max-width: 100%;
+  }
+
+  .sakhalin-goals__card {
+    padding: 16px;
+    font-size: 14px;
+  }
 }

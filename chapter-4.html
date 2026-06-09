@@ -61,7 +61,7 @@
           <div class="caption-label">Ключевые выводы МГЭИК с&nbsp;1990 года</div>
           <div class="caption-label" style="font-weight: 400; text-transform: none; letter-spacing: 0; margin-top: 4px; margin-bottom: 16px; font-size: 14px; opacity: 0.6;">Концентрация CO₂ (ppm) в&nbsp;атмосфере продолжает расти</div>
           <div class="graph-scroll" style="overflow-x: auto;">
-            <canvas id="ipcc-chart" style="display: block; min-width: 600px; width: 100%; cursor: default;"></canvas>
+            <canvas id="ipcc-chart" style="display: block; width: 100%; cursor: default;" class="ipcc-chart-canvas"></canvas>
           </div>
         </div>
       </div>
@@ -148,7 +148,7 @@
       <div class="card-s reveal">
         <div class="caption-label">Цели стран в Парижском соглашении</div>
         <div class="graph-scroll">
-          <img src="img/ch4-paris.svg" loading="lazy" alt="Матрица целей стран в Парижском соглашении" class="graph-image" style="min-width: 800px;">
+          <img src="img/ch4-paris.svg" loading="lazy" alt="Матрица целей стран в Парижском соглашении" class="graph-image graph-image--scroll-mobile">
         </div>
       </div>
     </section>
@@ -304,7 +304,10 @@
           <li>Климатическая политика (вес <span style="color: #c49a2a; font-weight: 600;">20%</span>).</li>
         </ul>
         <div class="card-s__svg-wrap">
-          <img src="img/ch4-ccpi.svg" loading="lazy" alt="Матрица целей стран в Парижском соглашении">
+          <picture>
+            <source media="(max-width: 767px)" srcset="img/ch4-ccpi-mobile.svg">
+            <img src="img/ch4-ccpi.svg" loading="lazy" alt="Матрица целей стран в Парижском соглашении">
+          </picture>
         </div>
       </div>
       <p class="source-caption">Источник — <a href="https://ccpi.org" target="_blank" style="text-decoration: none;">ccpi.org</a></p>
@@ -403,6 +406,7 @@
           <div class="risk-map__tooltip" id="risk-map-tooltip" role="status" aria-live="polite"></div>
         </div>
 
+
         <p class="source-caption" style="margin-top: 18px;">
           Источник: НИУ ВШЭ, «Рейтинг регионов России по&nbsp;необходимости адаптации к&nbsp;изменению климата».
           Выделены топ-10 регионов по&nbsp;каждому риску («национальный взгляд», сценарий SSP2-4.5).
@@ -417,8 +421,71 @@
         <p class="body-text">Ключевым шагом к&nbsp;созданию национального углеродного рынка в&nbsp;России стал Сахалинский эксперимент. Этот пилотный проект, запущенный в&nbsp;2021 году, работает по&nbsp;простому принципу: компании в&nbsp;регионе получают квоты на&nbsp;выбросы парниковых газов. Если компания смогла снизить свои выбросы и&nbsp;у неё остался излишек квот, она может продать его другим участникам. Это создаёт прямой финансовый стимул для бизнеса внедрять экологически чистые технологии.</p>
       </div>
 
-      <div class="graph-scroll">
-        <img src="img/ch4-goals.svg" loading="lazy" alt="Сахалинский эксперимент — прогресс по годам" class="graph-image" style="min-width: 900px;">
+      <div class="sakhalin-goals reveal">
+
+        <!-- Цели -->
+        <div class="sakhalin-goals__section">
+          <div class="sakhalin-goals__label">Цели</div>
+          <div class="sakhalin-goals__row sakhalin-goals__row--center">
+            <div class="sakhalin-goals__card sakhalin-goals__card--blue">
+              Достижение углеродной нейтральности на&nbsp;территории Сахалинской области не&nbsp;позднее 31&nbsp;декабря 2025
+            </div>
+          </div>
+        </div>
+
+        <!-- Задачи -->
+        <div class="sakhalin-goals__section">
+          <div class="sakhalin-goals__label">Задачи</div>
+          <div class="sakhalin-goals__row sakhalin-goals__row--3">
+            <div class="sakhalin-goals__card sakhalin-goals__card--yellow">
+              Стимулирование внедрения технологий сокращения выбросов парниковых газов и&nbsp;увеличения их&nbsp;поглощения
+            </div>
+            <div class="sakhalin-goals__card sakhalin-goals__card--yellow">
+              Формирование системы независимой верификации (углеродной отчётности)
+            </div>
+            <div class="sakhalin-goals__card sakhalin-goals__card--yellow">
+              Создание системы обращения углеродных единиц и&nbsp;единиц выполнения квоты
+            </div>
+          </div>
+        </div>
+
+        <!-- Результаты -->
+        <div class="sakhalin-goals__section">
+          <div class="sakhalin-goals__label">Результаты</div>
+          <div class="sakhalin-goals__row sakhalin-goals__row--4">
+            <div class="sakhalin-goals__card sakhalin-goals__card--gray">
+              <strong>Газификация ЖКХ</strong>
+              <p>Перевод котельных с&nbsp;угля на&nbsp;газ, модернизация угольных котельных и&nbsp;повышение их&nbsp;энергоэффективности</p>
+            </div>
+            <div class="sakhalin-goals__card sakhalin-goals__card--gray">
+              <strong>Декарбонизация транспорта</strong>
+              <p>Перевод транспортных средств на&nbsp;ГМТ и&nbsp;электрическую тягу, развитие общественного транспорта и&nbsp;электрокаршеринга</p>
+            </div>
+            <div class="sakhalin-goals__card sakhalin-goals__card--gray">
+              <strong>Развитие системы обращения с&nbsp;отходами</strong>
+              <p>Ликвидация свалок и&nbsp;рекультивация территорий, создание условий для вторичной переработки отходов</p>
+            </div>
+            <div class="sakhalin-goals__card sakhalin-goals__card--gray">
+              <strong>Развитие возобновляемой энергетики</strong>
+              <p>Увеличение доли ВИЭ в&nbsp;электропотреблении</p>
+            </div>
+          </div>
+          <div class="sakhalin-goals__row sakhalin-goals__row--3 sakhalin-goals__row--offset">
+            <div class="sakhalin-goals__card sakhalin-goals__card--gray">
+              <strong>Развитие водородной энергетики</strong>
+              <p>Реализация пилотных водородных проектов и&nbsp;подготовка кадров в&nbsp;рамках создания на&nbsp;Сахалине Восточного водородного кластера</p>
+            </div>
+            <div class="sakhalin-goals__card sakhalin-goals__card--gray">
+              <strong>Повышение энергоэффективности и&nbsp;энергосбережение</strong>
+              <p>Усиление тепловой защиты и&nbsp;повышение энергоэффективности зданий, установка светодиодных светильников, модернизация производства с&nbsp;внедрением энергоэффективных технологий и&nbsp;оборудования</p>
+            </div>
+            <div class="sakhalin-goals__card sakhalin-goals__card--gray">
+              <strong>Устойчивое управление природными экосистемами</strong>
+              <p>Реализация климатических проектов по&nbsp;лесовосстановлению и&nbsp;защите лесов, устойчивому сельскому хозяйству, управлению болотными экосистемами, развитию аквакультуры</p>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <div class="text-block reveal">
