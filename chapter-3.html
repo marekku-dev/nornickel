@@ -90,7 +90,12 @@
       </div>
 
       <div class="image-block reveal">
-        <img src="img/ch3-energy-chart.svg" loading="lazy" alt="Альтернативная энергетика: прогноз до 2050 года" class="image-block__img">
+        <div class="graph-scroll">
+          <picture>
+            <source media="(max-width: 767px)" srcset="img/ch3-energy-chart-mobile.svg" >
+            <img src="img/ch3-energy-chart.svg" loading="lazy" alt="Альтернативная энергетика: прогноз до 2050 года" class="graph-image" style="min-width: 1200px;">
+          </picture>
+        </div>
       </div>
 
       <div class="text-block reveal">
@@ -638,7 +643,9 @@
           <p class="card-horizontal__body">Это сумма, которую предприятие обязано заплатить государству или рынку за каждую тонну газов, выпущенных в атмосферу. Стоимость углеродных единиц на рынке обычно стремится к уровню цен на выбросы СО₂.</p>
         </div>
         <div class="card-horizontal__img-col">
-          <img src="img/ch3-carbon-price.svg" loading="lazy" alt="Стоимость углеродных единиц в разных регионах мира">
+          <div class="graph-scroll">
+            <img src="img/ch3-carbon-price.svg" loading="lazy" alt="Стоимость углеродных единиц в разных регионах мира" class="graph-image" style="min-width: 640px;">
+          </div>
         </div>
       </div>
       <p class="source-caption reveal">Источник — visualcapitalist.com</p>
