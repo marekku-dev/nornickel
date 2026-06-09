@@ -43,6 +43,37 @@
     initChaptersNav();
     initActiveChapter();
     initReveal();
+    initHorizontalScroll();
+  }
+
+  /* ─── Горизонтальный скролл на тач-устройствах ─── */
+  /*
+   * Android Chrome блокирует горизонтальный скролл дочернего элемента,
+   * пока страница в движении. Обходим это: отслеживаем направление свайпа
+   * и вручную скроллим контейнер если жест горизонтальный.
+   */
+  function initHorizontalScroll() {
+    document.querySelectorAll('.graph-scroll').forEach(el => {
+      let startX, startY, startScrollLeft;
+
+      el.addEventListener('touchstart', e => {
+        startX          = e.touches[0].clientX;
+        startY          = e.touches[0].clientY;
+        startScrollLeft = el.scrollLeft;
+      }, { passive: true });
+
+      el.addEventListener('touchmove', e => {
+        if (startX === undefined) return;
+        const dx = e.touches[0].clientX - startX;
+        const dy = e.touches[0].clientY - startY;
+
+        // Если жест горизонтальнее — скроллим сами и блокируем страницу
+        if (Math.abs(dx) > Math.abs(dy)) {
+          e.preventDefault();
+          el.scrollLeft = startScrollLeft - dx;
+        }
+      }, { passive: false });
+    });
   }
 
   /* ─── Прогресс-бар скролла + цвет шапки ─── */
