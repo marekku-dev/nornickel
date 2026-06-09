@@ -763,6 +763,7 @@ ol {
 .graph-scroll {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
   max-width: 100%;
 }
 
