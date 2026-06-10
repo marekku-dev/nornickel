@@ -1013,6 +1013,7 @@ ol {
 
 /* Точки пагинации */
 .slider__dots {
+  display: none;
   position: absolute;
   bottom: 10px;
   left: 0;
