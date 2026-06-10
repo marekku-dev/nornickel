@@ -1010,7 +1010,7 @@ ol {
 .slider__arrow--prev { left: 10px; }
 .slider__arrow--next { right: 10px; }
 
-.slider__arrow-icon { width: 20px; }
+.slider__arrow-icon { width: 14px; }
 
 /* Точки пагинации */
 .slider__dots {
@@ -2859,6 +2859,10 @@ ol {
   font-weight: 700;
   line-height: 1.3;
   color: var(--color-text);
+  /* Одинаковая высота всех заголовков (по самому высокому — 2 строки),
+     чтобы списки в колонках начинались на одном уровне.
+     2 строки = line-height 1.3 × 2 = 2.6em. */
+  min-height: 2.6em;
 }
 
 .adaptation-col__list {
@@ -2881,6 +2885,58 @@ ol {
 .adaptation-col__list li:first-child {
   padding-top: 0;
   border-top: none;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Таблица влияния (глава 2). Связь по горизонтали:
+   признак → влияние → кто пострадает.
+   Десктоп: grid 3 колонки. Заголовки колонок — отдельный ряд,
+   ячейки одного ряда автоматически выровнены по высоте (свойство grid).
+   Мобилка: одна колонка, у каждой ячейки своя метка сверху.
+   ───────────────────────────────────────────────────────────── */
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 16px;
+  row-gap: 0;
+  padding: 0 32px;
+  background: var(--color-card-bg);
+  border-radius: var(--radius-md);
+  max-width: calc(var(--max-text) + 64px);
+  margin: 0 auto;
+}
+
+/* Заголовки колонок (первый ряд grid) */
+.impact-grid__head {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--color-text);
+  padding: 32px 0 20px;
+}
+
+/* Ячейка с пунктом */
+.impact-grid__cell {
+  font-size: 15px;
+  line-height: 1.5;
+  color: rgba(26, 26, 26, 0.75);
+  padding: 16px 0;
+  border-top: 1px solid rgba(26, 26, 26, 0.08);
+}
+
+/* Верхняя граница только у первого ряда данных (3 ячейки после заголовков).
+   Заголовки и первый ряд разделяет линия; между рядами — тоже линии. */
+.impact-grid__head {
+  border-top: none;
+}
+
+/* Метка над пунктом — нужна только на мобилке, на десктопе скрыта */
+.impact-grid__label {
+  display: none;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 6px;
 }
 
 /* ─── Сетка иконок ЦУР ─── */
@@ -3019,6 +3075,36 @@ ol {
   .adaptation-table    { grid-template-columns: 1fr; margin: 0 12px; padding: 0; gap: 0;}
   .adaptation-col      { border-right: none; border-bottom: 1px solid rgba(26,26,26,0.1); padding: 20px 16px; }
   .adaptation-col:last-child { border-bottom: none; }
+  /* В одну колонку выравнивать заголовки не нужно — убираем резерв высоты */
+  .adaptation-col__badge { min-height: 0; }
+
+  /* Таблица влияния (гл. 2): одна колонка, метка над каждым пунктом */
+  .impact-grid {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+    margin: 0 12px;
+    padding: 16px;
+  }
+  /* Заголовки колонок прячем — их роль берут метки внутри ячеек */
+  .impact-grid__head { display: none; }
+  .impact-grid__label { display: block; }
+  /* Внутри одного логического блока (3 пункта ряда) линий нет, отступы поджаты */
+  .impact-grid__cell {
+    padding: 8px 0;
+    border-top: none;
+  }
+  /* Разделитель только между рядами — перед каждым новым признаком (3n+1) */
+  .impact-grid__cell:nth-of-type(3n+1) {
+    border-top: 1px solid rgba(26, 26, 26, 0.18);
+    margin-top: 16px;
+    padding-top: 16px;
+  }
+  /* Первый блок — без линии и верхнего отступа */
+  .impact-grid__cell:first-of-type {
+    border-top: none;
+    margin-top: 0;
+    padding-top: 0;
+  }
 
   /* Аккордеон */
   .card-expanding__header { padding: 16px 20px; }

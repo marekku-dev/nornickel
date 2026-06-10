@@ -359,34 +359,70 @@
         <p class="body-text">Уязвимость стран и&nbsp;регионов к&nbsp;экстремальным погодным явлениям зависит от&nbsp;климата, социальных, экономических и&nbsp;географических факторов.</p>
       </div>
 
-      <!-- Таблица влияния на экономику -->
-      <div class="adaptation-table reveal">
-        <div class="adaptation-col">
-          <span class="adaptation-col__badge">Изменившийся признак</span>
-          <ul class="adaptation-col__list">
-            <li>Поднятие уровня океанов</li>
-            <li>Учащение природных катастроф</li>
-            <li>Снижение урожайности</li>
-            <li>Повышение температуры и&nbsp;экстремальная жара</li>
-          </ul>
+      <!-- Таблица влияния на экономику.
+           Связь по горизонтали: признак → влияние → кто пострадает.
+           Десктоп — grid 3 колонки (ряды выровнены по высоте).
+           Мобилка — одна колонка, у каждого пункта своя метка сверху. -->
+      <div class="impact-grid reveal">
+        <!-- Заголовки колонок (видны только на десктопе) -->
+        <div class="impact-grid__head">Изменившийся признак</div>
+        <div class="impact-grid__head">Влияние на&nbsp;экономику</div>
+        <div class="impact-grid__head">Кто пострадает в&nbsp;первую очередь</div>
+
+        <!-- Ряд 1 -->
+        <div class="impact-grid__cell">
+          <span class="impact-grid__label">Изменившийся признак</span>
+          Поднятие уровня океанов
         </div>
-        <div class="adaptation-col">
-          <span class="adaptation-col__badge">Влияние на&nbsp;экономику</span>
-          <ul class="adaptation-col__list">
-            <li>Угрожает прибрежным районам, вызывает потери инфраструктуры и&nbsp;недвижимости</li>
-            <li>Растут затраты на&nbsp;восстановление, снижается инвестиционная привлекательность</li>
-            <li>Увеличиваются цены на&nbsp;продовольствие, усиливается голод и&nbsp;инфляция</li>
-            <li>Повышается смертность, падает производительность труда, растут расходы на&nbsp;здравоохранение</li>
-          </ul>
+        <div class="impact-grid__cell">
+          <span class="impact-grid__label">Влияние на&nbsp;экономику</span>
+          Угрожает прибрежным районам, вызывает потери инфраструктуры и&nbsp;недвижимости
         </div>
-        <div class="adaptation-col">
-          <span class="adaptation-col__badge">Кто пострадает в&nbsp;первую очередь</span>
-          <ul class="adaptation-col__list">
-            <li>Малые островные государства и&nbsp;прибрежные слаборазвитые страны</li>
-            <li>Районы с&nbsp;высокой опасностью наводнений, ураганов, землетрясений</li>
-            <li>Места с&nbsp;истощёнными земельными ресурсами и&nbsp;ростом населения</li>
-            <li>Люди, живущие в&nbsp;бедности и&nbsp;регионы с&nbsp;жарким климатом</li>
-          </ul>
+        <div class="impact-grid__cell">
+          <span class="impact-grid__label">Кто пострадает в&nbsp;первую очередь</span>
+          Малые островные государства и&nbsp;прибрежные слаборазвитые страны
+        </div>
+
+        <!-- Ряд 2 -->
+        <div class="impact-grid__cell">
+          <span class="impact-grid__label">Изменившийся признак</span>
+          Учащение природных катастроф
+        </div>
+        <div class="impact-grid__cell">
+          <span class="impact-grid__label">Влияние на&nbsp;экономику</span>
+          Растут затраты на&nbsp;восстановление, снижается инвестиционная привлекательность
+        </div>
+        <div class="impact-grid__cell">
+          <span class="impact-grid__label">Кто пострадает в&nbsp;первую очередь</span>
+          Районы с&nbsp;высокой опасностью наводнений, ураганов, землетрясений
+        </div>
+
+        <!-- Ряд 3 -->
+        <div class="impact-grid__cell">
+          <span class="impact-grid__label">Изменившийся признак</span>
+          Снижение урожайности
+        </div>
+        <div class="impact-grid__cell">
+          <span class="impact-grid__label">Влияние на&nbsp;экономику</span>
+          Увеличиваются цены на&nbsp;продовольствие, усиливается голод и&nbsp;инфляция
+        </div>
+        <div class="impact-grid__cell">
+          <span class="impact-grid__label">Кто пострадает в&nbsp;первую очередь</span>
+          Места с&nbsp;истощёнными земельными ресурсами и&nbsp;ростом населения
+        </div>
+
+        <!-- Ряд 4 -->
+        <div class="impact-grid__cell">
+          <span class="impact-grid__label">Изменившийся признак</span>
+          Повышение температуры и&nbsp;экстремальная жара
+        </div>
+        <div class="impact-grid__cell">
+          <span class="impact-grid__label">Влияние на&nbsp;экономику</span>
+          Повышается смертность, падает производительность труда, растут расходы на&nbsp;здравоохранение
+        </div>
+        <div class="impact-grid__cell">
+          <span class="impact-grid__label">Кто пострадает в&nbsp;первую очередь</span>
+          Люди, живущие в&nbsp;бедности и&nbsp;регионы с&nbsp;жарким климатом
         </div>
       </div>
     </section>
