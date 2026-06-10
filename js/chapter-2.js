@@ -150,7 +150,7 @@
       source: 'https://www.fao.org/3/i7959e/i7959e.pdf',
     },
     {
-      question: 'Насколько чаще стали случаться наводнения за&nbsp;последние 25&nbsp;лет?',
+      question: 'Насколько чаще (в процентах) стали случаться наводнения за&nbsp;последние 25&nbsp;лет?',
       min: 0, max: 200, step: 1, correct: 134,
       fact: 'Количество наводнений увеличилось примерно на&nbsp;134% за&nbsp;последние 20&nbsp;лет',
       source: 'https://public.wmo.int/en/media/press-release/wake-looming-water-crisis-report-warns',
