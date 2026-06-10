@@ -204,6 +204,20 @@ ol {
   margin: 0;
 }
 
+.body-list {
+  font-family: var(--font-main);
+  font-size: 20px;
+  line-height: 28px;
+  margin: 0 0 0 -1.2em;
+  padding: 0;
+  list-style: disc;
+  padding-left: 1.2em;
+}
+
+.body-list li + li {
+  margin-top: 12px;
+}
+
 .caption-italic {
   /* Цитата / подпись курсивом */
   color: var(--color-accent);
@@ -1642,6 +1656,7 @@ ol {
 
   /* Типографика */
   .body-text  { font-size: 16px; line-height: 24px; }
+  .body-list  { font-size: 16px; line-height: 24px; margin-left: 0; }
   .heading-lg { font-size: 24px; line-height: 30px; }
   .heading-md { font-size: 20px; line-height: 26px; }
 
