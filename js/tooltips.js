@@ -42,6 +42,7 @@
   let box, overlay, activeEl = null;
   let scrollLockY = 0;          // запомненная позиция скролла на время лока
   let bodyLocked = false;       // флаг активного лока, чтобы не сбрасывать скролл зря
+  let touchedAt = 0;            // время последнего touchstart — гасим синтетический click
 
   /* ─── Лок скролла фона, пока открыта мобильная шторка ───
    * Фиксируем body на текущей позиции. Это останавливает скролл страницы,
@@ -223,9 +224,10 @@
       el.addEventListener('focus', () => show(text, el));
       el.addEventListener('blur',  hide);
 
-      // Тач: тап по слову. preventDefault гасит синтетический click после touch
+      // Тач: тап по слову. preventDefault гасит синтетический click после touch.
       el.addEventListener('touchstart', e => {
         e.preventDefault();
+        touchedAt = Date.now();   // пометка: ниже глобальный click это проигнорит
         if (activeEl === el && box.style.display === 'block') hide();
         else show(text, el);
       }, { passive: false });
@@ -236,8 +238,11 @@
       { passive: false });
     overlay.addEventListener('click', hide);
 
-    // Десктоп: клик вне тултипа закрывает
+    // Десктоп: клик вне тултипа закрывает.
+    // Синтетический click после тача (в пределах ~500мс от touchstart) игнорируем —
+    // тач уже обработан своим хендлером, иначе тултип схлопнется сразу после тапа.
     document.addEventListener('click', e => {
+      if (Date.now() - touchedAt < 500) return;
       if (e.target.closest('.term-tooltip') || e.target.closest('#tooltip-global')) return;
       hide();
     });
@@ -245,8 +250,16 @@
     // Escape закрывает
     document.addEventListener('keydown', e => { if (e.key === 'Escape') hide(); });
 
-    // При ресайзе/смене ориентации прячем, чтобы не зависало между режимами
-    window.addEventListener('resize', () => { if (activeEl) hide(); }, { passive: true });
+    // При смене ориентации/ширины прячем, чтобы не зависало между режимами.
+    // ВАЖНО: реагируем только на смену ШИРИНЫ. Высота вьюпорта на мобилке
+    // постоянно меняется (адресная строка, лок body) — на это закрываться нельзя,
+    // иначе тултип схлопывается сразу после тапа.
+    let lastWidth = window.innerWidth;
+    window.addEventListener('resize', () => {
+      if (window.innerWidth === lastWidth) return;   // изменилась только высота — игнор
+      lastWidth = window.innerWidth;
+      if (activeEl) hide();
+    }, { passive: true });
 
     return bound;
   }
