@@ -604,8 +604,6 @@
 <div class="tooltip" id="tooltip-global" role="tooltip" aria-live="polite"></div>
 
 <!-- Загрузчик компонентов -->
-  <script src="js/no-hanging-prepositions.js"></script>
-  <script src="js/tooltips.js"></script>
 <script src="js/components.js"></script>
 <!-- Интерактивность страницы -->
 <script src="js/chapter-5.js" defer></script>

@@ -536,8 +536,6 @@
 </div><!-- /.page -->
 
 <!-- Scripts -->
-  <script src="js/no-hanging-prepositions.js"></script>
-  <script src="js/tooltips.js"></script>
 <script src="js/components.js"></script>
 <script src="js/chapter-4.js"></script>
 

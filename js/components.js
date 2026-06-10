@@ -44,6 +44,15 @@
     initActiveChapter();
     initReveal();
     initHorizontalScroll();
+    // Убираем висячие предлоги во всём документе (включая вставленные
+    // компоненты header/footer). Функция из no-hanging-prepositions.js.
+    if (typeof window.fixHangingPrepositions === 'function') {
+      window.fixHangingPrepositions();
+    }
+    // Единые тултипы к терминам (.term-tooltip). Функция из tooltips.js.
+    if (typeof window.initTooltips === 'function') {
+      window.initTooltips();
+    }
   }
 
   /* ─── Горизонтальный скролл на тач-устройствах ─── */

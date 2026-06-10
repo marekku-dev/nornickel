@@ -239,79 +239,9 @@
   }
 
   /* ════════════════════════════════════════════════════════════
-   *  4. TOOLTIPS
+   *  4. TOOLTIPS — вынесены в общий js/tooltips.js (объект TOOLTIPS).
+   *     initTooltips() зовётся из components.js, здесь дублировать не нужно.
    * ════════════════════════════════════════════════════════════ */
-
-  const TOOLTIP_DATA = {
-    'span-albedo': 'Альбедо — способность поверхности отражать свет, а не поглощать его. У снега высокое альбедо, он хорошо отражает солнечные лучи, а асфальт — низкое, поглощает большую часть света.',
-    'span-arctic': 'Национальный план 2 этапа адаптации. Распоряжение Правительства Российской Федерации от 11 марта 2023 г. № 559-р',
-  };
-
-  function initTooltips() {
-    const box = document.getElementById('tooltip-global');
-    if (!box) return;
-
-    const isMobile = () => window.innerWidth <= 768;
-
-    // Мобильный оверлей
-    let overlay = document.getElementById('tooltip-overlay');
-    if (!overlay) {
-      overlay = document.createElement('div');
-      overlay.id = 'tooltip-overlay';
-      document.body.appendChild(overlay);
-    }
-
-    function showTooltip(text, el) {
-      box.textContent = text;
-      if (isMobile()) {
-        box.classList.add('tooltip--mobile');
-        overlay.classList.add('tooltip-overlay--visible');
-        box.style.display = 'block';
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          box.classList.add('tooltip--visible');
-        }));
-      } else {
-        box.classList.remove('tooltip--mobile');
-        box.style.display = 'block';
-        const r = el.getBoundingClientRect();
-        box.style.top  = (r.bottom + window.scrollY + 8) + 'px';
-        box.style.left = Math.max(10, Math.min(r.left, window.innerWidth - 500)) + 'px';
-      }
-    }
-
-    function hideTooltip() {
-      if (isMobile()) {
-        box.classList.remove('tooltip--visible');
-        overlay.classList.remove('tooltip-overlay--visible');
-        setTimeout(() => { box.style.display = 'none'; }, 250);
-      } else {
-        box.style.display = 'none';
-      }
-    }
-
-    for (const [id, text] of Object.entries(TOOLTIP_DATA)) {
-      const el = document.getElementById(id);
-      if (!el) continue;
-      el.addEventListener('mouseenter', () => showTooltip(text, el));
-      el.addEventListener('mouseleave', hideTooltip);
-      el.addEventListener('focus',      () => showTooltip(text, el));
-      el.addEventListener('blur',       hideTooltip);
-      el.addEventListener('touchstart', e => {
-        e.preventDefault();
-        showTooltip(text, el);
-      }, { passive: false });
-    }
-
-    overlay.addEventListener('touchstart', e => {
-      e.preventDefault();
-      hideTooltip();
-    }, { passive: false });
-
-    document.addEventListener('click', e => {
-      if (e.target.closest('.term-tooltip') || e.target.closest('#tooltip-global')) return;
-      hideTooltip();
-    });
-  }
 
   /* ════════════════════════════════════════════════════════════
    *  INIT
@@ -322,7 +252,6 @@
     initSlider('slider-ecosystems');
     initBeforeAfter();
     initQuiz();
-    initTooltips();
   });
 
 })();

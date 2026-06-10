@@ -547,8 +547,6 @@
 <div class="tooltip" id="tooltip-global" role="tooltip" aria-live="polite"></div>
 
 <!-- Загрузчик компонентов (header, footer, прогресс-бар, меню, fade-in) -->
-  <script src="js/no-hanging-prepositions.js"></script>
-  <script src="js/tooltips.js"></script>
 <script src="js/components.js"></script>
 <!-- Интерактивность страницы (слайдеры, sticky, tooltips, физика) -->
 <script src="js/chapter-1.js"></script>

@@ -902,7 +902,7 @@ ol {
 
 /* По умолчанию (десктоп) показываем только десктопные фото */
 .sticky-images__img--mobile { display: none; }
-.sticky-images__img--desktop { display: block; }
+.sticky-images__img--desktop { display: block; object-fit: cover; }
 
 /* Текстовые карточки, которые триггерят смену фото */
 .sticky-text-card {
@@ -1587,16 +1587,98 @@ ol {
   display: none;
   position: fixed;
   z-index: 9999;
-  width: 480px;
+  width: 420px;
   max-width: calc(100vw - 20px);
-  padding: 12px;
+  padding: 14px 16px;
   font-family: var(--font-main);
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.5;
   color: var(--color-text);
   background: var(--color-white);
+  border: 1px solid var(--color-accent-mid);
   border-radius: var(--radius-sm);
-  box-shadow: 0 0 8px rgba(0, 0, 0, .1);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, .12);
+  /* лёгкое появление на десктопе */
+  animation: tooltip-fade .14s ease;
+}
+
+@keyframes tooltip-fade {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Активное слово — подсвечиваем, пока тултип открыт */
+.term-tooltip--active {
+  background: var(--color-accent-faint);
+  border-color: var(--color-accent);
+}
+
+/* Иконка-подсказка рядом со словом (assets/tooltip.svg).
+   Через mask, чтобы красить в цвет акцента и подсвечивать в активном состоянии. */
+.term-tooltip::after {
+  content: '';
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin-left: 5px;
+  vertical-align: -2px;
+  background: var(--color-accent-hover);
+  -webkit-mask: url('../assets/tooltip.svg') center / contain no-repeat;
+          mask: url('../assets/tooltip.svg') center / contain no-repeat;
+}
+
+.term-tooltip--active::after {
+  background: var(--color-accent);
+}
+
+/* ─── Мобильная шторка снизу ─── */
+@media screen and (max-width: 768px) {
+  .tooltip--mobile {
+    position: fixed;
+    left: 10px;
+    right: 10px;
+    bottom: env(safe-area-inset-bottom, 0px);
+    top: auto;
+    width: auto;
+    max-width: none;
+    padding: 18px 18px calc(18px + env(safe-area-inset-bottom, 0px));
+    font-size: 16px;
+    border: none;
+    border-radius: 14px 14px 0 0;
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, .18);
+    transform: translateY(100%);
+    opacity: 0;
+    animation: none;                 /* на мобилке свой transition */
+    transition: transform .25s ease, opacity .25s ease;
+  }
+  .tooltip--mobile.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  /* маленький «грабельный» индикатор сверху шторки */
+  .tooltip--mobile::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--color-accent-mid);
+  }
+}
+
+/* Затемнение под мобильной шторкой */
+#tooltip-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: rgba(0, 0, 0, .3);
+}
+#tooltip-overlay.is-visible {
+  display: block;
 }
 
 

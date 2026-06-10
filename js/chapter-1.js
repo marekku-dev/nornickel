@@ -138,37 +138,9 @@
   }
 
   /* ════════════════════════════════════════════════════════════
-   *  3. TOOLTIPS
+   *  3. TOOLTIPS — вынесены в общий js/tooltips.js (см. объект TOOLTIPS).
+   *     Здесь больше ничего не нужно: initTooltips() зовётся из components.js.
    * ════════════════════════════════════════════════════════════ */
-
-  const TOOLTIP_DATA = {
-    'span-warming': 'Определение МГЭИК — межправительственной группы экспертов по изменению климата',
-  };
-
-  function initTooltips() {
-    const box = document.getElementById('tooltip-global');
-    if (!box) return;
-
-    for (const [id, text] of Object.entries(TOOLTIP_DATA)) {
-      const el = document.getElementById(id);
-      if (!el) continue;
-
-      const show = () => {
-        box.textContent = text;
-        box.style.display = 'block';
-        const r = el.getBoundingClientRect();
-        const tooltipW = 360; // примерная ширина, см. CSS
-        box.style.top  = (r.bottom + window.scrollY + 8) + 'px';
-        box.style.left = Math.max(10, Math.min(r.left, window.innerWidth - tooltipW - 10)) + 'px';
-      };
-      const hide = () => { box.style.display = 'none'; };
-
-      el.addEventListener('mouseenter', show);
-      el.addEventListener('focus',      show);
-      el.addEventListener('mouseleave', hide);
-      el.addEventListener('blur',       hide);
-    }
-  }
 
   /* ════════════════════════════════════════════════════════════
    *  4. P5.JS PHYSICS ANIMATIONS
@@ -404,7 +376,6 @@
     initSlider('slider-causes');
     initSlider('slider-scientists');
     initImageSync();
-    initTooltips();
 
     // p5.js запускаем в idle, чтобы не задерживать FID
     if ('requestIdleCallback' in window) {
