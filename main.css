@@ -1943,12 +1943,11 @@ ol {
   flex-direction: column;
   border-radius: var(--radius-md);
   overflow: hidden;
-  background: var(--color-white);
+  background: var(--color-card-bg);
 }
 
 .portrait-card__image {
   width: 100%;
-  aspect-ratio: 3 / 4;
   object-fit: cover;
   mix-blend-mode: darken;
 }
