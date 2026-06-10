@@ -5,6 +5,7 @@
  * Модули:
  *  1. ExpandingCards — раскрывающиеся карточки-аккордеон
  *  2. FlipCards      — флип-карточки транспорта (touch-поддержка)
+ *  3. CardSliders    — мобильный слайдер для cards-three-grid
  */
 
 (function () {
@@ -80,12 +81,70 @@
   }
 
   /* ════════════════════════════════════════════════════════════
+   *  3. CARD SLIDERS (мобильный, только ≤767px)
+   * ════════════════════════════════════════════════════════════ */
+
+  function initCardSlider(id) {
+    // Активируем только на мобильном
+    if (window.innerWidth > 767) return;
+
+    const wrapper = document.getElementById(id);
+    const track   = document.getElementById(id + '-mask');
+    const nav     = document.getElementById(id + '-nav');
+    if (!wrapper || !track || !nav) return;
+
+    const slides = Array.from(track.querySelectorAll('.cards-three-grid__slide'));
+    const total  = slides.length;
+    if (!total) return;
+
+    let current = 0;
+
+    // Создаём точки
+    nav.innerHTML = '';
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'slider__dot' + (i === 0 ? ' slider__dot--active' : '');
+      dot.type = 'button';
+      dot.setAttribute('aria-label', `Карточка ${i + 1}`);
+      dot.addEventListener('click', () => go(i));
+      nav.appendChild(dot);
+    });
+
+    function render() {
+      // Каждый слайд: ширина + margin-left (20px)
+      const slideWidth = slides[0].getBoundingClientRect().width + 10;
+      const offset = current * slideWidth;
+      track.style.transform = `translateX(-${offset}px)`;
+      nav.querySelectorAll('.slider__dot').forEach((d, i) => {
+        d.classList.toggle('slider__dot--active', i === current);
+      });
+    }
+
+    function go(index) {
+      current = Math.max(0, Math.min(index, total - 1));
+      render();
+    }
+
+    // Свайп
+    let startX = 0;
+    track.addEventListener('touchstart', e => { startX = e.changedTouches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend',   e => {
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 40) go(current + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+
+    render();
+  }
+
+  /* ════════════════════════════════════════════════════════════
    *  INIT
    * ════════════════════════════════════════════════════════════ */
 
   document.addEventListener('DOMContentLoaded', () => {
     initExpandingCards();
     initFlipCards();
+    initCardSlider('slider-tools');
+    initCardSlider('slider-kyoto');
   });
 
 })();

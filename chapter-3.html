@@ -89,7 +89,7 @@
         <p class="body-text">Изменение климата заставляет мир отказываться от&nbsp;привычных источников энергии — угля, нефти и&nbsp;газа. Чтобы снизить углеродный след и&nbsp;замедлить глобальное потепление, страны и&nbsp;компании активно развивают альтернативную энергетику. Возобновляемые источники энергии (ВИЭ) становятся главным направлением для&nbsp;всего энергетического сектора.</p>
       </div>
 
-      <div class="image-block reveal">
+      <div class="graph-wide-wrapper reveal">
         <div class="graph-scroll">
           <picture>
             <source media="(max-width: 767px)" srcset="img/ch3-energy-chart-mobile.svg" >
@@ -468,11 +468,13 @@
             </span>
           </div>
           <div class="card-expanding__body">
-            <p><strong>Соответствовать законам.</strong> Проект не&nbsp;должен нарушать федеральные и&nbsp;региональные законы.</p>
-            <p><strong>Не&nbsp;переносить выбросы в&nbsp;другое место.</strong> Сокращение выбросов на&nbsp;одном заводе не&nbsp;должно приводить к их&nbsp;росту у&nbsp;подрядчика или&nbsp;в&nbsp;соседнем регионе.</p>
-            <p><strong>Быть добровольным, а&nbsp;не обязательным.</strong> Проект должен быть сверх того, что&nbsp;компания и&nbsp;так обязана делать по&nbsp;закону.</p>
-            <p><strong>Снижать выбросы за&nbsp;счёт технологий, а&nbsp;не спада производства.</strong> Нельзя просто остановить завод и&nbsp;заявить о&nbsp;сокращении выбросов.</p>
-            <p><strong>Результат должен быть достигнут именно благодаря проекту.</strong> Если&nbsp;выбросы снизились из-за&nbsp;тёплой зимы или&nbsp;падения спроса, это&nbsp;не&nbsp;считается заслугой проекта.</p>
+            <ol>
+              <li><strong>Соответствовать законам.</strong> Проект не&nbsp;должен нарушать федеральные и&nbsp;региональные законы.</li>
+              <li><strong>Не&nbsp;переносить выбросы в&nbsp;другое место.</strong> Сокращение выбросов на&nbsp;одном заводе не&nbsp;должно приводить к их&nbsp;росту у&nbsp;подрядчика или&nbsp;в&nbsp;соседнем регионе.</li>
+              <li><strong>Быть добровольным, а&nbsp;не обязательным.</strong> Проект должен быть сверх того, что&nbsp;компания и&nbsp;так обязана делать по&nbsp;закону.</li>
+              <li><strong>Снижать выбросы за&nbsp;счёт технологий, а&nbsp;не спада производства.</strong> Нельзя просто остановить завод и&nbsp;заявить о&nbsp;сокращении выбросов.</li>
+              <li><strong>Результат должен быть достигнут именно благодаря проекту.</strong> Если&nbsp;выбросы снизились из-за&nbsp;тёплой зимы или&nbsp;падения спроса, это&nbsp;не&nbsp;считается заслугой проекта.</li>
+            </ol>
           </div>
         </div>
       </div>
@@ -498,9 +500,11 @@
             </span>
           </div>
           <div class="card-expanding__body">
-            <p><strong>Чтобы компенсировать свои выбросы.</strong> Это&nbsp;помогает компаниям управлять своим углеродным следом и&nbsp;двигаться к&nbsp;цели по&nbsp;достижению углеродной нейтральности.</p>
-            <p><strong>Чтобы выполнять требования законодательства.</strong> Например, для&nbsp;участия в&nbsp;региональных климатических программах (таких как&nbsp;Сахалинский эксперимент), соответствия международным нормам (например, европейскому CBAM) или&nbsp;выполнения других государственных требований.</p>
-            <p><strong>Чтобы поддержать важные климатические проекты.</strong> Многие инициативы, например, строительство новых солнечных электростанций или&nbsp;восстановление лесов, не&nbsp;состоялись бы&nbsp;без такой финансовой поддержки.</p>
+            <ol>
+              <li><strong>Чтобы компенсировать свои выбросы.</strong> Это&nbsp;помогает компаниям управлять своим углеродным следом и&nbsp;двигаться к&nbsp;цели по&nbsp;достижению углеродной нейтральности.</li>
+              <li><strong>Чтобы выполнять требования законодательства.</strong> Например, для&nbsp;участия в&nbsp;региональных климатических программах (таких как&nbsp;Сахалинский эксперимент), соответствия международным нормам (например, европейскому CBAM) или&nbsp;выполнения других государственных требований.</li>
+              <li><strong>Чтобы поддержать важные климатические проекты.</strong> Многие инициативы, например, строительство новых солнечных электростанций или&nbsp;восстановление лесов, не&nbsp;состоялись бы&nbsp;без такой финансовой поддержки.</li>
+            </ol>
           </div>
         </div>
       </div>
@@ -536,28 +540,31 @@
         <p class="body-text">Самыми гибкими считаются рыночные инструменты, которые создают так&nbsp;называемую «цену на&nbsp;углерод». Идея проста: заставить компании платить за&nbsp;выбросы парниковых газов. Это&nbsp;позволяет «монетизировать» ущерб для&nbsp;природы и&nbsp;включить его&nbsp;в&nbsp;стоимость продукции.</p>
       </div>
 
-      <div class="cards-three-grid reveal">
-        <div class="card-3">
-          <img src="img/ch3-icon1.png" loading="lazy" alt="Углеродный налог" class="card-3__img">
-          <div class="card-3__body">
-            <p class="card-3__title">Углеродный налог</p>
-            <p class="card-3__caption">Вводится прямой налог на&nbsp;каждую тонну выбросов. Это&nbsp;мотивирует компании снижать своё воздействие на&nbsp;окружающую среду.</p>
+      <div class="cards-three-grid reveal" id="slider-tools">
+        <div id="slider-tools-mask" class="cards-three-grid__track">
+          <div class="cards-three-grid__slide card-3">
+            <img src="img/ch3-icon1.png" loading="lazy" alt="Углеродный налог" class="card-3__img">
+            <div class="card-3__body">
+              <p class="card-3__title">Углеродный налог</p>
+              <p class="card-3__caption">Вводится прямой налог на&nbsp;каждую тонну выбросов. Это&nbsp;мотивирует компании снижать своё воздействие на&nbsp;окружающую среду.</p>
+            </div>
+          </div>
+          <div class="cards-three-grid__slide card-3">
+            <img src="img/ch3-icon2.png" loading="lazy" alt="Система торговли квотами" class="card-3__img">
+            <div class="card-3__body">
+              <p class="card-3__title">Система торговли квотами</p>
+              <p class="card-3__caption">Государство устанавливает общий лимит выбросов и&nbsp;распределяет или&nbsp;продаёт компаниям квоты. Компании, которые сократили свои выбросы ниже квоты, могут продать излишек тем, кто в&nbsp;лимит не&nbsp;уложился.</p>
+            </div>
+          </div>
+          <div class="cards-three-grid__slide card-3">
+            <img src="img/ch3-icon3.png" loading="lazy" alt="Добровольный рынок углеродных единиц" class="card-3__img">
+            <div class="card-3__body">
+              <p class="card-3__title">Добровольный рынок углеродных единиц</p>
+              <p class="card-3__caption">Компании могут добровольно финансировать климатические проекты и&nbsp;получать за&nbsp;это углеродные единицы для&nbsp;компенсации собственного следа.</p>
+            </div>
           </div>
         </div>
-        <div class="card-3">
-          <img src="img/ch3-icon2.png" loading="lazy" alt="Система торговли квотами" class="card-3__img">
-          <div class="card-3__body">
-            <p class="card-3__title">Система торговли квотами</p>
-            <p class="card-3__caption">Государство устанавливает общий лимит выбросов и&nbsp;распределяет или&nbsp;продаёт компаниям квоты. Компании, которые сократили свои выбросы ниже квоты, могут продать излишек тем, кто в&nbsp;лимит не&nbsp;уложился.</p>
-          </div>
-        </div>
-        <div class="card-3">
-          <img src="img/ch3-icon3.png" loading="lazy" alt="Добровольный рынок углеродных единиц" class="card-3__img">
-          <div class="card-3__body">
-            <p class="card-3__title">Добровольный рынок углеродных единиц</p>
-            <p class="card-3__caption">Компании могут добровольно финансировать климатические проекты и&nbsp;получать за&nbsp;это углеродные единицы для&nbsp;компенсации собственного следа.</p>
-          </div>
-        </div>
+        <div id="slider-tools-nav" class="cards-three-grid__dots"></div>
       </div>
 
       <div class="text-block reveal">
@@ -587,28 +594,31 @@
         <p class="body-text">Глобальный углеродный рынок начал формироваться в&nbsp;2005 году, когда&nbsp;вступил в&nbsp;силу Киотский протокол. Этот&nbsp;документ предложил странам, взявшим на&nbsp;себя обязательства по&nbsp;сокращению выбросов, три основных механизма.</p>
       </div>
 
-      <div class="cards-three-grid reveal">
-        <div class="card-3">
-          <img src="img/ch3-icon4.png" loading="lazy" alt="Прямая торговля квотами" class="card-3__img">
-          <div class="card-3__body">
-            <p class="card-3__title">Прямая торговля квотами</p>
-            <p class="card-3__caption">Страны могли покупать и&nbsp;продавать друг другу свои квоты на&nbsp;выбросы.</p>
+      <div class="cards-three-grid reveal" id="slider-kyoto">
+        <div id="slider-kyoto-mask" class="cards-three-grid__track">
+          <div class="cards-three-grid__slide card-3">
+            <img src="img/ch3-icon4.png" loading="lazy" alt="Прямая торговля квотами" class="card-3__img">
+            <div class="card-3__body">
+              <p class="card-3__title">Прямая торговля квотами</p>
+              <p class="card-3__caption">Страны могли покупать и&nbsp;продавать друг другу свои квоты на&nbsp;выбросы.</p>
+            </div>
+          </div>
+          <div class="cards-three-grid__slide card-3">
+            <img src="img/ch3-icon5.png" loading="lazy" alt="Механизм чистого развития" class="card-3__img">
+            <div class="card-3__body">
+              <p class="card-3__title">Механизм чистого развития</p>
+              <p class="card-3__caption">Развитые страны могли финансировать климатические проекты в&nbsp;развивающихся странах (например, строить там солнечные электростанции) и&nbsp;получать за&nbsp;это углеродные единицы в&nbsp;зачёт своих обязательств.</p>
+            </div>
+          </div>
+          <div class="cards-three-grid__slide card-3">
+            <img src="img/ch3-icon6.png" loading="lazy" alt="Совместное осуществление" class="card-3__img">
+            <div class="card-3__body">
+              <p class="card-3__title">Совместное осуществление</p>
+              <p class="card-3__caption">То же&nbsp;самое, но&nbsp;проекты реализовывались на&nbsp;территории других развитых стран, также взявших на&nbsp;себя обязательства.</p>
+            </div>
           </div>
         </div>
-        <div class="card-3">
-          <img src="img/ch3-icon5.png" loading="lazy" alt="Механизм чистого развития" class="card-3__img">
-          <div class="card-3__body">
-            <p class="card-3__title">Механизм чистого развития</p>
-            <p class="card-3__caption">Развитые страны могли финансировать климатические проекты в&nbsp;развивающихся странах (например, строить там солнечные электростанции) и&nbsp;получать за&nbsp;это углеродные единицы в&nbsp;зачёт своих обязательств.</p>
-          </div>
-        </div>
-        <div class="card-3">
-          <img src="img/ch3-icon6.png" loading="lazy" alt="Совместное осуществление" class="card-3__img">
-          <div class="card-3__body">
-            <p class="card-3__title">Совместное осуществление</p>
-            <p class="card-3__caption">То же&nbsp;самое, но&nbsp;проекты реализовывались на&nbsp;территории других развитых стран, также взявших на&nbsp;себя обязательства.</p>
-          </div>
-        </div>
+        <div id="slider-kyoto-nav" class="cards-three-grid__dots"></div>
       </div>
 
       <div class="text-block reveal">
@@ -644,7 +654,7 @@
     <!-- SECTION 13: Завершение -->
     <section class="section reveal" aria-labelledby="heading-closing">
       <div class="text-block">
-        <h2 class="heading-lg" id="heading-closing">Экономические меры и&nbsp;технологические решения — это&nbsp;важные инструменты</h2>
+        <p class="body-text">Экономические меры и&nbsp;технологические решения — это&nbsp;важные инструменты.</p>
         <p class="body-text">Но&nbsp;чтобы они работали в&nbsp;глобальном масштабе, нужны общие правила и&nbsp;политическая воля. В&nbsp;следующем разделе речь пойдёт о&nbsp;том, как&nbsp;мировое сообщество пытается договориться и&nbsp;какие соглашения лежат в&nbsp;основе климатической политики.</p>
       </div>
     </section>

@@ -2240,6 +2240,18 @@ ol {
   margin-top: 12px;
 }
 
+.card-expanding__body ol {
+  padding-left: 24px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card-expanding__body ol li {
+  padding-left: 4px;
+}
+
 
 /* ─── Группа раскрывающихся карточек ─── */
 .expanding-group {
@@ -2439,8 +2451,19 @@ ol {
   margin: 0 0 40px 0;
 }
 
+/* На десктопе обёртки слайдера прозрачны — содержимое лежит в гриде */
+.cards-three-grid__track {
+  display: contents;
+}
+.cards-three-grid__slide {
+  /* без ограничений — это просто card-3 в гриде */
+}
+.cards-three-grid__dots {
+  display: none;
+}
+
 .card-3 {
-  background: var(--color-bg);
+  background: var(--color-card-bg);
   border-radius: var(--radius-md);
   overflow: hidden;
   display: flex;
@@ -2630,7 +2653,7 @@ ol {
   border-radius: var(--radius-lg);
   padding: 40px 48px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 3fr;
   gap: 40px;
   align-items: start;
   margin: 0 40px;
@@ -2816,7 +2839,40 @@ ol {
   /* Сетки карточек */
   .cards-white-grid    { padding: 0 12px; gap: 8px; }
   .cards-white-grid > * { flex: 0 1 calc(50% - 4px); max-width: calc(50% - 4px); }
-  .cards-three-grid    { grid-template-columns: 1fr; padding: 0 12px; width: 100%; max-width: 100%; }
+  .cards-three-grid    { display: block; padding: 0; width: 100vw; max-width: 100vw; overflow: hidden; margin-left: calc(-1 * (100vw - 100%) / 2); }
+  .cards-three-grid__track {
+    display: flex;
+    transition: transform .4s ease;
+    will-change: transform;
+  }
+  .cards-three-grid__slide {
+    min-width: calc(100vw - 20px);
+    max-width: calc(100vw - 20px);
+    flex-shrink: 0;
+    margin-left: 10px;
+    padding: 24px;
+    box-sizing: border-box;
+  }
+  .cards-three-grid__dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 0 4px;
+  }
+  .cards-three-grid__dots .slider__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(26, 26, 26, 0.2);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background .2s, transform .2s;
+  }
+  .cards-three-grid__dots .slider__dot--active {
+    background: var(--color-accent);
+    transform: scale(1.2);
+  }
   .cards-numbers-grid  { grid-template-columns: repeat(2, 1fr); padding: 0 12px; gap: 8px; }
 
   /* Таблица адаптации */
@@ -3404,7 +3460,7 @@ ol {
 @media screen and (max-width: 480px) {
   .adaptation-col__list { gap: 0; }
   .adaptation-col__list li {border-top: none; padding-top: 8px;}
-  .card-3__img {width: 25%;}
+  .card-3__img {width: 50%;}
   .cards-three-grid { gap: 16px; }
   .site-footer__tagline { display: none; }
   #slider-footprint { display: none; }
