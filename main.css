@@ -311,7 +311,7 @@ ol {
   background-color: var(--color-bg);
   display: flex;
   flex-flow: column;
-  width: 100vw;
+  width: 100%;
   min-height: 100dvh;
   position: relative;
 }
@@ -339,7 +339,8 @@ ol {
   flex-flow: row;
   justify-content: space-between;
   align-items: center;
-  width: 100vw;
+  /* width: 100vw убран — left:0/right:0 уже растягивают шапку по контенту,
+     а 100vw включает ширину скроллбара и даёт горизонтальный скролл */
   height: 50px;
   padding: 4px 10px;
   /* Цвет текста/иконок шапки — молочный по умолчанию (над фото) */
