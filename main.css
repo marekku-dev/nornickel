@@ -1729,6 +1729,20 @@ ol {
   .physics-cards { display: none; }
   .slider        { display: block; max-width: 100%; }
 
+  /* Портретный слайдер экосистем: карточка во весь экран минус поля 10px.
+     Контейнер растягиваем на 100vw и центрируем, чтобы overflow:hidden
+     слайдера не срезал карточку по краям. */
+  #slider-ecosystems {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
+  #slider-ecosystems .portrait-card {
+    width: calc(100vw - 20px);
+    margin: 0 auto;
+  }
+
   /* Слайдер на мобиле во всю ширину */
   .slider--mobile-full {
     width: 100%;
