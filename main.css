@@ -895,22 +895,14 @@ ol {
   z-index: 2;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  opacity: 0;
   transition: opacity .5s ease-in-out;
 }
 
-/* Версия для мобильных (стопка без sticky) */
-.sticky-images--mobile {
-  display: none;
-}
-
-.sticky-images--mobile img {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  width: 100%;
-  display: block;
-}
+/* По умолчанию (десктоп) показываем только десктопные фото */
+.sticky-images__img--mobile { display: none; }
+.sticky-images__img--desktop { display: block; }
 
 /* Текстовые карточки, которые триггерят смену фото */
 .sticky-text-card {
@@ -959,10 +951,9 @@ ol {
   position: relative;
   display: flex;
   flex-flow: column;
-  justify-content: flex-end;
   align-items: center;
   width: 100%;
-  background-color: var(--color-white);
+  background-color: transparent;
   border-radius: var(--radius-md);
   overflow: hidden;
 }
@@ -970,15 +961,16 @@ ol {
 .slide-card__image {
   width: 100%;
   max-height: 400px;
-  object-fit: cover;
+  object-fit: contain;
   mix-blend-mode: darken;
 }
 
 .slide-card__footer {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 5px;
-  padding: 15px 10px;
+  gap: 10px;
+  padding: 0 10px 16px;
   color: var(--color-accent);
 }
 
@@ -1150,7 +1142,7 @@ ol {
 
 .factors-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 4px;
   margin-top: 20px;
 }
@@ -1177,18 +1169,20 @@ ol {
    ============================================================================= */
 
 .scientist-slide-card {
+  width: calc(100vw - 20px);
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   padding: 20px;
-  background: var(--color-white);
+  background: var(--color-card-bg);
   border-radius: var(--radius-md);
 }
 
 .scientist-slide-card__photo {
   width: 100%;
-  max-height: 220px;
+  height: 320px;
   object-fit: contain;
+  align-self: center;
   mix-blend-mode: darken;
 }
 
@@ -1197,8 +1191,29 @@ ol {
   flex-direction: column;
   gap: 6px;
   padding: 12px 0 0;
-  text-align: center;
+  text-align: left;
 }
+
+.scientist-slide-card__info .scientist-item__name {
+  margin-top: 0;
+  text-align: left;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+/* Слайдер учёных: убираем точки-навигацию, оставляем стрелки */
+#slider-scientists .slider__dots {
+  display: none;
+}
+
+/* Карточка с полями 10px по бокам, чтобы не упиралась в край экрана */
+#slider-scientists .slider__slide {
+  padding: 0 10px;
+}
+
+/* Стрелки с отступом 20px от края */
+#slider-scientists .slider__arrow--prev { left: 20px; }
+#slider-scientists .slider__arrow--next { right: 20px; }
 
 /* Первый sticky-img видим по умолчанию */
 .sticky-images__img--visible {
@@ -1640,9 +1655,9 @@ ol {
   /* Графики */
   .graph-wide-wrapper       { padding: 0 12px; }
   .graph-wide               { padding: 20px 16px 30px; border-radius: var(--radius-md); }
-  .graph-mid                { width: 100%; padding: 20px 16px; border-radius: var(--radius-md); }
+  .graph-mid                { width: calc(100% - 20px); padding: 20px 16px; border-radius: var(--radius-md); }
   .graph-fullwidth--desktop { display: none; }
-  .graph-fullwidth--mobile  { display: block; width: 100%; margin: 24px 0; }
+  .graph-fullwidth--mobile  { display: block; width: 100%; margin: 24px 0; padding: 0 20px;}
   .factors-block            { width: calc(100% - 24px); padding: 20px 16px; border-radius: var(--radius-md); }
 
   /* Герой */
@@ -1660,15 +1675,29 @@ ol {
   .heading-lg { font-size: 24px; line-height: 30px; }
   .heading-md { font-size: 20px; line-height: 26px; }
 
-  /* Sticky-зона */
-  .sticky-section            { margin-bottom: 20px; }
-  .sticky-images             { display: none; }
-  .sticky-images--mobile     { display: flex; flex-direction: column; position: relative; width: 100%; gap: 0; }
-  .sticky-images--mobile img { position: relative; inset: auto; width: 100%; height: 60vw; object-fit: cover; }
-  .sticky-text-card          { margin-bottom: 0; margin-top: 0; padding: 20px 16px; border-radius: 0; max-width: 100%; width: 100%; }
+  /* Sticky-зона: та же sticky-механика, что и на десктопе,
+     но с мобильными фото и более узкими карточками */
+  .sticky-section { margin-bottom: 20px; }
+
+  /* На мобиле показываем мобильные фото, прячем десктопные */
+  .sticky-images__img--desktop { display: none; }
+  .sticky-images__img--mobile  { display: block; }
+
+  .sticky-text-card {
+    width: calc(100% - 32px);
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 24px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .08);
+  }
 
   /* Slider card */
-  .slide-card__image { max-height: 56vw; }
+  .slide-card { width: calc(100vw - 20px); margin: 0 auto; background-color: var(--color-bg); }
+  /*.slide-card__image { max-height: 56vw; }*/
+
+  /* Убираем точки-навигацию у слайдера причин */
+  #slider-causes .slider__dots { display: none; }
 
   /* Outro */
   .outro__next-title { font-size: 10vw; line-height: 9vw; }
@@ -1694,7 +1723,7 @@ ol {
   .chapter-screen__text  { font-size: 16px; line-height: 24px; }
 
   /* Учёные */
-  .scientists-grid { gap: 20px; max-width: 100%; padding: 0 12px; }
+  .scientists-grid { display: none; }
   .scientist-item  { width: 100px; min-width: 90px; }
 
   /* Учреждения */
@@ -1717,7 +1746,7 @@ ol {
     max-width: calc(100vw - 20px);
   }
   .heading-xl        { font-size: 12vw; line-height: 10vw; }
-  .two-col           { gap: 24px; }
+  .two-col           { gap: 24px; padding: 0 10px; }
   .adaptation-col__list { gap: 0; }
 }
 
@@ -3576,7 +3605,7 @@ ol {
 @media screen and (max-width: 767px) {
   .resources-block { padding: 20px 16px; max-width: calc(100vw - 20px); }
   .resources-block__grid { gap: 16px; }
-  .resources-block__item { flex: 0 0 calc(50% - 8px); max-width: calc(50% - 8px); }
+  .resources-block__item { flex: 0 0 calc(50% - 8px); }
   .resources-block__grid--3col { grid-template-columns: repeat(2, 1fr); gap: 16px; }
 }
 

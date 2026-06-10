@@ -100,26 +100,41 @@
    * ════════════════════════════════════════════════════════════ */
 
   function initImageSync() {
-    const images = $$('.sticky-images .sticky-images__img');
+    // На мобиле и десктопе используются разные наборы фото,
+    // но смену триггерят одни и те же карточки по их индексу.
+    const desktopImages = $$('.sticky-images .sticky-images__img');
+    const mobileImages  = $$('.sticky-images .sticky-images__img--mobile');
     const cards  = $$('.sticky-text-card');
-    if (!images.length || !cards.length) return;
+    if (!desktopImages.length || !cards.length) return;
 
-    // Сбрасываем видимость — только первое
-    images.forEach((img, i) => { img.style.opacity = i === 0 ? '1' : '0'; });
+    function visibleImages() {
+      // Берём тот набор, который реально отображается (display != none)
+      const useMobile = mobileImages.length &&
+        getComputedStyle(mobileImages[0]).display !== 'none';
+      return useMobile ? mobileImages : desktopImages;
+    }
+
+    function showImage(idx) {
+      visibleImages().forEach((img, i) => {
+        img.style.opacity = i === idx ? '1' : '0';
+      });
+    }
 
     let current = 0;
+    showImage(0);
+
     const obs = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
         const idx = cards.indexOf(entry.target);
         if (idx < 0 || idx === current) return;
         current = idx;
-        images.forEach(img => { img.style.opacity = '0'; });
-        if (images[idx]) images[idx].style.opacity = '1';
+        showImage(idx);
       });
     }, { threshold: 0.5 });
 
     cards.forEach(c => obs.observe(c));
+    window.addEventListener('resize', () => showImage(current));
   }
 
   /* ════════════════════════════════════════════════════════════

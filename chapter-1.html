@@ -101,14 +101,14 @@
 
       <div class="sticky-section">
         <div class="sticky-images">
-          <img src="img/earth-1.jpg" loading="lazy" alt="Земля из космоса — естественный парниковый эффект" class="sticky-images__img sticky-images__img--visible">
-          <img src="img/earth-2.jpg" loading="lazy" alt="Земля — комфортная температура" class="sticky-images__img">
-          <img src="img/earth-3.jpg" loading="lazy" alt="Земля — усиленный парниковый эффект" class="sticky-images__img">
-        </div>
-        <div class="sticky-images--mobile">
-          <img src="img/earth-mobile-1.jpg" loading="lazy" alt="">
-          <img src="img/earth-mobile-2.jpg" loading="lazy" alt="">
-          <img src="img/earth-mobile-3.jpg" loading="lazy" alt="">
+          <!-- Десктопные фото -->
+          <img src="img/earth-1.jpg" loading="lazy" alt="Земля из космоса — естественный парниковый эффект" class="sticky-images__img sticky-images__img--desktop sticky-images__img--visible">
+          <img src="img/earth-2.jpg" loading="lazy" alt="Земля — комфортная температура" class="sticky-images__img sticky-images__img--desktop">
+          <img src="img/earth-3.jpg" loading="lazy" alt="Земля — усиленный парниковый эффект" class="sticky-images__img sticky-images__img--desktop">
+          <!-- Мобильные фото -->
+          <img src="img/earth-mobile-1.jpg" loading="lazy" alt="" class="sticky-images__img sticky-images__img--mobile sticky-images__img--visible">
+          <img src="img/earth-mobile-2.jpg" loading="lazy" alt="" class="sticky-images__img sticky-images__img--mobile">
+          <img src="img/earth-mobile-3.jpg" loading="lazy" alt="" class="sticky-images__img sticky-images__img--mobile">
         </div>
 
         <div class="sticky-text-card">
@@ -147,45 +147,45 @@
             <div class="slide-card">
               <div class="slide-card__footer">
                 <span class="step-badge" aria-label="Шаг 1">1</span>
-                <p class="caption-italic text-center">Деятельность человека — энергетика и промышленность, сельское хозяйство, вырубка лесов и урбанизация — усиливают нагрузку на окружающую среду</p>
+                <p class="caption-italic text-center">Деятельность человека — сельское хозяйство, промышленность, вырубка лесов и&nbsp;урбанизация — усиливает нагрузку на&nbsp;окружающую среду</p>
               </div>
               <img src="img/cause-1.jpg" loading="lazy" alt="Деятельность человека" class="slide-card__image">
             </div>
           </div>
           <div class="slider__slide">
             <div class="slide-card">
-              <img src="img/cause-2.jpg" loading="lazy" alt="Рост концентрации парниковых газов" class="slide-card__image">
               <div class="slide-card__footer">
                 <span class="step-badge" aria-label="Шаг 2">2</span>
-                <p class="caption-italic text-center">Это приводит к росту концентрации парниковых газов (CH₄, CO₂, N₂O) и нарушению углеродного цикла</p>
+                <p class="caption-italic text-center">Это приводит к&nbsp;росту концентрации парниковых газов (CH₄, CO₂, N₂O) и&nbsp;нарушению углеродного цикла</p>
               </div>
+              <img src="img/cause-2.jpg" loading="lazy" alt="Рост концентрации парниковых газов" class="slide-card__image">
             </div>
           </div>
           <div class="slider__slide">
             <div class="slide-card">
-              <img src="img/cause-3.jpg" loading="lazy" alt="Усиление парникового эффекта" class="slide-card__image">
               <div class="slide-card__footer">
                 <span class="step-badge" aria-label="Шаг 3">3</span>
                 <p class="caption-italic text-center">В&nbsp;результате усиливается парниковый эффект, из-за&nbsp;чего больше тепла задерживается в&nbsp;атмосфере</p>
               </div>
+              <img src="img/cause-3.jpg" loading="lazy" alt="Усиление парникового эффекта" class="slide-card__image">
             </div>
           </div>
           <div class="slider__slide">
             <div class="slide-card">
-              <img src="img/cause-4.jpg" loading="lazy" alt="Климатические изменения" class="slide-card__image">
               <div class="slide-card__footer">
                 <span class="step-badge" aria-label="Шаг 4">4</span>
                 <p class="caption-italic text-center">Это вызывает климатические изменения: потепление, изменение осадков, таяние льдов, повышение уровня моря и&nbsp;сдвиги океанических течений</p>
               </div>
+              <img src="img/cause-4.jpg" loading="lazy" alt="Климатические изменения" class="slide-card__image">
             </div>
           </div>
           <div class="slider__slide">
             <div class="slide-card">
-              <img src="img/cause-5.jpg" loading="lazy" alt="Последствия для людей и природы" class="slide-card__image">
               <div class="slide-card__footer">
                 <span class="step-badge" aria-label="Шаг 5">5</span>
                 <p class="caption-italic text-center">В&nbsp;итоге возникают серьёзные последствия — затопление городов, рост ущерба, бедствия, болезни и&nbsp;потеря биоразнообразия</p>
               </div>
+              <img src="img/cause-5.jpg" loading="lazy" alt="Последствия для людей и природы" class="slide-card__image">
             </div>
           </div>
         </div>
@@ -330,7 +330,17 @@
               <div class="scientist-slide-card__info">
                 <div class="scientist-item__name">Михаил Иванович Будыко</div>
                 <div class="caption-date">1920—2001</div>
-                <p class="caption-regular">Один из&nbsp;основателей учения о&nbsp;тепловой структуре атмосферы. Создал теорию альбедо-положительного обратной связи в&nbsp;климатической системе.</p>
+                <p class="caption-regular">Один из&nbsp;основателей учения о&nbsp;тепловой структуре атмосферы и&nbsp;водного баланса Земли. Создал знаменитую теорию альбедо-положительного обратной связи в&nbsp;климатической системе. Работал над проблемой глобального потепления с&nbsp;середины XX&nbsp;века.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="img/scientist-khromov.jpg" alt="Сергей Петрович Хромов" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Сергей Петрович Хромов</div>
+                <div class="caption-date">1904—1977</div>
+                <p class="caption-regular">Автор учебников и&nbsp;монографий по&nbsp;синоптической метеорологии и&nbsp;климатологии. Разработал ряд методик анализа и&nbsp;интерпретации метеорологической информации.</p>
               </div>
             </div>
           </div>
@@ -340,7 +350,27 @@
               <div class="scientist-slide-card__info">
                 <div class="scientist-item__name">Александр Иванович Воейков</div>
                 <div class="caption-date">1842—1916</div>
-                <p class="caption-regular">Основоположник российской климатологии. Впервые провёл масштабные исследования климата России и&nbsp;ввёл понятие климатического районирования.</p>
+                <p class="caption-regular">Основоположник российской климатологии. Первым опубликовал научный труд по&nbsp;этой теме в&nbsp;мире. Он&nbsp;впервые провёл масштабные исследования климата России и&nbsp;ввёл понятие климатического районирования.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="img/scientist-alisov.jpg" alt="Борис Павлович Алисов" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Борис Павлович Алисов</div>
+                <div class="caption-date">1891—1976</div>
+                <p class="caption-regular">Создал региональную классификацию климатов СССР в&nbsp;середине XX&nbsp;века, определил основные климатические зоны страны. Исследовал влияние воздушных масс на&nbsp;формирование климата и&nbsp;погоды.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="img/scientist-izrael.jpg" alt="Юрий Антониевич Израэль" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Юрий Антониевич Израэль</div>
+                <div class="caption-date">1933—2014</div>
+                <p class="caption-regular">Организатор системы мониторинга окружающей среды в&nbsp;СССР и&nbsp;России. Участвовал в&nbsp;формировании межгосударственных инициатив по&nbsp;охране климата и&nbsp;экологии, возглавлял Государственный комитет по&nbsp;гидрометеорологии и&nbsp;контролю окружающей среды.</p>
               </div>
             </div>
           </div>
@@ -350,7 +380,77 @@
               <div class="scientist-slide-card__info">
                 <div class="scientist-item__name">Александр Михайлович Обухов</div>
                 <div class="caption-date">1918—1989</div>
-                <p class="caption-regular">Основатель ИФА РАН. Создал фундаментальную теорию локальной структуры турбулентности, ставшую основой для&nbsp;расчётов движения воздушных масс.</p>
+                <p class="caption-regular">Основатель и&nbsp;первый директор Института физики атмосферы РАН, носящего его имя. Создал фундаментальную теорию локальной структуры турбулентности, которая стала основой для&nbsp;всех современных расчётов движения воздушных масс.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="img/scientist-mokhov.jpg" alt="Игорь Иванович Мохов" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Игорь Иванович Мохов</div>
+                <div class="caption-date">1950—2025</div>
+                <p class="caption-regular">Ведущий эксперт в&nbsp;области диагностики и&nbsp;моделирования климатических изменений. Исследовал причины возникновения экстремальных погодных явлений и&nbsp;динамику глобального потепления, возглавлял ИФА РАН после Г.&nbsp;С.&nbsp;Голицына.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="img/scientist-golitsyn.jpg" alt="Георгий Сергеевич Голицын" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Георгий Сергеевич Голицын</div>
+                <div class="caption-date">1935–2016</div>
+                <p class="caption-regular">Академик РАН, внесший мировой вклад в&nbsp;разработку теории «ядерной зимы». Его исследования физики планетных атмосфер и&nbsp;теории турбулентности помогли лучше понять, как крупномасштабные катастрофы могут влиять на&nbsp;климат Земли.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="img/scientist-gulyev.jpg" alt="Сергей Константинович Гулёв" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Сергей Константинович Гулёв</div>
+                <div class="caption-date">род. 1958</div>
+                <p class="caption-regular">Специалист в&nbsp;области взаимодействия океана и&nbsp;атмосферы. Изучает, как процессы в&nbsp;Мировом океане влияют на&nbsp;долгопериодные изменения климата и&nbsp;формирование разрушительных морских штормов.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="img/scientist-marchuk.jpg" alt="Гурий Иванович Марчук" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Гурий Иванович Марчук</div>
+                <div class="caption-date">1925—2013</div>
+                <p class="caption-regular">Выдающийся математик, разработавший численные методы для&nbsp;прогноза погоды и&nbsp;моделирования климата. Создал математическую базу, на&nbsp;которой строятся современные компьютерные модели предсказания климатических изменений.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="img/scientist-monin.jpg" alt="Андрей Сергеевич Монин" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Андрей Сергеевич Монин</div>
+                <div class="caption-date">1921—2007</div>
+                <p class="caption-regular">Соавтор фундаментальной теории подобия (Монина&nbsp;— Обухова), описывающей процессы в&nbsp;приземном слое атмосферы. Его работы по&nbsp;теории турбулентности и&nbsp;динамике океана лежат в&nbsp;основе современных климатических моделей.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="img/scientist-lappo.jpg" alt="Сергей Сергеевич Лаппо" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Сергей Сергеевич Лаппо</div>
+                <div class="caption-date">1938—2006</div>
+                <p class="caption-regular">Океанолог, доказавший решающую роль Северной Атлантики в&nbsp;глобальном «конвейере» течений. Исследовал, как теплообмен между океаном и&nbsp;атмосферой в&nbsp;энергоактивных зонах определяет изменения климата на&nbsp;планете.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="img/scientist-moiseev.jpg" alt="Никита Николаевич Моисеев" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Никита Николаевич Моисеев</div>
+                <div class="caption-date">1917—2000</div>
+                <p class="caption-regular">Математик и&nbsp;мыслитель, руководивший расчётами математической модели «ядерной зимы». Сформулировал принципы коэволюции (совместного развития) человека и&nbsp;биосферы, обосновав необходимость бережного отношения к&nbsp;климатической системе.</p>
               </div>
             </div>
           </div>
