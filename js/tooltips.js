@@ -40,6 +40,70 @@
   const isMobile = () => window.innerWidth <= MOBILE_BREAKPOINT;
 
   let box, overlay, activeEl = null;
+  let scrollLockY = 0;          // запомненная позиция скролла на время лока
+  let bodyLocked = false;       // флаг активного лока, чтобы не сбрасывать скролл зря
+
+  /* ─── Лок скролла фона, пока открыта мобильная шторка ───
+   * Фиксируем body на текущей позиции. Это останавливает скролл страницы,
+   * а значит и движение адресной строки браузера — главную причину «скачков».
+   */
+  function lockBodyScroll() {
+    if (bodyLocked) return;
+    scrollLockY = window.scrollY || window.pageYOffset || 0;
+    bodyLocked = true;
+    const body = document.body;
+    body.style.position = 'fixed';
+    body.style.top = -scrollLockY + 'px';
+    body.style.left = '0';
+    body.style.right = '0';
+    body.style.width = '100%';
+  }
+
+  function unlockBodyScroll() {
+    if (!bodyLocked) return;
+    bodyLocked = false;
+    const body = document.body;
+    body.style.position = '';
+    body.style.top = '';
+    body.style.left = '';
+    body.style.right = '';
+    body.style.width = '';
+    window.scrollTo(0, scrollLockY);
+  }
+
+  /* ─── Подстраховка позиции через Visual Viewport API ───
+   * На iOS Safari position:fixed считается от layout viewport, поэтому при
+   * сжатии/развороте адресной строки шторку «уводит». Пришиваем её и оверлей
+   * к реальной нижней кромке visual viewport.
+   */
+  function syncMobilePosition() {
+    if (!box || !box.classList.contains('tooltip--mobile')) return;
+    const vv = window.visualViewport;
+    if (!vv) return;
+    // Сколько визуальный вьюпорт «не достаёт» до низа layout-вьюпорта снизу.
+    const bottomGap = window.innerHeight - vv.height - vv.offsetTop;
+    box.style.bottom = Math.max(0, bottomGap) + 'px';
+    // Оверлей растягиваем строго по визуальному вьюпорту.
+    overlay.style.top = vv.offsetTop + 'px';
+    overlay.style.height = vv.height + 'px';
+  }
+
+  function clearMobilePosition() {
+    if (box)     box.style.bottom = '';
+    if (overlay) { overlay.style.top = ''; overlay.style.height = ''; }
+  }
+
+  function bindViewportWatch() {
+    if (!window.visualViewport) return;
+    window.visualViewport.addEventListener('resize', syncMobilePosition);
+    window.visualViewport.addEventListener('scroll', syncMobilePosition);
+  }
+
+  function unbindViewportWatch() {
+    if (!window.visualViewport) return;
+    window.visualViewport.removeEventListener('resize', syncMobilePosition);
+    window.visualViewport.removeEventListener('scroll', syncMobilePosition);
+  }
 
   /* ─── Создаём общий контейнер тултипа и оверлей один раз ─── */
   function ensureNodes() {
@@ -100,11 +164,19 @@
       box.classList.add('tooltip--mobile');
       box.style.display = 'block';
       overlay.classList.add('is-visible');
+      lockBodyScroll();            // фон не скроллится → адресная строка стоит
+      bindViewportWatch();         // подстраховка на случай сдвигов вьюпорта
+      syncMobilePosition();        // сразу выставить по текущему вьюпорту
       // двойной rAF — чтобы сработала transition-анимация шторки
       requestAnimationFrame(() => requestAnimationFrame(() => {
         box.classList.add('is-visible');
       }));
     } else {
+      // Защита: если перешли в десктоп-режим из открытой мобильной шторки,
+      // снимаем возможный лок и вотчер, чтобы body не залип в position:fixed.
+      unbindViewportWatch();
+      unlockBodyScroll();
+      clearMobilePosition();
       box.classList.remove('tooltip--mobile', 'is-visible');
       box.style.display = 'block';
       positionDesktop(el);
@@ -121,6 +193,9 @@
     if (box.classList.contains('tooltip--mobile')) {
       box.classList.remove('is-visible');
       overlay.classList.remove('is-visible');
+      unbindViewportWatch();
+      unlockBodyScroll();
+      clearMobilePosition();
       setTimeout(() => { box.style.display = 'none'; }, 250);
     } else {
       box.style.display = 'none';
