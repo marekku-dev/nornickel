@@ -57,15 +57,19 @@
     return false;
   }
 
+  /* Чистая строковая версия — годится и для текста, которого ещё нет в DOM
+     (например, текст тултипа перед вставкой). Идемпотентна. */
+  function fixHangingText(str) {
+    if (!str || str.indexOf(" ") === -1) return str;
+    return str
+      .replace(RE,         (m, p, w) => p + w + " ")
+      .replace(RE_INITIAL, (m, p, w) => p + w + " ")
+      .replace(RE_NUMSIGN, (m, s)    => s + " ");
+  }
+
   function fixTextNode(node) {
     const before = node.nodeValue;
-    if (!before || before.indexOf(' ') === -1) return;
-
-    let after = before
-      .replace(RE,        (m, p, w) => p + w + ' ')
-      .replace(RE_INITIAL,(m, p, w) => p + w + ' ')
-      .replace(RE_NUMSIGN,(m, s)    => s + ' ');
-
+    const after  = fixHangingText(before);
     if (after !== before) node.nodeValue = after;
   }
 
@@ -94,7 +98,8 @@
   }
 
   /* ─── Экспорт ─── */
-  global.fixHangingPrepositions = fixHangingPrepositions;
+  global.fixHangingPrepositions = fixHangingPrepositions; // правит DOM
+  global.fixHangingText = fixHangingText;                 // правит строку
 
   /* Автозапуск, если файл подключили отдельным <script> и components.js
      ещё не вызвал функцию сам. Безопасно запускать дважды (идемпотентно:

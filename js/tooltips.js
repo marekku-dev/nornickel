@@ -87,7 +87,11 @@
 
   function show(text, el) {
     if (!box) return;
-    box.textContent = text;
+    // Убираем висячие предлоги и в самом тексте подсказки (функция из
+    // no-hanging-prepositions.js). Если файл не подключён — показываем как есть.
+    box.textContent = (typeof window.fixHangingText === 'function')
+      ? window.fixHangingText(text)
+      : text;
     activeEl = el;
     el.classList.add('term-tooltip--active');
     el.setAttribute('aria-expanded', 'true');
