@@ -2463,11 +2463,12 @@ ol {
 }
 
 .card-3 {
-  background: var(--color-card-bg);
+  background: none;
   border-radius: var(--radius-md);
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  background-color: var(--color-bg);
 }
 
 .card-3__img {
@@ -2852,6 +2853,8 @@ ol {
     margin-left: 10px;
     padding: 24px;
     box-sizing: border-box;
+    background: var(--color-card-bg);
+    border-radius: var(--radius-md);
   }
   .cards-three-grid__dots {
     display: flex;
