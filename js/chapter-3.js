@@ -137,6 +137,57 @@
   }
 
   /* ════════════════════════════════════════════════════════════
+   *  4. SCHEME SLIDER (мобильный слайдер схемы, только ≤767px)
+   * ════════════════════════════════════════════════════════════ */
+
+  function initSchemeSlider() {
+    if (window.innerWidth > 767) return;
+
+    const track = document.getElementById('slider-scheme-track');
+    const nav   = document.getElementById('slider-scheme-nav');
+    if (!track || !nav) return;
+
+    const slides = Array.from(track.querySelectorAll('.scheme-slider__slide'));
+    const total  = slides.length;
+    if (!total) return;
+
+    let current = 0;
+
+    // Точки
+    nav.innerHTML = '';
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'slider__dot' + (i === 0 ? ' slider__dot--active' : '');
+      dot.type = 'button';
+      dot.setAttribute('aria-label', `Шаг ${i + 1}`);
+      dot.addEventListener('click', () => go(i));
+      nav.appendChild(dot);
+    });
+
+    function render() {
+      track.style.transform = `translateX(-${current * 100}%)`;
+      nav.querySelectorAll('.slider__dot').forEach((d, i) => {
+        d.classList.toggle('slider__dot--active', i === current);
+      });
+    }
+
+    function go(index) {
+      current = Math.max(0, Math.min(index, total - 1));
+      render();
+    }
+
+    // Свайп
+    let startX = 0;
+    track.addEventListener('touchstart', e => { startX = e.changedTouches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend',   e => {
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 40) go(current + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+
+    render();
+  }
+
+  /* ════════════════════════════════════════════════════════════
    *  INIT
    * ════════════════════════════════════════════════════════════ */
 
@@ -145,6 +196,7 @@
     initFlipCards();
     initCardSlider('slider-tools');
     initCardSlider('slider-kyoto');
+    initSchemeSlider();
   });
 
 })();

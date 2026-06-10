@@ -2662,6 +2662,10 @@ ol {
   mix-blend-mode: darken;
 }
 
+/* ─── Схема-слайдер (мобилка) ─── */
+.scheme-desktop-only { display: block; }
+.scheme-slider       { display: none; }
+
 /* ─── Горизонтальная карточка-график ─── */
 
 .card-horizontal {
@@ -2906,6 +2910,102 @@ ol {
   /* Изображения */
   .image-darken        { padding: 0; width: 100%; max-width: 100%; }
   .image-darken__img   { border-radius: 0; }
+
+  /* Схема-слайдер — скрываем десктопный вариант, показываем слайдер */
+  .scheme-desktop-only { display: none; }
+  .scheme-slider {
+    display: block;
+    width: 100%;
+    background: transparent;
+    padding: 0 0 4px;
+  }
+  .scheme-slider__title {
+    font-family: var(--font-heading, sans-serif);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-align: center;
+    color: var(--color-muted, #9aab97);
+    line-height: 1.4;
+    margin: 0 0 24px;
+    padding: 0 20px;
+  }
+  .scheme-slider__viewport {
+    width: 100%;
+    overflow: hidden;
+  }
+  .scheme-slider__track {
+    display: flex;
+    transition: transform .4s ease;
+    will-change: transform;
+  }
+  .scheme-slider__slide {
+    min-width: 100%;
+    max-width: 100%;
+    flex-shrink: 0;
+    padding: 0 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .scheme-slider__slide-img-wrap {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-bg);
+  }
+  .scheme-slider__slide img {
+    width: 70%;
+    display: block;
+    mix-blend-mode: darken;
+  }
+  .scheme-slider__arrow {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+  }
+  .scheme-slider__arrow svg {
+    width: 36px;
+    height: 20px;
+  }
+  /* Последний слайд — стрелку не показываем */
+  .scheme-slider__slide:last-child .scheme-slider__arrow {
+    display: none;
+  }
+  .scheme-slider__caption {
+    font-size: 16px;
+    line-height: 1.4;
+    text-align: center;
+    color: var(--color-text);
+    margin: 16px 0 0;
+    padding: 0 10px;
+  }
+  .scheme-slider__dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 24px 0 0;
+  }
+  .scheme-slider__dots .slider__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(26, 26, 26, 0.2);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background .2s, transform .2s;
+  }
+  .scheme-slider__dots .slider__dot--active {
+    background: var(--color-accent);
+    transform: scale(1.2);
+  }
   .image-fullscreen__img { aspect-ratio: 16 / 9; }
 
   /* Горизонтальная карточка */
