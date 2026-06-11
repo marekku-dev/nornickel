@@ -128,6 +128,12 @@
 
     if (isSheetLayout()) {
       box.classList.add('tooltip--mobile');
+      // iOS Safari умеет прокручивать страницу ПОД модальным <dialog> —
+      // от прокрутки прячется/появляется нижний тулбар браузера, высота
+      // вьюпорта меняется и шторка «скачет». Блокируем скролл фона лёгким
+      // overflow:hidden (НЕ position:fixed-лок — тот сам давал скачки).
+      // Снимается в обработчике 'close' — единственной точке закрытия.
+      document.documentElement.classList.add('tooltip-lock');
       // showModal() сам блокирует фон и держит шторку поверх вьюпорта.
       // Защита от повторного вызова (иначе showModal бросает исключение).
       if (!box.open) box.showModal();
@@ -224,6 +230,7 @@
     // Нативное закрытие <dialog> (программное close) — синхронизируем
     // классы и состояние слова, чтобы не рассинхронизировалось с hide().
     box.addEventListener('close', () => {
+      document.documentElement.classList.remove('tooltip-lock');
       box.classList.remove('tooltip--mobile', 'is-visible');
       if (activeEl) {
         activeEl.classList.remove('term-tooltip--active');

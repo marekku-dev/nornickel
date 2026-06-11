@@ -1812,6 +1812,15 @@ ol {
   outline: none;
 }
 
+/* Пока открыта мобильная шторка, фон не должен скроллиться: iOS Safari
+   прокручивает страницу под модальным <dialog>, от этого прячется/появляется
+   нижний тулбар браузера и шторка «скачет». Класс ставит/снимает tooltips.js.
+   Лёгкий overflow:hidden, НЕ position:fixed-лок (тот сам давал скачки). */
+html.tooltip-lock,
+html.tooltip-lock body {
+  overflow: hidden;
+}
+
 @keyframes tooltip-fade {
   from { opacity: 0; transform: translateY(-4px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -1861,6 +1870,8 @@ ol {
        строки шторка не обрезалась; длинный текст прокручивается внутри */
     max-height: 80dvh;
     overflow-y: auto;
+    /* свайп внутри шторки не должен передаваться странице под ней */
+    overscroll-behavior: contain;
     padding: 18px 18px calc(18px + env(safe-area-inset-bottom, 0px));
     font-size: 16px;
     border: none;
