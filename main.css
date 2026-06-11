@@ -1798,6 +1798,20 @@ ol {
   display: none;
 }
 
+/* show()/showModal() переносят фокус на сам <dialog>, и браузер рисует
+   вокруг него синюю фокусную рамку. Внутри тултипа нет интерактивных
+   элементов — рамка не нужна (закрытие: Escape, тап по фону, клик вне). */
+.tooltip:focus,
+.tooltip:focus-visible {
+  outline: none;
+}
+
+/* У слова-термина рамку по клику/тапу убираем, но для клавиатурной
+   навигации (Tab) оставляем — это нужно для доступности. */
+.term-tooltip:focus:not(:focus-visible) {
+  outline: none;
+}
+
 @keyframes tooltip-fade {
   from { opacity: 0; transform: translateY(-4px); }
   to   { opacity: 1; transform: translateY(0); }
