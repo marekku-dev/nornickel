@@ -110,11 +110,15 @@
       nav.appendChild(dot);
     });
 
+    // Шаг одного слайда: ширина карточки + margin-left (10px)
+    function slideStep() {
+      return slides[0].getBoundingClientRect().width + 10;
+    }
+
     function render() {
-      // Каждый слайд: ширина + margin-left (20px)
-      const slideWidth = slides[0].getBoundingClientRect().width + 10;
-      const offset = current * slideWidth;
-      track.style.transform = `translateX(-${offset}px)`;
+      const offset = current * slideStep();
+      track.style.transition = 'transform .4s ease';
+      track.style.transform  = `translateX(-${offset}px)`;
       nav.querySelectorAll('.slider__dot').forEach((d, i) => {
         d.classList.toggle('slider__dot--active', i === current);
       });
@@ -125,13 +129,67 @@
       render();
     }
 
-    // Свайп
-    let startX = 0;
-    track.addEventListener('touchstart', e => { startX = e.changedTouches[0].clientX; }, { passive: true });
-    track.addEventListener('touchend',   e => {
-      const dx = e.changedTouches[0].clientX - startX;
-      if (Math.abs(dx) > 40) go(current + (dx < 0 ? 1 : -1));
-    }, { passive: true });
+    /* ── Drag-follow свайп ─────────────────────────────────────── */
+    let startX = 0, startY = 0;      // точка касания
+    let dragDX = 0;                  // текущее смещение по X
+    let dragging = false;            // идёт ли горизонтальный drag
+    let decided = false;             // определили ли направление жеста
+
+    function onStart(e) {
+      const t = e.touches ? e.touches[0] : e;
+      startX = t.clientX;
+      startY = t.clientY;
+      dragDX = 0;
+      dragging = false;
+      decided  = false;
+      track.style.transition = 'none';  // следуем за пальцем без задержки
+    }
+
+    function onMove(e) {
+      const t = e.touches ? e.touches[0] : e;
+      const dx = t.clientX - startX;
+      const dy = t.clientY - startY;
+
+      // Определяем направление жеста один раз
+      if (!decided) {
+        if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return; // ещё рано решать
+        decided  = true;
+        dragging = Math.abs(dx) > Math.abs(dy);           // горизонталь → наш свайп
+      }
+      if (!dragging) return; // вертикальный жест — отдаём странице на скролл
+
+      e.preventDefault();    // блокируем вертикальный скролл во время свайпа
+
+      // Сопротивление на краях, чтобы не уезжать в пустоту
+      let resist = dx;
+      if ((current === 0 && dx > 0) || (current === total - 1 && dx < 0)) {
+        resist = dx * 0.35;
+      }
+      dragDX = resist;
+      const base = current * slideStep();
+      track.style.transform = `translateX(-${base - dragDX}px)`;
+    }
+
+    function onEnd() {
+      track.style.transition = 'transform .4s ease';
+      if (dragging) {
+        const threshold = slideStep() * 0.18; // ~18% ширины достаточно для перехода
+        if (Math.abs(dragDX) > threshold) {
+          go(current + (dragDX < 0 ? 1 : -1));
+        } else {
+          render(); // не дотянул — возвращаем на место
+        }
+      }
+      dragging = false;
+      decided  = false;
+      dragDX   = 0;
+    }
+
+    // Обработчики на wrapper — активная зона = вся ширина экрана (100vw)
+    wrapper.addEventListener('touchstart', onStart, { passive: true });
+    wrapper.addEventListener('touchmove',  onMove,  { passive: false });
+    wrapper.addEventListener('touchend',   onEnd,   { passive: true });
+    wrapper.addEventListener('touchcancel', onEnd,  { passive: true });
 
     render();
   }
@@ -143,9 +201,11 @@
   function initSchemeSlider() {
     if (window.innerWidth > 767) return;
 
-    const track = document.getElementById('slider-scheme-track');
-    const nav   = document.getElementById('slider-scheme-nav');
+    const wrapper = document.getElementById('slider-scheme');
+    const track   = document.getElementById('slider-scheme-track');
+    const nav     = document.getElementById('slider-scheme-nav');
     if (!track || !nav) return;
+    const swipeArea = wrapper || track; // зона свайпа — весь слайдер, если есть
 
     const slides = Array.from(track.querySelectorAll('.scheme-slider__slide'));
     const total  = slides.length;
@@ -164,8 +224,16 @@
       nav.appendChild(dot);
     });
 
+    // Ширина одного слайда = ширина видимой области (слайды по 100%),
+    // а НЕ ширина всего трека (он в N раз шире).
+    const viewport = track.parentElement; // .scheme-slider__viewport
+    function slideStep() {
+      return (viewport || slides[0]).getBoundingClientRect().width;
+    }
+
     function render() {
-      track.style.transform = `translateX(-${current * 100}%)`;
+      track.style.transition = 'transform .4s ease';
+      track.style.transform  = `translateX(-${current * 100}%)`;
       nav.querySelectorAll('.slider__dot').forEach((d, i) => {
         d.classList.toggle('slider__dot--active', i === current);
       });
@@ -176,13 +244,54 @@
       render();
     }
 
-    // Свайп
-    let startX = 0;
-    track.addEventListener('touchstart', e => { startX = e.changedTouches[0].clientX; }, { passive: true });
-    track.addEventListener('touchend',   e => {
-      const dx = e.changedTouches[0].clientX - startX;
-      if (Math.abs(dx) > 40) go(current + (dx < 0 ? 1 : -1));
-    }, { passive: true });
+    /* ── Drag-follow свайп ─────────────────────────────────────── */
+    let startX = 0, startY = 0, dragDX = 0, dragging = false, decided = false;
+
+    function onStart(e) {
+      const t = e.touches ? e.touches[0] : e;
+      startX = t.clientX; startY = t.clientY;
+      dragDX = 0; dragging = false; decided = false;
+      track.style.transition = 'none';
+    }
+
+    function onMove(e) {
+      const t = e.touches ? e.touches[0] : e;
+      const dx = t.clientX - startX;
+      const dy = t.clientY - startY;
+      if (!decided) {
+        if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+        decided  = true;
+        dragging = Math.abs(dx) > Math.abs(dy);
+      }
+      if (!dragging) return;
+      e.preventDefault();
+
+      let resist = dx;
+      if ((current === 0 && dx > 0) || (current === total - 1 && dx < 0)) {
+        resist = dx * 0.35;
+      }
+      dragDX = resist;
+      const base = current * slideStep();
+      track.style.transform = `translateX(-${base - dragDX}px)`;
+    }
+
+    function onEnd() {
+      track.style.transition = 'transform .4s ease';
+      if (dragging) {
+        const threshold = slideStep() * 0.18;
+        if (Math.abs(dragDX) > threshold) {
+          go(current + (dragDX < 0 ? 1 : -1));
+        } else {
+          render();
+        }
+      }
+      dragging = false; decided = false; dragDX = 0;
+    }
+
+    swipeArea.addEventListener('touchstart',  onStart, { passive: true });
+    swipeArea.addEventListener('touchmove',   onMove,  { passive: false });
+    swipeArea.addEventListener('touchend',    onEnd,   { passive: true });
+    swipeArea.addEventListener('touchcancel', onEnd,   { passive: true });
 
     render();
   }
