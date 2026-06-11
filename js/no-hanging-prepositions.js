@@ -33,12 +33,12 @@
     .join('|');
   // (^|пробел-разделитель) + слово + обычный пробел, после которого идёт буква/цифра
   const RE = new RegExp(
-    '(^|[\\s\\u00A0(«"„—])(' + escaped + ')[ \\t]+(?=[^\\s])',
+    '(?<=^|[\\s\\u00A0(«"„—])(' + escaped + ')[ \\t]+(?=[^\\s])',
     'gi'
   );
 
   // Дополнительно: инициалы и однобуквенные «А.», номера «№ 5», «г. 2024» и т.п.
-  const RE_INITIAL = /(^|[\s ])([А-ЯЁA-Z]\.)[ \t]+(?=[А-ЯЁA-Z])/g;
+  const RE_INITIAL = /(?<=^|[\s ])([А-ЯЁA-Z]\.)[ \t]+(?=[А-ЯЁA-Z])/g;
   const RE_NUMSIGN = /(№|§)[ \t]+(?=\d)/g;
 
   /* ─── Дефисные слова, которые нельзя рвать по дефису при переносе строки ───
@@ -63,6 +63,7 @@
     "gi"
   );
   const NBHYPHEN = "‑";
+  const NBSP = " "; // неразрывный пробел (надёжнее, чем литерал в коде)
 
   /* ─── Зоны, которые НЕ трогаем ─── */
   const SKIP_TAGS = new Set([
@@ -85,9 +86,9 @@
   function fixHangingText(str) {
     if (!str) return str;
     return str
-      .replace(RE,         (m, p, w) => p + w + " ")
-      .replace(RE_INITIAL, (m, p, w) => p + w + " ")
-      .replace(RE_NUMSIGN, (m, s)    => s + " ")
+      .replace(RE,         (m, w) => w + NBSP)
+      .replace(RE_INITIAL, (m, w) => w + NBSP)
+      .replace(RE_NUMSIGN, (m, s)    => s + NBSP)
       // дефисные слова: обычный дефис → неразрывный (внутри слова)
       .replace(RE_HYPHEN,  (m, p, w) => p + w.replace(/-/g, NBHYPHEN));
   }
