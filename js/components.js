@@ -242,6 +242,161 @@
   }
   window.attachSwipe = attachSwipe;
 
+  /* ─── Универсальный слайдер ───────────────────────────────────
+   *
+   * window.initSlider(id, opts)
+   *
+   * id   — базовый id: враппер="#id", трек="#id-mask", точки="#id-nav"
+   * opts = {
+   *   slideSelector,  // CSS-селектор слайдов внутри трека (default: '.slider__slide')
+   *   stepMode,       // 'full'     — 100% ширины враппера  (default)
+   *                   // 'item'     — ширина 1-го слайда + gap (10px)
+   *                   // 'viewport' — ширина track.parentElement
+   *   breakpoint,     // число: инициализировать только при window.innerWidth <= N
+   *                   //        0 или не указано — всегда
+   *   loop,           // bool (default: false)
+   *   arrows,         // bool: генерировать кнопки «‹» «›» в JS (default: false)
+   *                   // если false — кнопки берутся из HTML (onclick="slideChange(...)")
+   *   dotLabel,       // строка для aria-label точки, напр. 'Карточка' (default: 'Слайд')
+   * }
+   *
+   * Публичное API:
+   *   window.slideChange(id, dir)   — переключить на dir шагов (±1)
+   *   window.goToSlide(id, index)   — перейти на конкретный индекс
+   * ────────────────────────────────────────────────────────────── */
+
+  const _sliders = {};
+
+  function initSlider(id, opts) {
+    opts = opts || {};
+
+    const breakpoint = opts.breakpoint || 0;
+    if (breakpoint > 0 && window.innerWidth > breakpoint) return;
+
+    const wrap  = document.getElementById(id);
+    const track = document.getElementById(id + '-mask');
+    if (!wrap || !track) return;
+
+    const slideSelector = opts.slideSelector || '.slider__slide';
+    const slides = Array.from(track.querySelectorAll(slideSelector));
+    const total  = slides.length;
+    if (!total) return;
+
+    const nav       = document.getElementById(id + '-nav');
+    const loop      = !!opts.loop;
+    const stepMode  = opts.stepMode || 'full';
+    const dotLabel  = opts.dotLabel || 'Слайд';
+
+    // Функция шага в px
+    function step() {
+      if (stepMode === 'item') {
+        return slides[0].getBoundingClientRect().width + 10;
+      }
+      if (stepMode === 'viewport') {
+        const vp = track.parentElement;
+        return (vp || slides[0]).getBoundingClientRect().width;
+      }
+      // 'full' — 100% враппера; render использует translateX(-N*100%)
+      return wrap.getBoundingClientRect().width;
+    }
+
+    // Создаём точки
+    if (nav) {
+      nav.innerHTML = '';
+      slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'slider__dot' + (i === 0 ? ' slider__dot--active' : '');
+        dot.type      = 'button';
+        dot.setAttribute('aria-label', `${dotLabel} ${i + 1}`);
+        dot.setAttribute('role', 'tab');
+        dot.addEventListener('click', () => goToSlide(id, i));
+        nav.appendChild(dot);
+      });
+    }
+
+    // Генерируем стрелки, если нужно
+    if (opts.arrows) {
+      const prev = document.createElement('button');
+      prev.className  = 'slider__arrow slider__arrow--prev';
+      prev.type       = 'button';
+      prev.setAttribute('aria-label', 'Предыдущий слайд');
+      prev.innerHTML  = '<svg viewBox="0 0 24 24" width="24" height="24"><polyline points="15,6 9,12 15,18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>';
+      prev.addEventListener('click', () => slideChange(id, -1));
+
+      const next = document.createElement('button');
+      next.className  = 'slider__arrow slider__arrow--next';
+      next.type       = 'button';
+      next.setAttribute('aria-label', 'Следующий слайд');
+      next.innerHTML  = '<svg viewBox="0 0 24 24" width="24" height="24"><polyline points="9,6 15,12 9,18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>';
+      next.addEventListener('click', () => slideChange(id, 1));
+
+      wrap.appendChild(prev);
+      wrap.appendChild(next);
+    }
+
+    _sliders[id] = { current: 0, total, loop, step, stepMode };
+    _renderSlider(id);
+
+    // Drag-follow свайп
+    attachSwipe({
+      area:       wrap,
+      track:      track,
+      getCurrent: () => _sliders[id].current,
+      getTotal:   () => _sliders[id].total,
+      step:       step,
+      onPrev:     () => slideChange(id, -1),
+      onNext:     () => slideChange(id,  1),
+      render:     () => _renderSlider(id),
+      loop:       loop
+    });
+  }
+
+  function _renderSlider(id) {
+    const s = _sliders[id];
+    if (!s) return;
+
+    const track = document.getElementById(id + '-mask');
+    if (track) {
+      if (s.stepMode === 'full') {
+        track.style.transform = `translateX(-${s.current * 100}%)`;
+      } else {
+        track.style.transform = `translateX(-${s.current * s.step()}px)`;
+      }
+    }
+
+    const nav = document.getElementById(id + '-nav');
+    if (nav) {
+      nav.querySelectorAll('.slider__dot').forEach((dot, i) => {
+        dot.classList.toggle('slider__dot--active', i === s.current);
+        dot.setAttribute('aria-selected', String(i === s.current));
+      });
+    }
+  }
+
+  function slideChange(id, dir) {
+    const s = _sliders[id];
+    if (!s) return;
+    if (s.loop) {
+      s.current = (s.current + dir + s.total) % s.total;
+    } else {
+      s.current = Math.max(0, Math.min(s.current + dir, s.total - 1));
+    }
+    _renderSlider(id);
+  }
+
+  function goToSlide(id, index) {
+    const s = _sliders[id];
+    if (!s) return;
+    s.current = s.loop
+      ? (index + s.total) % s.total
+      : Math.max(0, Math.min(index, s.total - 1));
+    _renderSlider(id);
+  }
+
+  window.initSlider   = initSlider;
+  window.slideChange  = slideChange;
+  window.goToSlide    = goToSlide;
+
   /* ─── Старт ─── */
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', loadAll);

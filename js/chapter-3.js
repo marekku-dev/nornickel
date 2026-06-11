@@ -81,150 +81,29 @@
   }
 
   /* ════════════════════════════════════════════════════════════
-   *  3. CARD SLIDERS (мобильный, только ≤767px)
-   * ════════════════════════════════════════════════════════════ */
-
-  function initCardSlider(id) {
-    // Активируем только на мобильном
-    if (window.innerWidth > 767) return;
-
-    const wrapper = document.getElementById(id);
-    const track   = document.getElementById(id + '-mask');
-    const nav     = document.getElementById(id + '-nav');
-    if (!wrapper || !track || !nav) return;
-
-    const slides = Array.from(track.querySelectorAll('.cards-three-grid__slide'));
-    const total  = slides.length;
-    if (!total) return;
-
-    let current = 0;
-
-    // Создаём точки
-    nav.innerHTML = '';
-    slides.forEach((_, i) => {
-      const dot = document.createElement('button');
-      dot.className = 'slider__dot' + (i === 0 ? ' slider__dot--active' : '');
-      dot.type = 'button';
-      dot.setAttribute('aria-label', `Карточка ${i + 1}`);
-      dot.addEventListener('click', () => go(i));
-      nav.appendChild(dot);
-    });
-
-    // Шаг одного слайда: ширина карточки + margin-left (10px)
-    function slideStep() {
-      return slides[0].getBoundingClientRect().width + 10;
-    }
-
-    function render() {
-      const offset = current * slideStep();
-      track.style.transition = ''; // вернуть CSS-transition (.4s ease)
-      track.style.transform  = `translateX(-${offset}px)`;
-      nav.querySelectorAll('.slider__dot').forEach((d, i) => {
-        d.classList.toggle('slider__dot--active', i === current);
-      });
-    }
-
-    function go(index) {
-      current = Math.max(0, Math.min(index, total - 1));
-      render();
-    }
-
-    // Drag-follow свайп (общая функция из components.js)
-    if (typeof window.attachSwipe === 'function') {
-      window.attachSwipe({
-        area:  wrapper,
-        track: track,
-        getCurrent: () => current,
-        getTotal:   () => total,
-        step:  slideStep,
-        onPrev:  () => go(current - 1),
-        onNext:  () => go(current + 1),
-        render:  render,
-        loop:  false
-      });
-    }
-
-    render();
-  }
-
-  /* ════════════════════════════════════════════════════════════
-   *  4. SCHEME SLIDER (мобильный слайдер схемы, только ≤767px)
-   * ════════════════════════════════════════════════════════════ */
-
-  function initSchemeSlider() {
-    if (window.innerWidth > 767) return;
-
-    const wrapper = document.getElementById('slider-scheme');
-    const track   = document.getElementById('slider-scheme-track');
-    const nav     = document.getElementById('slider-scheme-nav');
-    if (!track || !nav) return;
-    const swipeArea = wrapper || track; // зона свайпа — весь слайдер, если есть
-
-    const slides = Array.from(track.querySelectorAll('.scheme-slider__slide'));
-    const total  = slides.length;
-    if (!total) return;
-
-    let current = 0;
-
-    // Точки
-    nav.innerHTML = '';
-    slides.forEach((_, i) => {
-      const dot = document.createElement('button');
-      dot.className = 'slider__dot' + (i === 0 ? ' slider__dot--active' : '');
-      dot.type = 'button';
-      dot.setAttribute('aria-label', `Шаг ${i + 1}`);
-      dot.addEventListener('click', () => go(i));
-      nav.appendChild(dot);
-    });
-
-    // Ширина одного слайда = ширина видимой области (слайды по 100%),
-    // а НЕ ширина всего трека (он в N раз шире).
-    const viewport = track.parentElement; // .scheme-slider__viewport
-    function slideStep() {
-      return (viewport || slides[0]).getBoundingClientRect().width;
-    }
-
-    function render() {
-      track.style.transition = ''; // вернуть CSS-transition (.4s ease)
-      track.style.transform  = `translateX(-${current * 100}%)`;
-      nav.querySelectorAll('.slider__dot').forEach((d, i) => {
-        d.classList.toggle('slider__dot--active', i === current);
-      });
-    }
-
-    function go(index) {
-      current = Math.max(0, Math.min(index, total - 1));
-      render();
-    }
-
-    // Drag-follow свайп (общая функция из components.js)
-    if (typeof window.attachSwipe === 'function') {
-      window.attachSwipe({
-        area:  swipeArea,
-        track: track,
-        getCurrent: () => current,
-        getTotal:   () => total,
-        step:  slideStep,
-        onPrev:  () => go(current - 1),
-        onNext:  () => go(current + 1),
-        render:  render,
-        loop:  false
-      });
-    }
-
-    render();
-  }
-
-  /* ════════════════════════════════════════════════════════════
    *  INIT
    * ════════════════════════════════════════════════════════════ */
 
   document.addEventListener('DOMContentLoaded', () => {
     initExpandingCards();
     initFlipCards();
-    initCardSlider('slider-tools');
-    initCardSlider('slider-kyoto');
-    initSchemeSlider();
+    window.initSlider('slider-tools', {
+      slideSelector: '.cards-three-grid__slide',
+      stepMode:      'item',
+      breakpoint:    767,
+      dotLabel:      'Карточка'
+    });
+    window.initSlider('slider-kyoto', {
+      slideSelector: '.cards-three-grid__slide',
+      stepMode:      'item',
+      breakpoint:    767,
+      dotLabel:      'Карточка'
+    });
+    window.initSlider('slider-scheme', {
+      stepMode:   'viewport',
+      breakpoint: 767,
+      dotLabel:   'Шаг'
+    });
   });
 
 })();
