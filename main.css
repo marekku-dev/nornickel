@@ -1588,7 +1588,9 @@ ol {
    ============================================================================= */
 
 .tooltip {
-  display: none;
+  /* Базово скрыт. ВАЖНО: используем :not([open]), а не голый display:none —
+     иначе при showModal() открытый <dialog> наследует display:none и не
+     рендерится (был баг «попап не открывается»). Открытый dialog всегда виден. */
   position: fixed;
   z-index: 9999;
   width: 420px;
@@ -1608,6 +1610,11 @@ ol {
   box-shadow: 0 6px 24px rgba(0, 0, 0, .12);
   /* лёгкое появление на десктопе */
   animation: tooltip-fade .14s ease;
+}
+/* Скрываем только ЗАКРЫТЫЙ диалог. Открытый (через show()/showModal())
+   всегда получает display:block из UA-стиля и реально рендерится. */
+.tooltip:not([open]) {
+  display: none;
 }
 
 @keyframes tooltip-fade {

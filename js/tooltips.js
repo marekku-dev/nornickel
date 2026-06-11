@@ -10,8 +10,16 @@
  *   этого id ничего не произойдёт — один файл обслуживает все главы.
  *
  * Подключение: вызывается из components.js → initAll() (initTooltips()).
- * Работает на десктопе (поповер у слова, наведение + клавиатура) и на мобильных
- * (нижняя шторка с затемнением, тап по слову / тап вне для закрытия).
+ *
+ * Модель взаимодействия (намеренно простая, без touch-хаков):
+ *   — Устройства с ховером (мышь): наведение показывает, уход прячет.
+ *     Клавиатура: focus/blur. Определяется через matchMedia('(hover:hover)'),
+ *     а НЕ по ширине окна — планшеты и узкие окна не путаются.
+ *   — Устройства без ховера (тач): обычный click по слову (браузер сам шлёт
+ *     его после тапа — никаких touchstart/preventDefault и подавления
+ *     синтетических кликов не нужно).
+ *   — Раскладка (шторка снизу vs поповер у слова) — по ширине, в согласии
+ *     с CSS-брейкпоинтом 768px.
  */
 (function (global) {
   'use strict';
@@ -37,16 +45,22 @@
   };
 
   const MOBILE_BREAKPOINT = 768;
-  const isMobile = () => window.innerWidth <= MOBILE_BREAKPOINT;
+
+  // Раскладка: шторка или поповер. Должно совпадать с медиазапросом в CSS.
+  const isSheetLayout = () => window.innerWidth <= MOBILE_BREAKPOINT;
+
+  // Способ ввода: есть ли «настоящий» ховер. matchMedia живой — если к
+  // планшету подключили мышь, .matches обновится сам.
+  const hoverMq = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const canHover = () => hoverMq.matches;
 
   let box, activeEl = null;
-  let touchedAt = 0;            // время последнего touchstart — гасим синтетический click
+  let closeTimer = null;        // таймер закрытия шторки — ВСЕГДА отменяем при show()
 
   /* ─── Создаём общий контейнер тултипа один раз ───
-   * На мобильных это нативный <dialog>: он сам блокирует фон через showModal()
-   * (page больше не скроллится, адресная строка не дёргается → нет «скачков»),
-   * сам держит позицию поверх вьюпорта, даёт ::backdrop и закрытие по Escape.
-   * Поэтому отдельный оверлей и ручная возня с visualViewport больше не нужны.
+   * На мобильной раскладке это нативный <dialog> в модальном режиме:
+   * showModal() сам блокирует фон (страница не скроллится, адресная строка
+   * не дёргается), держит шторку поверх вьюпорта, даёт ::backdrop и Escape.
    */
   function ensureNodes() {
     box = document.getElementById('tooltip-global');
@@ -87,30 +101,39 @@
 
   function show(text, el) {
     if (!box) return;
+    // Если шторка ещё доигрывает анимацию закрытия — отменяем, иначе отложенный
+    // close() схлопнет только что открытый тултип (это и был главный глюк).
+    if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
+
     // Убираем висячие предлоги и в самом тексте подсказки (функция из
     // no-hanging-prepositions.js). Если файл не подключён — показываем как есть.
     box.textContent = (typeof window.fixHangingText === 'function')
       ? window.fixHangingText(text)
       : text;
+
+    if (activeEl && activeEl !== el) {
+      activeEl.classList.remove('term-tooltip--active');
+      activeEl.setAttribute('aria-expanded', 'false');
+    }
     activeEl = el;
     el.classList.add('term-tooltip--active');
     el.setAttribute('aria-expanded', 'true');
 
-    if (isMobile()) {
+    if (isSheetLayout()) {
       box.classList.add('tooltip--mobile');
-      // showModal() сам блокирует фон и центрирует поверх вьюпорта.
-      // Защита от повторного открытия (иначе showModal бросает исключение).
+      // showModal() сам блокирует фон и держит шторку поверх вьюпорта.
+      // Защита от повторного вызова (иначе showModal бросает исключение).
       if (!box.open) box.showModal();
       // двойной rAF — чтобы сработала transition-анимация шторки
       requestAnimationFrame(() => requestAnimationFrame(() => {
         box.classList.add('is-visible');
       }));
     } else {
-      // Десктоп: обычный поповер у слова. Если осталось открытое модальное
-      // состояние от мобильной шторки — закрываем перед показом.
+      // Десктоп: немодальный поповер у слова. show() (не showModal) НЕ блокирует
+      // фон и не рисует backdrop. Если осталась открытая модалка — закрываем.
       if (box.open) box.close();
       box.classList.remove('tooltip--mobile', 'is-visible');
-      box.style.display = 'block';
+      box.show();
       positionDesktop(el);
     }
   }
@@ -125,12 +148,16 @@
     if (box.classList.contains('tooltip--mobile')) {
       box.classList.remove('is-visible');
       // Даём отыграть transition закрытия, потом закрываем <dialog>.
-      setTimeout(() => {
+      // Таймер запоминаем: show() обязан его отменить при повторном открытии.
+      if (closeTimer) clearTimeout(closeTimer);
+      closeTimer = setTimeout(() => {
+        closeTimer = null;
         if (box.open) box.close();
         box.classList.remove('tooltip--mobile');
       }, 250);
     } else {
-      box.style.display = 'none';
+      // Десктоп: закрываем немодальный диалог → уходит [open] → display:none.
+      if (box.open) box.close();
     }
   }
 
@@ -147,23 +174,26 @@
       el.setAttribute('aria-expanded', 'false');
       bound++;
 
-      // Десктоп: наведение
-      el.addEventListener('mouseenter', () => { if (!isMobile()) show(text, el); });
-      el.addEventListener('mouseleave', () => { if (!isMobile()) hide(); });
+      // Мышь: наведение. Только на устройствах с настоящим ховером —
+      // эмулированные mouseenter после тапа сюда не пройдут.
+      el.addEventListener('mouseenter', () => { if (canHover()) show(text, el); });
+      el.addEventListener('mouseleave', () => { if (canHover()) hide(); });
 
-      // Клавиатура (доступность)
-      el.addEventListener('focus', () => show(text, el));
-      el.addEventListener('blur',  hide);
+      // Клавиатура (доступность). Только при наличии ховера: на таче
+      // showModal() переносит фокус в диалог → blur у слова закрывал бы
+      // тултип сразу после открытия.
+      el.addEventListener('focus', () => { if (canHover()) show(text, el); });
+      el.addEventListener('blur',  () => { if (canHover()) hide(); });
 
-      // Тач: тап по слову. preventDefault гасит синтетический click после touch.
-      el.addEventListener('touchstart', e => {
-        e.preventDefault();
-        touchedAt = Date.now();   // пометка: ниже глобальный click это проигнорит
-        // На мобилке открытость определяет атрибут open у <dialog>.
-        const isOpen = box.open || box.style.display === 'block';
-        if (activeEl === el && isOpen) hide();
+      // Тач (и вообще клик на устройствах без ховера): браузер надёжно шлёт
+      // обычный click после тапа. Никаких touchstart/preventDefault —
+      // скролл, начатый на слове, работает как обычно.
+      el.addEventListener('click', e => {
+        if (canHover()) return;               // на десктопе всё делает ховер
+        e.preventDefault();                   // на случай вложенности в <a>
+        if (activeEl === el && box.open && !closeTimer) hide();
         else show(text, el);
-      }, { passive: false });
+      });
     }
 
     // Закрытие по тапу на затемнении (::backdrop) мобильной шторки.
@@ -177,7 +207,14 @@
       if (outside) hide();
     });
 
-    // Нативное закрытие <dialog> (Escape, программное close) — синхронизируем
+    // Escape в модальном режиме: нативное событие cancel. Перехватываем,
+    // чтобы закрыть со своей анимацией и не рассинхронизировать классы.
+    box.addEventListener('cancel', e => {
+      e.preventDefault();
+      hide();
+    });
+
+    // Нативное закрытие <dialog> (программное close) — синхронизируем
     // классы и состояние слова, чтобы не рассинхронизировалось с hide().
     box.addEventListener('close', () => {
       box.classList.remove('tooltip--mobile', 'is-visible');
@@ -188,22 +225,19 @@
       }
     });
 
-    // Десктоп: клик вне тултипа закрывает.
-    // Синтетический click после тача (в пределах ~500мс от touchstart) игнорируем —
-    // тач уже обработан своим хендлером, иначе тултип схлопнется сразу после тапа.
+    // Клик/тап вне слова и тултипа закрывает. В модальном режиме фон inert,
+    // клики туда не доходят — там закрытие делает обработчик backdrop выше.
     document.addEventListener('click', e => {
-      if (Date.now() - touchedAt < 500) return;
       if (e.target.closest('.term-tooltip') || e.target.closest('#tooltip-global')) return;
       hide();
     });
 
-    // Escape закрывает
+    // Escape закрывает десктопный поповер (модалку закрывает cancel выше)
     document.addEventListener('keydown', e => { if (e.key === 'Escape') hide(); });
 
     // При смене ориентации/ширины прячем, чтобы не зависало между режимами.
     // ВАЖНО: реагируем только на смену ШИРИНЫ. Высота вьюпорта на мобилке
-    // постоянно меняется (адресная строка, лок body) — на это закрываться нельзя,
-    // иначе тултип схлопывается сразу после тапа.
+    // постоянно меняется (адресная строка) — на это закрываться нельзя.
     let lastWidth = window.innerWidth;
     window.addEventListener('resize', () => {
       if (window.innerWidth === lastWidth) return;   // изменилась только высота — игнор
