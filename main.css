@@ -1594,6 +1594,10 @@ ol {
   width: 420px;
   max-width: calc(100vw - 20px);
   padding: 14px 16px;
+  /* Сброс дефолтов нативного <dialog>: на десктопе позицию задаёт JS
+     инлайн-стилями, поэтому центрирующий margin:auto и inset убираем. */
+  margin: 0;
+  inset: auto;
   font-family: var(--font-main);
   font-size: 15px;
   line-height: 1.5;
@@ -1635,16 +1639,26 @@ ol {
   background: var(--color-accent);
 }
 
-/* ─── Мобильная шторка снизу ─── */
+/* ─── Мобильная шторка снизу (нативный <dialog> в модальном режиме) ─── */
 @media screen and (max-width: 768px) {
-  .tooltip--mobile {
+  /* Открытый модальный <dialog> по умолчанию центрируется (margin:auto,
+     inset:0). Переопределяем на нижнюю шторку, прижатую к низу вьюпорта.
+     Браузер сам держит её поверх вьюпорта и блокирует скролл фона —
+     поэтому адресная строка больше не дёргается и попап не «скачет». */
+  .tooltip--mobile[open] {
+    display: block;       /* перебиваем .tooltip { display:none } */
     position: fixed;
     left: 10px;
     right: 10px;
     bottom: env(safe-area-inset-bottom, 0px);
     top: auto;
+    inset: auto 10px env(safe-area-inset-bottom, 0px) 10px;
     width: auto;
     max-width: none;
+    /* высоту меряем в динамических vh, чтобы при сворачивании адресной
+       строки шторка не обрезалась; длинный текст прокручивается внутри */
+    max-height: 80dvh;
+    overflow-y: auto;
     padding: 18px 18px calc(18px + env(safe-area-inset-bottom, 0px));
     font-size: 16px;
     border: none;
@@ -1655,34 +1669,26 @@ ol {
     animation: none;                 /* на мобилке свой transition */
     transition: transform .25s ease, opacity .25s ease;
   }
-  .tooltip--mobile.is-visible {
+  .tooltip--mobile[open].is-visible {
     transform: translateY(0);
     opacity: 1;
   }
   /* маленький «грабельный» индикатор сверху шторки */
-  .tooltip--mobile::before {
+  .tooltip--mobile[open]::before {
     content: '';
-    position: absolute;
-    top: 8px;
-    left: 50%;
-    transform: translateX(-50%);
+    position: sticky;
+    top: 0;
+    display: block;
     width: 36px;
     height: 4px;
+    margin: 0 auto 12px;
     border-radius: 2px;
     background: var(--color-accent-mid);
   }
-}
-
-/* Затемнение под мобильной шторкой */
-#tooltip-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 9998;
-  background: rgba(0, 0, 0, .3);
-}
-#tooltip-overlay.is-visible {
-  display: block;
+  /* Затемнение фона рисует сам <dialog> — отдельный оверлей не нужен. */
+  .tooltip--mobile[open]::backdrop {
+    background: rgba(0, 0, 0, .3);
+  }
 }
 
 

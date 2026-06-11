@@ -39,88 +39,23 @@
   const MOBILE_BREAKPOINT = 768;
   const isMobile = () => window.innerWidth <= MOBILE_BREAKPOINT;
 
-  let box, overlay, activeEl = null;
-  let scrollLockY = 0;          // запомненная позиция скролла на время лока
-  let bodyLocked = false;       // флаг активного лока, чтобы не сбрасывать скролл зря
+  let box, activeEl = null;
   let touchedAt = 0;            // время последнего touchstart — гасим синтетический click
 
-  /* ─── Лок скролла фона, пока открыта мобильная шторка ───
-   * Фиксируем body на текущей позиции. Это останавливает скролл страницы,
-   * а значит и движение адресной строки браузера — главную причину «скачков».
+  /* ─── Создаём общий контейнер тултипа один раз ───
+   * На мобильных это нативный <dialog>: он сам блокирует фон через showModal()
+   * (page больше не скроллится, адресная строка не дёргается → нет «скачков»),
+   * сам держит позицию поверх вьюпорта, даёт ::backdrop и закрытие по Escape.
+   * Поэтому отдельный оверлей и ручная возня с visualViewport больше не нужны.
    */
-  function lockBodyScroll() {
-    if (bodyLocked) return;
-    scrollLockY = window.scrollY || window.pageYOffset || 0;
-    bodyLocked = true;
-    const body = document.body;
-    body.style.position = 'fixed';
-    body.style.top = -scrollLockY + 'px';
-    body.style.left = '0';
-    body.style.right = '0';
-    body.style.width = '100%';
-  }
-
-  function unlockBodyScroll() {
-    if (!bodyLocked) return;
-    bodyLocked = false;
-    const body = document.body;
-    body.style.position = '';
-    body.style.top = '';
-    body.style.left = '';
-    body.style.right = '';
-    body.style.width = '';
-    window.scrollTo(0, scrollLockY);
-  }
-
-  /* ─── Подстраховка позиции через Visual Viewport API ───
-   * На iOS Safari position:fixed считается от layout viewport, поэтому при
-   * сжатии/развороте адресной строки шторку «уводит». Пришиваем её и оверлей
-   * к реальной нижней кромке visual viewport.
-   */
-  function syncMobilePosition() {
-    if (!box || !box.classList.contains('tooltip--mobile')) return;
-    const vv = window.visualViewport;
-    if (!vv) return;
-    // Сколько визуальный вьюпорт «не достаёт» до низа layout-вьюпорта снизу.
-    const bottomGap = window.innerHeight - vv.height - vv.offsetTop;
-    box.style.bottom = Math.max(0, bottomGap) + 'px';
-    // Оверлей растягиваем строго по визуальному вьюпорту.
-    overlay.style.top = vv.offsetTop + 'px';
-    overlay.style.height = vv.height + 'px';
-  }
-
-  function clearMobilePosition() {
-    if (box)     box.style.bottom = '';
-    if (overlay) { overlay.style.top = ''; overlay.style.height = ''; }
-  }
-
-  function bindViewportWatch() {
-    if (!window.visualViewport) return;
-    window.visualViewport.addEventListener('resize', syncMobilePosition);
-    window.visualViewport.addEventListener('scroll', syncMobilePosition);
-  }
-
-  function unbindViewportWatch() {
-    if (!window.visualViewport) return;
-    window.visualViewport.removeEventListener('resize', syncMobilePosition);
-    window.visualViewport.removeEventListener('scroll', syncMobilePosition);
-  }
-
-  /* ─── Создаём общий контейнер тултипа и оверлей один раз ─── */
   function ensureNodes() {
     box = document.getElementById('tooltip-global');
     if (!box) {
-      box = document.createElement('div');
+      box = document.createElement('dialog');
       box.id = 'tooltip-global';
       box.className = 'tooltip';
       box.setAttribute('role', 'tooltip');
       document.body.appendChild(box);
-    }
-    overlay = document.getElementById('tooltip-overlay');
-    if (!overlay) {
-      overlay = document.createElement('div');
-      overlay.id = 'tooltip-overlay';
-      document.body.appendChild(overlay);
     }
   }
 
@@ -163,21 +98,17 @@
 
     if (isMobile()) {
       box.classList.add('tooltip--mobile');
-      box.style.display = 'block';
-      overlay.classList.add('is-visible');
-      lockBodyScroll();            // фон не скроллится → адресная строка стоит
-      bindViewportWatch();         // подстраховка на случай сдвигов вьюпорта
-      syncMobilePosition();        // сразу выставить по текущему вьюпорту
+      // showModal() сам блокирует фон и центрирует поверх вьюпорта.
+      // Защита от повторного открытия (иначе showModal бросает исключение).
+      if (!box.open) box.showModal();
       // двойной rAF — чтобы сработала transition-анимация шторки
       requestAnimationFrame(() => requestAnimationFrame(() => {
         box.classList.add('is-visible');
       }));
     } else {
-      // Защита: если перешли в десктоп-режим из открытой мобильной шторки,
-      // снимаем возможный лок и вотчер, чтобы body не залип в position:fixed.
-      unbindViewportWatch();
-      unlockBodyScroll();
-      clearMobilePosition();
+      // Десктоп: обычный поповер у слова. Если осталось открытое модальное
+      // состояние от мобильной шторки — закрываем перед показом.
+      if (box.open) box.close();
       box.classList.remove('tooltip--mobile', 'is-visible');
       box.style.display = 'block';
       positionDesktop(el);
@@ -193,11 +124,11 @@
     }
     if (box.classList.contains('tooltip--mobile')) {
       box.classList.remove('is-visible');
-      overlay.classList.remove('is-visible');
-      unbindViewportWatch();
-      unlockBodyScroll();
-      clearMobilePosition();
-      setTimeout(() => { box.style.display = 'none'; }, 250);
+      // Даём отыграть transition закрытия, потом закрываем <dialog>.
+      setTimeout(() => {
+        if (box.open) box.close();
+        box.classList.remove('tooltip--mobile');
+      }, 250);
     } else {
       box.style.display = 'none';
     }
@@ -228,15 +159,34 @@
       el.addEventListener('touchstart', e => {
         e.preventDefault();
         touchedAt = Date.now();   // пометка: ниже глобальный click это проигнорит
-        if (activeEl === el && box.style.display === 'block') hide();
+        // На мобилке открытость определяет атрибут open у <dialog>.
+        const isOpen = box.open || box.style.display === 'block';
+        if (activeEl === el && isOpen) hide();
         else show(text, el);
       }, { passive: false });
     }
 
-    // Закрытие по тапу на затемнении (мобилка)
-    overlay.addEventListener('touchstart', e => { e.preventDefault(); hide(); },
-      { passive: false });
-    overlay.addEventListener('click', hide);
+    // Закрытие по тапу на затемнении (::backdrop) мобильной шторки.
+    // Клик по самому <dialog> в модальном режиме приходит на элемент-диалог,
+    // но если координаты вне его прямоугольника — значит попали в backdrop.
+    box.addEventListener('click', e => {
+      if (!box.classList.contains('tooltip--mobile')) return;
+      const r = box.getBoundingClientRect();
+      const outside = e.clientX < r.left || e.clientX > r.right ||
+                      e.clientY < r.top  || e.clientY > r.bottom;
+      if (outside) hide();
+    });
+
+    // Нативное закрытие <dialog> (Escape, программное close) — синхронизируем
+    // классы и состояние слова, чтобы не рассинхронизировалось с hide().
+    box.addEventListener('close', () => {
+      box.classList.remove('tooltip--mobile', 'is-visible');
+      if (activeEl) {
+        activeEl.classList.remove('term-tooltip--active');
+        activeEl.setAttribute('aria-expanded', 'false');
+        activeEl = null;
+      }
+    });
 
     // Десктоп: клик вне тултипа закрывает.
     // Синтетический click после тача (в пределах ~500мс от touchstart) игнорируем —
