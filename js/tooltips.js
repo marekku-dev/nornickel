@@ -64,6 +64,13 @@
    */
   function ensureNodes() {
     box = document.getElementById('tooltip-global');
+    // Защита: если в HTML остался старый статический <div id="tooltip-global">,
+    // у него нет show()/showModal() и open — тултип молча не работал бы.
+    // Сносим и создаём настоящий <dialog>.
+    if (box && box.tagName !== 'DIALOG') {
+      box.remove();
+      box = null;
+    }
     if (!box) {
       box = document.createElement('dialog');
       box.id = 'tooltip-global';
