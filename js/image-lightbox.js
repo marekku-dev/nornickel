@@ -88,26 +88,44 @@
 
   function reset() { scale = 1; tx = 0; ty = 0; apply(); }
 
+  /* Экранный размер картинки при scale=1 (object-fit: contain в пределах stage).
+   * Считаем из naturalWidth/Height + размеров stage — это не зависит от того,
+   * успел ли браузер отрисовать <img> (getBoundingClientRect мог бы вернуть 0,
+   * если картинка из кэша и замер случился до показа диалога). */
+  function measure() {
+    var iw = img.naturalWidth, ih = img.naturalHeight;
+    var sw = stage.clientWidth, sh = stage.clientHeight;
+    if (!iw || !ih || !sw || !sh) {
+      var r = img.getBoundingClientRect();   // фолбэк
+      natural.w = r.width; natural.h = r.height;
+      return;
+    }
+    var fit = Math.min(sw / iw, sh / ih);     // contain
+    natural.w = iw * fit;
+    natural.h = ih * fit;
+    clampPan();
+    apply();
+  }
+
   /* ─── Открытие / закрытие ─── */
   function open(src, alt) {
     ensureNodes();
     reset();
     dlg.classList.remove('is-interacted');
-    img.src = src;
     img.alt = alt || '';
-
-    var start = function () {
-      // экранные размеры картинки при scale=1 (для clampPan)
-      var r = img.getBoundingClientRect();
-      natural.w = r.width;
-      natural.h = r.height;
-    };
-    if (img.complete) start();
-    else img.addEventListener('load', start, { once: true });
+    img.src = src;
 
     if (!dlg.open) dlg.showModal();
+    // Замеряем уже после показа диалога, когда stage получил размеры.
+    var afterShow = function () {
+      if (img.complete && img.naturalWidth) measure();
+      else img.addEventListener('load', measure, { once: true });
+    };
     requestAnimationFrame(function () {
-      requestAnimationFrame(function () { dlg.classList.add('is-visible'); });
+      requestAnimationFrame(function () {
+        dlg.classList.add('is-visible');
+        afterShow();
+      });
     });
   }
 
@@ -232,6 +250,11 @@
     // Клик по фону stage (не по картинке) при отсутствии зума — закрыть
     stage.addEventListener('click', function (e) {
       if (e.target === stage && scale <= 1.01) close();
+    });
+
+    // Пересчёт границ при повороте экрана / ресайзе
+    window.addEventListener('resize', function () {
+      if (dlg.open) measure();
     });
   }
 
