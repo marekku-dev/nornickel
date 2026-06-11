@@ -3,11 +3,11 @@
  * Интерактивность страницы «Основы изменения климата».
  *
  * Модули:
- *  1. ImageSync       — sticky-секция: переключение фото при скролле
- *  2. Tooltips        — всплывающие определения терминов
- *  3. Physics (p5.js) — анимации физических законов
+ *  1. Slider          — универсальный touch/click-слайдер
+ *  2. ImageSync       — sticky-секция: переключение фото при скролле
+ *  3. Tooltips        — всплывающие определения терминов
+ *  4. Physics (p5.js) — анимации физических законов
  *
- * Слайдеры инициализируются через window.initSlider (components.js).
  * Все модули инициализируются по DOMContentLoaded.
  * p5-анимации запускаются через requestIdleCallback (не блокируют LCP/FID).
  */
@@ -20,7 +20,97 @@
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
   /* ════════════════════════════════════════════════════════════
-   *  1. STICKY IMAGE SYNC
+   *  1. SLIDER
+   * ════════════════════════════════════════════════════════════ */
+
+  const _sliders = {};
+
+  function initSlider(id) {
+    const wrap  = document.getElementById(id);
+    const track = document.getElementById(id + '-mask');
+    if (!wrap || !track) return;
+
+    const slides = $$('.slider__slide', track);
+    const total  = slides.length;
+    if (!total) return;
+
+    const nav = document.getElementById(id + '-nav');
+
+    // Создаём точки-навигаторы
+    if (nav) {
+      nav.innerHTML = '';
+      slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className   = 'slider__dot' + (i === 0 ? ' slider__dot--active' : '');
+        dot.type        = 'button';
+        dot.setAttribute('aria-label', `Слайд ${i + 1}`);
+        dot.setAttribute('role', 'tab');
+        dot.addEventListener('click', () => goToSlide(id, i));
+        nav.appendChild(dot);
+      });
+    }
+
+    _sliders[id] = { current: 0, total };
+    _renderSlider(id);
+
+    // Touch/swipe поддержка (drag-follow из components.js)
+    if (typeof window.attachSwipe === 'function') {
+      window.attachSwipe({
+        area:  wrap,
+        track: track,
+        getCurrent: () => _sliders[id].current,
+        getTotal:   () => _sliders[id].total,
+        step:  () => wrap.getBoundingClientRect().width,
+        onPrev:  () => slideChange(id, -1),
+        onNext:  () => slideChange(id,  1),
+        render:  () => _renderSlider(id),
+        loop:  true
+      });
+    } else {
+      // Фолбэк: старый порог-свайп
+      let touchStartX = 0;
+      track.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].clientX;
+      }, { passive: true });
+      track.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 40) slideChange(id, dx < 0 ? 1 : -1);
+      }, { passive: true });
+    }
+  }
+
+  function _renderSlider(id) {
+    const s = _sliders[id];
+    if (!s) return;
+
+    const track = document.getElementById(id + '-mask');
+    if (track) track.style.transform = `translateX(-${s.current * 100}%)`;
+
+    $$('#' + id + '-nav .slider__dot').forEach((dot, i) => {
+      dot.classList.toggle('slider__dot--active', i === s.current);
+      dot.setAttribute('aria-selected', String(i === s.current));
+    });
+  }
+
+  function slideChange(id, dir) {
+    const s = _sliders[id];
+    if (!s) return;
+    s.current = (s.current + dir + s.total) % s.total;
+    _renderSlider(id);
+  }
+
+  function goToSlide(id, index) {
+    const s = _sliders[id];
+    if (!s) return;
+    s.current = index;
+    _renderSlider(id);
+  }
+
+  // Экспортируем для onclick-атрибутов в HTML
+  window.slideChange = slideChange;
+
+  /* ════════════════════════════════════════════════════════════
+   *  2. STICKY IMAGE SYNC
    *     Меняет фото в .sticky-images при скролле text-cards.
    * ════════════════════════════════════════════════════════════ */
 
@@ -298,8 +388,8 @@
    * ════════════════════════════════════════════════════════════ */
 
   document.addEventListener('DOMContentLoaded', () => {
-    window.initSlider('slider-causes',    { loop: true });
-    window.initSlider('slider-scientists', { loop: true });
+    initSlider('slider-causes');
+    initSlider('slider-scientists');
     initImageSync();
 
     // p5.js запускаем в idle, чтобы не задерживать FID

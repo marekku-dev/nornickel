@@ -3,11 +3,10 @@
  * Интерактивность страницы «В чём проявляются изменения климата».
  *
  * Модули:
- *  1. BeforeAfter   — перетягиваемый разделитель «до / после»
- *  2. Quiz          — интерактивная викторина о пресной воде
- *  3. Tooltips      — всплывающие подсказки для терминов
- *
- * Слайдеры инициализируются через window.initSlider (components.js).
+ *  1. Slider        — слайдеры (переиспользует slideChange из chapter-1 паттерн)
+ *  2. BeforeAfter   — перетягиваемый разделитель «до / после»
+ *  3. Quiz          — интерактивная викторина о пресной воде
+ *  4. Tooltips      — всплывающие подсказки для терминов
  */
 
 (function () {
@@ -17,7 +16,88 @@
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
   /* ════════════════════════════════════════════════════════════
-   *  1. BEFORE / AFTER SLIDER
+   *  1. SLIDER (та же логика, что в chapter-1.js)
+   * ════════════════════════════════════════════════════════════ */
+
+  const _sliders = {};
+
+  function initSlider(id) {
+    const track = document.getElementById(id + '-mask');
+    if (!track) return;
+    const slides = $$('.slider__slide', track);
+    const total  = slides.length;
+    if (!total) return;
+
+    const nav = document.getElementById(id + '-nav');
+    if (nav) {
+      nav.innerHTML = '';
+      slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'slider__dot' + (i === 0 ? ' slider__dot--active' : '');
+        dot.type      = 'button';
+        dot.setAttribute('aria-label', `Слайд ${i + 1}`);
+        dot.setAttribute('role', 'tab');
+        dot.addEventListener('click', () => goToSlide(id, i));
+        nav.appendChild(dot);
+      });
+    }
+
+    _sliders[id] = { current: 0, total };
+    _renderSlider(id);
+
+    // Touch/swipe (drag-follow из components.js)
+    const wrap = document.getElementById(id);
+    if (typeof window.attachSwipe === 'function' && wrap) {
+      window.attachSwipe({
+        area:  wrap,
+        track: track,
+        getCurrent: () => _sliders[id].current,
+        getTotal:   () => _sliders[id].total,
+        step:  () => wrap.getBoundingClientRect().width,
+        onPrev:  () => slideChange(id, -1),
+        onNext:  () => slideChange(id,  1),
+        render:  () => _renderSlider(id),
+        loop:  true
+      });
+    } else {
+      let startX = 0;
+      track.addEventListener('touchstart', e => { startX = e.changedTouches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend',   e => {
+        const dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 40) slideChange(id, dx < 0 ? 1 : -1);
+      }, { passive: true });
+    }
+  }
+
+  function _renderSlider(id) {
+    const s = _sliders[id];
+    if (!s) return;
+    const track = document.getElementById(id + '-mask');
+    if (track) track.style.transform = `translateX(-${s.current * 100}%)`;
+    $$('#' + id + '-nav .slider__dot').forEach((dot, i) => {
+      dot.classList.toggle('slider__dot--active', i === s.current);
+      dot.setAttribute('aria-selected', String(i === s.current));
+    });
+  }
+
+  function slideChange(id, dir) {
+    const s = _sliders[id];
+    if (!s) return;
+    s.current = (s.current + dir + s.total) % s.total;
+    _renderSlider(id);
+  }
+
+  function goToSlide(id, index) {
+    const s = _sliders[id];
+    if (!s) return;
+    s.current = index;
+    _renderSlider(id);
+  }
+
+  window.slideChange = slideChange;
+
+  /* ════════════════════════════════════════════════════════════
+   *  2. BEFORE / AFTER SLIDER
    * ════════════════════════════════════════════════════════════ */
 
   function initBeforeAfter() {
@@ -183,8 +263,8 @@
    * ════════════════════════════════════════════════════════════ */
 
   document.addEventListener('DOMContentLoaded', () => {
-    window.initSlider('slider-currents',   { loop: true });
-    window.initSlider('slider-ecosystems', { loop: true });
+    initSlider('slider-currents');
+    initSlider('slider-ecosystems');
     initBeforeAfter();
     initQuiz();
   });

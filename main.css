@@ -843,6 +843,187 @@ ol {
   /*margin: 20px 0;*/
 }
 
+/* Изображение, вписанное по ширине контейнера (без принудительного min-width) */
+.graph-image--fit {
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  display: block;
+}
+
+/* =============================================================================
+   Кликабельная картинка → зум-лайтбокс
+   ============================================================================= */
+
+/* Триггер: кнопка-обёртка вокруг картинки (доступность + клик) */
+.zoom-trigger {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.zoom-trigger img {
+  border-radius: var(--radius-md);
+  display: block;
+}
+
+/* Иконка-подсказка «можно увеличить» в углу */
+.zoom-trigger__hint {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+  opacity: 0.9;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+@media (hover: hover) {
+  .zoom-trigger:hover .zoom-trigger__hint { opacity: 1; transform: scale(1.06); }
+}
+
+/* Подпись «Увеличить карту» — только мобилка (стиль .source-caption) */
+.zoom-trigger__caption {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .zoom-trigger {
+    cursor: pointer;
+  }
+  .zoom-trigger__hint {
+    display: none;            /* на мобилке вместо угловой иконки — подпись снизу */
+  }
+  .zoom-trigger__caption {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 10px;
+    font-style: italic;
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(26, 26, 26, 0.45);
+  }
+  .zoom-trigger__caption svg {
+    flex: none;
+    opacity: 0.7;
+  }
+  .zoom-trigger__caption-text {
+    text-decoration: underline dashed;
+    text-decoration-color: rgba(26, 26, 26, 0.3);
+    text-underline-offset: 3px;
+  }
+}
+
+/* ----- Лайтбокс на нативном <dialog> ----- */
+.lightbox {
+  width: 100vw;
+  max-width: 100vw;
+  height: 100dvh;
+  max-height: 100dvh;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.lightbox[open] { display: flex; }
+.lightbox.is-visible { opacity: 1; }
+
+.lightbox::backdrop {
+  background: rgba(20, 18, 14, 0.92);
+}
+
+/* Область просмотра — здесь живёт зум/пан, задаётся из JS через transform */
+.lightbox__stage {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  touch-action: none;          /* перехватываем жесты сами (pinch/pan) */
+  cursor: zoom-in;
+}
+.lightbox__stage.is-zoomed { cursor: grab; }
+.lightbox__stage.is-panning { cursor: grabbing; }
+
+.lightbox__img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* Кнопка закрытия */
+.lightbox__close {
+  position: absolute;
+  top: max(16px, env(safe-area-inset-top));
+  right: max(16px, env(safe-area-inset-right));
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.2s ease;
+}
+.lightbox__close:hover { background: rgba(255, 255, 255, 0.26); }
+
+/* Подсказка по жестам — гаснет после первого взаимодействия */
+.lightbox__hint {
+  position: absolute;
+  left: 50%;
+  bottom: max(20px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  z-index: 2;
+  padding: 8px 14px;
+  font-family: var(--font-main);
+  font-size: 13px;
+  line-height: 1;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.lightbox.is-interacted .lightbox__hint { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbox, .lightbox.is-visible { transition: none; }
+}
+
 /* Контейнер для горизонтально прокручиваемого графика */
 .graph-fullwidth-wrapper {
   display: flex;
@@ -1877,6 +2058,9 @@ ol {
   .graph-image--scroll-mobile.graph-image--mw-1000 { min-width: 1000px; }
   .graph-image--scroll-mobile.graph-image--mw-1200 { min-width: 1200px; }
   .ipcc-chart-canvas { min-width: 800px; }
+
+  /* Карта точек невозврата: вписана по ширине экрана, без боковых полей обёртки */
+  .graph-wide-wrapper--flush-mobile { padding: 0; }
 }
 
 
