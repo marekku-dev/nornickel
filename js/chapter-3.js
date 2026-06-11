@@ -117,7 +117,7 @@
 
     function render() {
       const offset = current * slideStep();
-      track.style.transition = 'transform .4s ease';
+      track.style.transition = ''; // вернуть CSS-transition (.4s ease)
       track.style.transform  = `translateX(-${offset}px)`;
       nav.querySelectorAll('.slider__dot').forEach((d, i) => {
         d.classList.toggle('slider__dot--active', i === current);
@@ -129,67 +129,20 @@
       render();
     }
 
-    /* ── Drag-follow свайп ─────────────────────────────────────── */
-    let startX = 0, startY = 0;      // точка касания
-    let dragDX = 0;                  // текущее смещение по X
-    let dragging = false;            // идёт ли горизонтальный drag
-    let decided = false;             // определили ли направление жеста
-
-    function onStart(e) {
-      const t = e.touches ? e.touches[0] : e;
-      startX = t.clientX;
-      startY = t.clientY;
-      dragDX = 0;
-      dragging = false;
-      decided  = false;
-      track.style.transition = 'none';  // следуем за пальцем без задержки
+    // Drag-follow свайп (общая функция из components.js)
+    if (typeof window.attachSwipe === 'function') {
+      window.attachSwipe({
+        area:  wrapper,
+        track: track,
+        getCurrent: () => current,
+        getTotal:   () => total,
+        step:  slideStep,
+        onPrev:  () => go(current - 1),
+        onNext:  () => go(current + 1),
+        render:  render,
+        loop:  false
+      });
     }
-
-    function onMove(e) {
-      const t = e.touches ? e.touches[0] : e;
-      const dx = t.clientX - startX;
-      const dy = t.clientY - startY;
-
-      // Определяем направление жеста один раз
-      if (!decided) {
-        if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return; // ещё рано решать
-        decided  = true;
-        dragging = Math.abs(dx) > Math.abs(dy);           // горизонталь → наш свайп
-      }
-      if (!dragging) return; // вертикальный жест — отдаём странице на скролл
-
-      e.preventDefault();    // блокируем вертикальный скролл во время свайпа
-
-      // Сопротивление на краях, чтобы не уезжать в пустоту
-      let resist = dx;
-      if ((current === 0 && dx > 0) || (current === total - 1 && dx < 0)) {
-        resist = dx * 0.35;
-      }
-      dragDX = resist;
-      const base = current * slideStep();
-      track.style.transform = `translateX(-${base - dragDX}px)`;
-    }
-
-    function onEnd() {
-      track.style.transition = 'transform .4s ease';
-      if (dragging) {
-        const threshold = slideStep() * 0.18; // ~18% ширины достаточно для перехода
-        if (Math.abs(dragDX) > threshold) {
-          go(current + (dragDX < 0 ? 1 : -1));
-        } else {
-          render(); // не дотянул — возвращаем на место
-        }
-      }
-      dragging = false;
-      decided  = false;
-      dragDX   = 0;
-    }
-
-    // Обработчики на wrapper — активная зона = вся ширина экрана (100vw)
-    wrapper.addEventListener('touchstart', onStart, { passive: true });
-    wrapper.addEventListener('touchmove',  onMove,  { passive: false });
-    wrapper.addEventListener('touchend',   onEnd,   { passive: true });
-    wrapper.addEventListener('touchcancel', onEnd,  { passive: true });
 
     render();
   }
@@ -232,7 +185,7 @@
     }
 
     function render() {
-      track.style.transition = 'transform .4s ease';
+      track.style.transition = ''; // вернуть CSS-transition (.4s ease)
       track.style.transform  = `translateX(-${current * 100}%)`;
       nav.querySelectorAll('.slider__dot').forEach((d, i) => {
         d.classList.toggle('slider__dot--active', i === current);
@@ -244,54 +197,20 @@
       render();
     }
 
-    /* ── Drag-follow свайп ─────────────────────────────────────── */
-    let startX = 0, startY = 0, dragDX = 0, dragging = false, decided = false;
-
-    function onStart(e) {
-      const t = e.touches ? e.touches[0] : e;
-      startX = t.clientX; startY = t.clientY;
-      dragDX = 0; dragging = false; decided = false;
-      track.style.transition = 'none';
+    // Drag-follow свайп (общая функция из components.js)
+    if (typeof window.attachSwipe === 'function') {
+      window.attachSwipe({
+        area:  swipeArea,
+        track: track,
+        getCurrent: () => current,
+        getTotal:   () => total,
+        step:  slideStep,
+        onPrev:  () => go(current - 1),
+        onNext:  () => go(current + 1),
+        render:  render,
+        loop:  false
+      });
     }
-
-    function onMove(e) {
-      const t = e.touches ? e.touches[0] : e;
-      const dx = t.clientX - startX;
-      const dy = t.clientY - startY;
-      if (!decided) {
-        if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
-        decided  = true;
-        dragging = Math.abs(dx) > Math.abs(dy);
-      }
-      if (!dragging) return;
-      e.preventDefault();
-
-      let resist = dx;
-      if ((current === 0 && dx > 0) || (current === total - 1 && dx < 0)) {
-        resist = dx * 0.35;
-      }
-      dragDX = resist;
-      const base = current * slideStep();
-      track.style.transform = `translateX(-${base - dragDX}px)`;
-    }
-
-    function onEnd() {
-      track.style.transition = 'transform .4s ease';
-      if (dragging) {
-        const threshold = slideStep() * 0.18;
-        if (Math.abs(dragDX) > threshold) {
-          go(current + (dragDX < 0 ? 1 : -1));
-        } else {
-          render();
-        }
-      }
-      dragging = false; decided = false; dragDX = 0;
-    }
-
-    swipeArea.addEventListener('touchstart',  onStart, { passive: true });
-    swipeArea.addEventListener('touchmove',   onMove,  { passive: false });
-    swipeArea.addEventListener('touchend',    onEnd,   { passive: true });
-    swipeArea.addEventListener('touchcancel', onEnd,   { passive: true });
 
     render();
   }

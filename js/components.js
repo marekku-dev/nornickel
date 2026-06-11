@@ -165,6 +165,83 @@
     targets.forEach(el => obs.observe(el));
   }
 
+  /* ─── Универсальный drag-follow свайп для слайдеров ───
+   *
+   * Карточка тянется за пальцем в реальном времени, на отпускании
+   * плавно доводится до соседнего слайда. Зона свайпа — весь блок
+   * (обычно враппер во всю ширину), а не узкий трек.
+   *
+   * opts = {
+   *   area,      // элемент, на котором ловим тач (вся активная зона)
+   *   track,     // элемент, который двигаем (transform: translateX)
+   *   getCurrent,// () => индекс текущего слайда
+   *   getTotal,  // () => всего слайдов
+   *   step,      // () => ширина одного шага в px (ширина видимой области)
+   *   onPrev,    // () => перейти на предыдущий слайд (может быть циклическим)
+   *   onNext,    // () => перейти на следующий слайд
+   *   render,    // () => вернуть трек на позицию текущего слайда (с transition)
+   *   loop       // bool: цикличный ли слайдер (тогда нет сопротивления на краях)
+   * }
+   */
+  function attachSwipe(opts) {
+    const { area, track } = opts;
+    if (!area || !track) return;
+
+    let startX = 0, startY = 0, dragDX = 0, dragging = false, decided = false;
+
+    function onStart(e) {
+      const t = e.touches ? e.touches[0] : e;
+      startX = t.clientX; startY = t.clientY;
+      dragDX = 0; dragging = false; decided = false;
+      track.style.transition = 'none';
+    }
+
+    function onMove(e) {
+      const t = e.touches ? e.touches[0] : e;
+      const dx = t.clientX - startX;
+      const dy = t.clientY - startY;
+      if (!decided) {
+        if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+        decided  = true;
+        dragging = Math.abs(dx) > Math.abs(dy); // горизонталь → наш свайп
+      }
+      if (!dragging) return;
+      e.preventDefault(); // блокируем вертикальный скролл во время свайпа
+
+      const current = opts.getCurrent();
+      const total   = opts.getTotal();
+      let resist = dx;
+      // Сопротивление на краях у нецикличных слайдеров
+      if (!opts.loop && ((current === 0 && dx > 0) || (current === total - 1 && dx < 0))) {
+        resist = dx * 0.35;
+      }
+      dragDX = resist;
+      const base = current * opts.step();
+      track.style.transform = `translateX(-${base - dragDX}px)`;
+    }
+
+    function onEnd() {
+      track.style.transition = ''; // вернём CSS-transition (.4–.5s ease)
+      if (dragging) {
+        const threshold = opts.step() * 0.18;
+        if (Math.abs(dragDX) > threshold) {
+          (dragDX < 0 ? opts.onNext : opts.onPrev)();
+        } else {
+          opts.render(); // не дотянул — возвращаем на место
+        }
+      } else {
+        opts.render();
+      }
+      dragging = false; decided = false; dragDX = 0;
+    }
+
+    area.addEventListener('touchstart',  onStart, { passive: true });
+    area.addEventListener('touchmove',   onMove,  { passive: false });
+    area.addEventListener('touchend',    onEnd,   { passive: true });
+    area.addEventListener('touchcancel', onEnd,   { passive: true });
+  }
+  window.attachSwipe = attachSwipe;
+
   /* ─── Старт ─── */
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', loadAll);

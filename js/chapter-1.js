@@ -53,15 +53,30 @@
     _sliders[id] = { current: 0, total };
     _renderSlider(id);
 
-    // Touch/swipe поддержка
-    let touchStartX = 0;
-    track.addEventListener('touchstart', e => {
-      touchStartX = e.changedTouches[0].clientX;
-    }, { passive: true });
-    track.addEventListener('touchend', e => {
-      const dx = e.changedTouches[0].clientX - touchStartX;
-      if (Math.abs(dx) > 40) slideChange(id, dx < 0 ? 1 : -1);
-    }, { passive: true });
+    // Touch/swipe поддержка (drag-follow из components.js)
+    if (typeof window.attachSwipe === 'function') {
+      window.attachSwipe({
+        area:  wrap,
+        track: track,
+        getCurrent: () => _sliders[id].current,
+        getTotal:   () => _sliders[id].total,
+        step:  () => wrap.getBoundingClientRect().width,
+        onPrev:  () => slideChange(id, -1),
+        onNext:  () => slideChange(id,  1),
+        render:  () => _renderSlider(id),
+        loop:  true
+      });
+    } else {
+      // Фолбэк: старый порог-свайп
+      let touchStartX = 0;
+      track.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].clientX;
+      }, { passive: true });
+      track.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 40) slideChange(id, dx < 0 ? 1 : -1);
+      }, { passive: true });
+    }
   }
 
   function _renderSlider(id) {

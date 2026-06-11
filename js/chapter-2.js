@@ -45,13 +45,28 @@
     _sliders[id] = { current: 0, total };
     _renderSlider(id);
 
-    // Touch/swipe
-    let startX = 0;
-    track.addEventListener('touchstart', e => { startX = e.changedTouches[0].clientX; }, { passive: true });
-    track.addEventListener('touchend',   e => {
-      const dx = e.changedTouches[0].clientX - startX;
-      if (Math.abs(dx) > 40) slideChange(id, dx < 0 ? 1 : -1);
-    }, { passive: true });
+    // Touch/swipe (drag-follow из components.js)
+    const wrap = document.getElementById(id);
+    if (typeof window.attachSwipe === 'function' && wrap) {
+      window.attachSwipe({
+        area:  wrap,
+        track: track,
+        getCurrent: () => _sliders[id].current,
+        getTotal:   () => _sliders[id].total,
+        step:  () => wrap.getBoundingClientRect().width,
+        onPrev:  () => slideChange(id, -1),
+        onNext:  () => slideChange(id,  1),
+        render:  () => _renderSlider(id),
+        loop:  true
+      });
+    } else {
+      let startX = 0;
+      track.addEventListener('touchstart', e => { startX = e.changedTouches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend',   e => {
+        const dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 40) slideChange(id, dx < 0 ? 1 : -1);
+      }, { passive: true });
+    }
   }
 
   function _renderSlider(id) {

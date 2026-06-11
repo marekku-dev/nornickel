@@ -97,13 +97,31 @@
         nav.appendChild(dot);
       });
 
-      // Свайп на тачскрине
-      let startX = 0;
-      mask.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-      mask.addEventListener('touchend', e => {
-        const dx = e.changedTouches[0].clientX - startX;
-        if (Math.abs(dx) > 40) window.slideChange(sliderId, dx < 0 ? 1 : -1);
-      }, { passive: true });
+      // Свайп на тачскрине (drag-follow из components.js)
+      const total = slides.length;
+      if (typeof window.attachSwipe === 'function') {
+        window.attachSwipe({
+          area:  slider,
+          track: mask,
+          getCurrent: () => parseInt(mask.dataset.current || '0', 10),
+          getTotal:   () => total,
+          step:  () => slider.getBoundingClientRect().width,
+          onPrev:  () => window.slideChange(sliderId, -1),
+          onNext:  () => window.slideChange(sliderId,  1),
+          render:  () => {
+            const cur = parseInt(mask.dataset.current || '0', 10);
+            mask.style.transform = `translateX(-${cur * 100}%)`;
+          },
+          loop:  true
+        });
+      } else {
+        let startX = 0;
+        mask.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+        mask.addEventListener('touchend', e => {
+          const dx = e.changedTouches[0].clientX - startX;
+          if (Math.abs(dx) > 40) window.slideChange(sliderId, dx < 0 ? 1 : -1);
+        }, { passive: true });
+      }
     });
   }
 
