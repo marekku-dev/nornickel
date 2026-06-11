@@ -777,6 +777,7 @@ ol {
 .graph-mid {
   position: relative;
   display: flex;
+  gap: 20px;
   flex-flow: column;
   width: 100%;
   max-width: 960px;
@@ -1860,6 +1861,8 @@ ol {
 @media screen and (max-width: 767px) {
   .cards-white-grid--habits-desktop { display: none; }
   .graph-image--scroll-mobile { min-width: 800px; }
+  .graph-image--scroll-mobile.graph-image--mw-1000 { min-width: 1000px; }
+  .graph-image--scroll-mobile.graph-image--mw-1200 { min-width: 1200px; }
   .ipcc-chart-canvas { min-width: 800px; }
 }
 
