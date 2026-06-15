@@ -453,6 +453,15 @@ ol {
 .nav-chapters__item--active        { font-weight: 700; }
 .nav-chapters__item--disabled      { opacity: .35; cursor: default; pointer-events: none; }
 
+.nav-chapters__wip {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(26, 26, 26, 0.35);
+}
+
 .nav-chapters__arrow {
   display: inline-block;
   vertical-align: middle;
