@@ -2749,6 +2749,16 @@ html.tooltip-lock body {
   text-align: center;
 }
 
+.card-white__label--back {
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+  text-align: left;
+}
+
 /* Подсказка над сеткой */
 .cards-white-hint {
   text-align: center;
