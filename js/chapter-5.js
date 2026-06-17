@@ -270,6 +270,39 @@
   }
 
   /* ════════════════════════════════════════════════════════════
+   *  FLIP CARDS (тач-устройства)
+   * ════════════════════════════════════════════════════════════ */
+
+  function initFlipCards() {
+    const isTouchOnly = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    if (!isTouchOnly) return;
+
+    const cards = Array.from(document.querySelectorAll('.card-white:not(.card-white--no-flip)'));
+    if (!cards.length) return;
+
+    document.querySelectorAll('.cards-white-hint').forEach(hint => {
+      hint.classList.add('cards-white-hint--touch');
+      hint.textContent = 'Нажмите на карточку';
+    });
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const isFlipped = card.classList.contains('card-white--flipped');
+        cards.forEach(c => c.classList.remove('card-white--flipped'));
+        if (!isFlipped) {
+          card.classList.add('card-white--flipped');
+        }
+      });
+    });
+
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.card-white')) {
+        cards.forEach(c => c.classList.remove('card-white--flipped'));
+      }
+    });
+  }
+
+  /* ════════════════════════════════════════════════════════════
    *  INIT
    * ════════════════════════════════════════════════════════════ */
 
@@ -277,6 +310,7 @@
     initExpandingCards();
     initSliders();
     initQuiz();
+    initFlipCards();
   });
 
 })();
