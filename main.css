@@ -3615,7 +3615,7 @@ html.tooltip-lock body {
   position: relative;
   width: 100%;
   max-width: 1400px;
-  margin: 28px auto 0;
+  margin: 14px auto 0;
   border-radius: var(--radius-md);
   background-color: var(--color-bg);
   padding: 12px;
@@ -3626,6 +3626,16 @@ html.tooltip-lock body {
   width: 100%;
   height: auto;
   display: block;
+}
+
+@media screen and (min-width: 768px) {
+  .risk-map__svg {
+    display: block;
+    width: auto;
+    height: 75vh;
+    max-width: 100%;
+    margin: 0 auto;
+  }
 }
 
 /* Регионы: базовый «приглушённый» вид и заметная заливка для топ-риска */
