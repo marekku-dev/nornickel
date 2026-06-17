@@ -1,0 +1,77 @@
+<svg viewBox="0 130 1200 660" xmlns="http://www.w3.org/2000/svg" role="img" font-family="'Mabry Pro', Arial, sans-serif">
+  <title>Региональная ролевая модель углеродного регулирования</title>
+  <desc>Центральный узел «Пространство эксперимента» и шесть ролей вокруг: координатор, уполномоченный орган, регулируемые организации, оператор реестра, торговые площадки, климатические проекты. Связи горизонтальные либо со скруглённым изгибом на 90°.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#94a491"/>
+    </marker>
+  </defs>
+
+  <!-- ===== СВЯЗИ (горизонтали + скруглённые изгибы на 90°), отступ ~10px от плашек и круга ===== -->
+  <!-- координатор -> орган (вертикаль в колонке) -->
+  <path d="M205,278 L205,355" stroke="#94a491" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <!-- орган -> центр (горизонталь) -->
+  <path d="M380,440 L440,440" stroke="#94a491" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <!-- центр -> регулируемые организации -->
+  <path d="M600,280 L600,222 A12,12 0 0 1 612,210 L820,210" stroke="#94a491" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <!-- центр -> оператор реестра (горизонталь) -->
+  <path d="M760,440 L820,440" stroke="#94a491" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <!-- центр -> торговые площадки -->
+  <path d="M640,600 L640,683 A12,12 0 0 0 652,695 L820,695" stroke="#94a491" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <!-- центр -> климатические проекты -->
+  <path d="M560,600 L560,683 A12,12 0 0 1 548,695 L380,695" stroke="#94a491" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- ===== ЦЕНТР ===== -->
+  <circle cx="600" cy="440" r="150" fill="none" stroke="#94a491" stroke-width="1.5"/>
+  <text x="600" y="418" text-anchor="middle" fill="#1a1a1a" font-size="16" font-weight="700">ФЗ-296 · ФЗ-34</text>
+  <text x="600" y="453" text-anchor="middle" fill="#1a1a1a" font-size="24" font-weight="700">Пространство</text>
+  <text x="600" y="482" text-anchor="middle" fill="#1a1a1a" font-size="24" font-weight="700">эксперимента</text>
+
+  <!-- ===== ЛЕВАЯ КОЛОНКА (x=40, ширина 330, текст-зона 40..330 от левого края +20 padding) ===== -->
+  <!-- КООРДИНАТОР -->
+  <rect x="40" y="150" width="330" height="118" rx="16" fill="none" stroke="#94a491" stroke-width="1.5"/>
+  <text x="60" y="187" fill="#1a1a1a" font-size="21" font-weight="700">Координатор эксперимента</text>
+  <text x="60" y="212" fill="rgba(26,26,26,0.55)" font-size="15">ФОИВ · Минэкономразвития РФ</text>
+  <rect x="60" y="226" width="63" height="28" rx="7" fill="rgba(148,164,145,0.18)"/>
+  <text x="91" y="245" text-anchor="middle" fill="#1a1a1a" font-size="15">НПА</text>
+
+  <!-- УПОЛНОМОЧЕННЫЙ ОРГАН -->
+  <rect x="40" y="355" width="330" height="150" rx="16" fill="none" stroke="#94a491" stroke-width="1.5"/>
+  <text x="60" y="392" fill="#1a1a1a" font-size="21" font-weight="700">Уполномоченный орган</text>
+  <text x="60" y="417" fill="rgba(26,26,26,0.55)" font-size="15">РОИВ · Правительство Сахалинской обл.</text>
+  <rect x="60" y="431" width="110" height="28" rx="7" fill="rgba(148,164,145,0.18)"/>
+  <text x="115" y="450" text-anchor="middle" fill="#1a1a1a" font-size="15">Расчёт CO₂</text>
+  <rect x="60" y="465" width="190" height="28" rx="7" fill="rgba(148,164,145,0.18)"/>
+  <text x="155" y="484" text-anchor="middle" fill="#1a1a1a" font-size="15">Управление проектами</text>
+
+  <!-- КЛИМАТИЧЕСКИЕ ПРОЕКТЫ -->
+  <rect x="40" y="632" width="330" height="124" rx="16" fill="none" stroke="#94a491" stroke-width="1.5"/>
+  <text x="60" y="675" fill="#1a1a1a" font-size="21" font-weight="700">Климатические проекты</text>
+  <rect x="60" y="692" width="105" height="28" rx="7" fill="rgba(148,164,145,0.18)"/>
+  <text x="112" y="711" text-anchor="middle" fill="#1a1a1a" font-size="15">Валидация</text>
+  <rect x="173" y="692" width="127" height="28" rx="7" fill="rgba(148,164,145,0.18)"/>
+  <text x="236" y="711" text-anchor="middle" fill="#1a1a1a" font-size="15">Верификация</text>
+
+  <!-- ===== ПРАВАЯ КОЛОНКА (x=830, ширина 330, правый край 1160) ===== -->
+  <!-- РЕГУЛИРУЕМЫЕ ОРГАНИЗАЦИИ -->
+  <rect x="830" y="150" width="330" height="124" rx="16" fill="none" stroke="#94a491" stroke-width="1.5"/>
+  <text x="850" y="186" fill="#1a1a1a" font-size="21" font-weight="700">Регулируемые</text>
+  <text x="850" y="211" fill="#1a1a1a" font-size="21" font-weight="700">организации</text>
+  <rect x="850" y="226" width="92" height="28" rx="7" fill="rgba(148,164,145,0.18)"/>
+  <text x="896" y="245" text-anchor="middle" fill="#1a1a1a" font-size="15">~30 РРО</text>
+  <rect x="950" y="226" width="149" height="28" rx="7" fill="rgba(148,164,145,0.18)"/>
+  <text x="1024" y="245" text-anchor="middle" fill="#1a1a1a" font-size="15">Проектный офис</text>
+
+  <!-- ОПЕРАТОР РЕЕСТРА -->
+  <rect x="830" y="378" width="330" height="124" rx="16" fill="none" stroke="#94a491" stroke-width="1.5"/>
+  <text x="850" y="414" fill="#1a1a1a" font-size="21" font-weight="700">Оператор реестра</text>
+  <text x="850" y="439" fill="#1a1a1a" font-size="21" font-weight="700">углеродных единиц</text>
+  <rect x="850" y="454" width="104" height="28" rx="7" fill="rgba(148,164,145,0.18)"/>
+  <text x="902" y="473" text-anchor="middle" fill="#1a1a1a" font-size="15">СП Контур</text>
+
+  <!-- ТОРГОВЫЕ ПЛОЩАДКИ -->
+  <rect x="830" y="632" width="330" height="124" rx="16" fill="none" stroke="#94a491" stroke-width="1.5"/>
+  <text x="850" y="675" fill="#1a1a1a" font-size="21" font-weight="700">Торговые площадки</text>
+  <rect x="850" y="692" width="145" height="28" rx="7" fill="rgba(148,164,145,0.18)"/>
+  <text x="922" y="711" text-anchor="middle" fill="#1a1a1a" font-size="15">Тестовая сделка</text>
+</svg>

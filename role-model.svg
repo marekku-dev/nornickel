@@ -1,0 +1,66 @@
+<svg viewBox="0 135 1200 635" xmlns="http://www.w3.org/2000/svg" role="img" font-family="'Mabry Pro', Arial, sans-serif">
+  <title>Региональная ролевая модель углеродного регулирования</title>
+  <desc>Центральный узел «Пространство эксперимента» и шесть ролей вокруг: координатор, уполномоченный орган, регулируемые организации, оператор реестра, торговые площадки, климатические проекты. Связи горизонтальные либо со скруглённым изгибом на 90°.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#94a491"/>
+    </marker>
+  </defs>
+
+  <!-- ===== СВЯЗИ (горизонтали + скруглённые изгибы на 90°), отступ ~10px от плашек ===== -->
+  <path d="M205,265 L205,345" stroke="#94a491" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M360,440 L440,440" stroke="#94a491" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M600,280 L600,222 A12,12 0 0 1 612,210 L840,210" stroke="#94a491" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M760,440 L840,440" stroke="#94a491" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M640,600 L640,683 A12,12 0 0 0 652,695 L840,695" stroke="#94a491" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M560,600 L560,683 A12,12 0 0 1 548,695 L360,695" stroke="#94a491" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- ===== ЦЕНТР ===== -->
+  <circle cx="600" cy="440" r="150" fill="none" stroke="#94a491" stroke-width="1.5"/>
+  <text x="600" y="405" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">ФЗ-296 · ФЗ-34</text>
+  <text x="600" y="438" text-anchor="middle" fill="#1a1a1a" font-size="22" font-weight="700">Пространство</text>
+  <text x="600" y="466" text-anchor="middle" fill="#1a1a1a" font-size="22" font-weight="700">эксперимента</text>
+  <text x="600" y="492" text-anchor="middle" fill="rgba(26,26,26,0.55)" font-size="12">геополит. · техноэконом. · природная</text>
+
+  <!-- ===== ЛЕВАЯ КОЛОНКА ===== -->
+  <rect x="60" y="150" width="290" height="115" rx="16" fill="none" stroke="#94a491" stroke-width="1.5"/>
+  <text x="80" y="186" fill="#1a1a1a" font-size="19" font-weight="700">Координатор эксперимента</text>
+  <text x="80" y="210" fill="rgba(26,26,26,0.55)" font-size="13">ФОИВ · Минэкономразвития РФ</text>
+  <rect x="80" y="222" width="55" height="24" rx="6" fill="rgba(148,164,145,0.18)"/>
+  <text x="107" y="238" text-anchor="middle" fill="#1a1a1a" font-size="12">НПА</text>
+
+  <rect x="60" y="355" width="290" height="120" rx="16" fill="none" stroke="#94a491" stroke-width="1.5"/>
+  <text x="80" y="391" fill="#1a1a1a" font-size="19" font-weight="700">Уполномоченный орган</text>
+  <text x="80" y="414" fill="rgba(26,26,26,0.55)" font-size="13">РОИВ · Правительство Сахалинской обл.</text>
+  <rect x="80" y="427" width="95" height="24" rx="6" fill="rgba(148,164,145,0.18)"/>
+  <text x="127" y="443" text-anchor="middle" fill="#1a1a1a" font-size="12">Расчёт CO₂</text>
+  <rect x="183" y="427" width="135" height="24" rx="6" fill="rgba(148,164,145,0.18)"/>
+  <text x="250" y="443" text-anchor="middle" fill="#1a1a1a" font-size="12">Управление проектами</text>
+
+  <rect x="60" y="635" width="290" height="120" rx="16" fill="none" stroke="#94a491" stroke-width="1.5"/>
+  <text x="80" y="675" fill="#1a1a1a" font-size="19" font-weight="700">Климатические проекты</text>
+  <rect x="80" y="690" width="100" height="24" rx="6" fill="rgba(148,164,145,0.18)"/>
+  <text x="130" y="706" text-anchor="middle" fill="#1a1a1a" font-size="12">Валидация</text>
+  <rect x="188" y="690" width="115" height="24" rx="6" fill="rgba(148,164,145,0.18)"/>
+  <text x="245" y="706" text-anchor="middle" fill="#1a1a1a" font-size="12">Верификация</text>
+
+  <!-- ===== ПРАВАЯ КОЛОНКА ===== -->
+  <rect x="850" y="150" width="290" height="120" rx="16" fill="none" stroke="#94a491" stroke-width="1.5"/>
+  <text x="870" y="186" fill="#1a1a1a" font-size="19" font-weight="700">Регулируемые</text>
+  <text x="870" y="210" fill="#1a1a1a" font-size="19" font-weight="700">организации</text>
+  <rect x="870" y="222" width="70" height="24" rx="6" fill="rgba(148,164,145,0.18)"/>
+  <text x="905" y="238" text-anchor="middle" fill="#1a1a1a" font-size="12">~30 РРО</text>
+  <rect x="948" y="222" width="135" height="24" rx="6" fill="rgba(148,164,145,0.18)"/>
+  <text x="1015" y="238" text-anchor="middle" fill="#1a1a1a" font-size="12">Проектный офис</text>
+
+  <rect x="850" y="380" width="290" height="120" rx="16" fill="none" stroke="#94a491" stroke-width="1.5"/>
+  <text x="870" y="416" fill="#1a1a1a" font-size="19" font-weight="700">Оператор реестра</text>
+  <text x="870" y="440" fill="#1a1a1a" font-size="19" font-weight="700">углеродных единиц</text>
+  <rect x="870" y="453" width="95" height="24" rx="6" fill="rgba(148,164,145,0.18)"/>
+  <text x="917" y="469" text-anchor="middle" fill="#1a1a1a" font-size="12">СП Контур</text>
+
+  <rect x="850" y="635" width="290" height="120" rx="16" fill="none" stroke="#94a491" stroke-width="1.5"/>
+  <text x="870" y="675" fill="#1a1a1a" font-size="19" font-weight="700">Торговые площадки</text>
+  <rect x="870" y="690" width="135" height="24" rx="6" fill="rgba(148,164,145,0.18)"/>
+  <text x="937" y="706" text-anchor="middle" fill="#1a1a1a" font-size="12">Тестовая сделка</text>
+</svg>

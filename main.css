@@ -835,6 +835,10 @@ ol {
   .graph-scroll.scrolled::after {
     opacity: 0;
   }
+  /* Карточки без горизонтального скролла — не показывать подсказку свайпа */
+  .graph-scroll--no-swipe::after {
+    display: none;
+  }
 }
 
 @keyframes swipe-hint {
