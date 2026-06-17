@@ -2086,8 +2086,13 @@ html.tooltip-lock body {
   .physics-cards { display: flex; }
 }
 
+@media screen and (min-width: 768px) {
+  .caption-label--mobile-only { display: none; }
+}
+
 @media screen and (max-width: 767px) {
   .cards-white-grid--habits-desktop { display: none; }
+  .caption-label--desktop-only { display: none; }
   .graph-image--scroll-mobile { min-width: 800px; }
   .graph-image--scroll-mobile.graph-image--mw-1000 { min-width: 1000px; }
   .graph-image--scroll-mobile.graph-image--mw-1200 { min-width: 1200px; }
@@ -2756,6 +2761,10 @@ html.tooltip-lock body {
   margin-bottom: 16px;
   flex-shrink: 0;
   text-align: center;
+}
+
+.card-white__label + p {
+  margin-top: -8px;
 }
 
 .card-white__label--back {
