@@ -518,8 +518,11 @@
       <div class="reveal" style="width:100%; display:flex; flex-flow:column; align-items:center;">
         <div class="graph-mid" style="margin-bottom:0;">
           <div class="caption-label">Сокращение выбросов CO<sub>2</sub> в&nbsp;результате эксперимента</div>
-          <div class="graph-scroll">
-            <img src="img/ch4-co2-graph.svg" loading="lazy" alt="Сахалинский эксперимент — прогресс по годам" class="graph-image" style="width: 100%;">
+          <div class="graph-scroll graph-scroll--no-swipe">
+            <picture>
+              <source srcset="img/ch4-co2-graph-mobile.svg" media="(max-width: 767px)">
+              <img src="img/ch4-co2-graph.svg" loading="lazy" alt="Сахалинский эксперимент — прогресс по годам" class="graph-image graph-image--fit" style="width: 100%;">
+            </picture>
           </div>
         </div>
 
