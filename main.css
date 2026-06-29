@@ -4070,7 +4070,6 @@ html.tooltip-lock body {
   line-height: 1.55;
   opacity: 0.65;
   margin: 0;
-  flex: 1;
 }
 
 .resources-block__link {
@@ -4089,11 +4088,25 @@ html.tooltip-lock body {
   gap: 24px;
 }
 
+/* Одна колонка: документы списком на всю ширину */
+.resources-block__grid--1col {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.resources-block__grid--1col .resources-block__item {
+  flex: 1 1 auto;
+  max-width: 100%;
+}
+
 @media screen and (max-width: 767px) {
-  .resources-block { padding: 20px 16px; max-width: calc(100vw - 20px); }
+  .resources-block { padding: 24px 20px; border-radius: var(--radius-md); max-width: calc(100vw - 20px); }
   .resources-block__grid { gap: 16px; }
   .resources-block__item { flex: 0 0 calc(50% - 8px); }
   .resources-block__grid--3col { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .resources-block__grid--1col { gap: 20px; }
+  .resources-block__grid--1col .resources-block__item { flex: 1 1 auto; }
 }
 
 @media screen and (max-width: 480px) {
