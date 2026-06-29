@@ -440,7 +440,6 @@
     });
 
     canvas.addEventListener('touchstart', e => {
-      e.preventDefault();
       const touch = e.touches[0];
       const rect = canvas.getBoundingClientRect();
       // координаты тапа в логических единицах (canvas может быть масштабированCSS)
@@ -451,6 +450,7 @@
       if (tooltip && closeBtn) {
         const dx = mx - closeBtn.x, dy = my - closeBtn.y;
         if (Math.sqrt(dx * dx + dy * dy) < closeBtn.r) {
+          e.preventDefault();
           hovered = null; tooltip = null; draw();
           return;
         }
@@ -459,13 +459,14 @@
       // 2) тап по точке — открыть/переключить
       const idx = getHovered(mx, my);
       if (idx !== null) {
+        e.preventDefault(); // глушим скролл только при попадании по точке
         hovered = idx;
         tooltip = { x: xPos(REPORTS[idx].year, logicalW), y: yPos(REPORTS[idx].co2, logicalH), report: REPORTS[idx] };
         draw();
         return;
       }
 
-      // 3) тап в любом другом месте схемы — закрыть
+      // 3) тап мимо точек — закрываем окно, но НЕ мешаем вертикальному скроллу страницы
       if (tooltip) { hovered = null; tooltip = null; draw(); }
     }, { passive: false });
 
