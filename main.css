@@ -2712,7 +2712,7 @@ html.tooltip-lock body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 0;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
@@ -2769,6 +2769,8 @@ html.tooltip-lock body {
 
 .card-white__label + p {
   margin-top: -8px;
+  font-size: 15px;      /* одинаковый кегль с заголовком .card-white__label */
+  line-height: 1.4;
 }
 
 .card-white__label--back {
@@ -3886,6 +3888,32 @@ html.tooltip-lock body {
    ГЛАВА 5 — Дополнительные компоненты
    ============================================================================= */
 
+/* ─── No-flip card-white: высота по контенту, без обрезки ─── */
+/* У этих карточек нет оборота, поэтому абсолютная фиксированная высота
+   не нужна — пускаем лицо в поток, чтобы текст не обрезался на мобилке. */
+.card-white--no-flip {
+  height: auto;
+  min-height: 0;
+  display: flex;          /* флекс-элемент строки растягивается по высоте — */
+  flex-direction: column; /* пробрасываем эту высоту вниз до __front */
+}
+
+.card-white--no-flip .card-white__inner {
+  height: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+.card-white--no-flip .card-white__front {
+  position: static;
+  inset: auto;
+  flex: 1 1 auto;         /* лицо занимает всю высоту карточки */
+  overflow: visible;
+  padding: 24px 0;
+}
+
 /* ─── Портретный вариант card-white (нет flip-back, выше картинка) ─── */
 
 .card-white--portrait .card-white__icon {
@@ -4088,25 +4116,21 @@ html.tooltip-lock body {
   gap: 24px;
 }
 
-/* Одна колонка: документы списком на всю ширину */
-.resources-block__grid--1col {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
-
-.resources-block__grid--1col .resources-block__item {
-  flex: 1 1 auto;
-  max-width: 100%;
-}
-
 @media screen and (max-width: 767px) {
   .resources-block { padding: 24px 20px; border-radius: var(--radius-md); max-width: calc(100vw - 20px); }
   .resources-block__grid { gap: 16px; }
   .resources-block__item { flex: 0 0 calc(50% - 8px); }
   .resources-block__grid--3col { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-  .resources-block__grid--1col { gap: 20px; }
-  .resources-block__grid--1col .resources-block__item { flex: 1 1 auto; }
+
+  /* Одна колонка только на мобилке: документы списком на всю ширину */
+  .resources-block__grid--1col {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .resources-block__grid--1col .resources-block__item {
+    flex: 1 1 auto;
+    max-width: 100%;
+  }
 }
 
 @media screen and (max-width: 480px) {
@@ -4117,6 +4141,7 @@ html.tooltip-lock body {
   .site-footer__tagline { display: none; }
   #slider-footprint { display: none; }
   .card-white__inner { height: 100%; }
+  .card-white--no-flip .card-white__inner { height: auto; }
 }
 
 /* ─── Сетка компаний (co-grid / co-card) ─── */
