@@ -231,6 +231,9 @@
     let hovered = null;
     let tooltip  = null;
     let logicalW = 0, logicalH = 0;
+    let closeBtn = null; // {x, y, r} зона крестика в логических координатах (только тач)
+
+    const isMobileView = () => window.innerWidth <= 767;
 
     function xPos(year, W) {
       return PAD.left + (year - MIN_X) / (MAX_X - MIN_X) * (W - PAD.left - PAD.right);
@@ -306,18 +309,33 @@
       });
 
       // Тултип
+      closeBtn = null;
       if (tooltip) {
         const { x, y, report } = tooltip;
+        const mobile = isMobileView();
         const bW = 230, pad = 14, lh = 19;
         ctx.font = `13px ${FONT}`;
         const bodyLines = wrapText(ctx, report.quote, bW - pad * 2);
         const bH = lh * (1 + bodyLines.length) + pad * 2 + 10;
 
-        let bx = x + 18;
-        if (bx + bW > W - 6) bx = x - bW - 18;
-        let by = y - bH / 2;
-        if (by < 6) by = 6;
-        if (by + bH > H - 6) by = H - bH - 6;
+        let bx, by;
+        if (mobile) {
+          // На мобилке — по центру над точкой
+          const GAP = 16; // зазор между точкой и окном
+          bx = x - bW / 2;
+          if (bx < 6) bx = 6;
+          if (bx + bW > W - 6) bx = W - bW - 6;
+          by = y - GAP - bH;
+          // если сверху не помещается — показываем под точкой
+          if (by < 6) by = y + GAP;
+          if (by + bH > H - 6) by = H - bH - 6;
+        } else {
+          bx = x + 18;
+          if (bx + bW > W - 6) bx = x - bW - 18;
+          by = y - bH / 2;
+          if (by < 6) by = 6;
+          if (by + bH > H - 6) by = H - bH - 6;
+        }
 
         // Тень + фон
         ctx.save();
@@ -340,7 +358,24 @@
         ctx.fillStyle = ACCENT;
         ctx.font = `bold 13px ${FONT}`;
         ctx.textAlign = 'left';
-        ctx.fillText(report.label, bx + pad, by + pad + lh - 2);
+        const titleMaxW = mobile ? bW - pad * 2 - 18 : bW - pad * 2;
+        ctx.fillText(report.label, bx + pad, by + pad + lh - 2, titleMaxW);
+
+        // Крестик закрытия (только на мобилке/тач)
+        if (mobile) {
+          const cx = bx + bW - pad - 1;
+          const cy = by + pad + 5;
+          const s = 5; // полудлина штриха крестика
+          ctx.strokeStyle = 'rgba(26,26,26,0.40)';
+          ctx.lineWidth = 1.5;
+          ctx.lineCap = 'round';
+          ctx.beginPath();
+          ctx.moveTo(cx - s, cy - s); ctx.lineTo(cx + s, cy + s);
+          ctx.moveTo(cx + s, cy - s); ctx.lineTo(cx - s, cy + s);
+          ctx.stroke();
+          ctx.lineCap = 'butt';
+          closeBtn = { x: cx, y: cy, r: 16 }; // увеличенная зона тапа
+        }
 
         // Разделитель
         const divY = by + pad + lh + 6;
@@ -408,13 +443,30 @@
       e.preventDefault();
       const touch = e.touches[0];
       const rect = canvas.getBoundingClientRect();
-      const mx = (touch.clientX - rect.left), my = (touch.clientY - rect.top);
+      // координаты тапа в логических единицах (canvas может быть масштабированCSS)
+      const mx = (touch.clientX - rect.left) * (logicalW / rect.width);
+      const my = (touch.clientY - rect.top) * (logicalH / rect.height);
+
+      // 1) тап по крестику — закрыть
+      if (tooltip && closeBtn) {
+        const dx = mx - closeBtn.x, dy = my - closeBtn.y;
+        if (Math.sqrt(dx * dx + dy * dy) < closeBtn.r) {
+          hovered = null; tooltip = null; draw();
+          return;
+        }
+      }
+
+      // 2) тап по точке — открыть/переключить
       const idx = getHovered(mx, my);
       if (idx !== null) {
         hovered = idx;
         tooltip = { x: xPos(REPORTS[idx].year, logicalW), y: yPos(REPORTS[idx].co2, logicalH), report: REPORTS[idx] };
         draw();
+        return;
       }
+
+      // 3) тап в любом другом месте схемы — закрыть
+      if (tooltip) { hovered = null; tooltip = null; draw(); }
     }, { passive: false });
 
     document.addEventListener('touchstart', e => {
