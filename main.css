@@ -1543,6 +1543,21 @@ ol {
   margin-bottom: 4px;
 }
 
+/* Единые пропорции картинок только в этом блоке (гл. 5),
+   чтобы тексты под ними не «скакали». Не влияет на остальные главы. */
+.institutions-grid--uniform {
+  /* minmax(0,1fr) не даёт колонкам разъезжаться под ширину картинки */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.institutions-grid--uniform .institution-item__logo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  height: auto;
+  object-fit: cover;
+}
+
 .institution-item__name {
   font-family: var(--font-main);
   font-size: 16px;
@@ -2061,14 +2076,52 @@ html.tooltip-lock body {
 
   /* Учреждения */
   .institutions-grid { grid-template-columns: repeat(2, 1fr); gap: 32px 24px; padding: 0 16px; }
+  /* В блоке гл. 5 клампим колонки, чтобы картинки были одной ширины → одной высоты */
+  .institutions-grid--uniform { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   /*.institution-item__logo { aspect-ratio: 4/3; }*/
 
-  /* Футер */
+  /* Футер: переверстаем в один центрированный столбец.
+     Порядок: соцсети сверху → копирайт/кредит в столбик. Форма скрыта. */
   .site-footer__inner {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    grid-template-columns: none;
+    min-height: 0;            /* убираем min-height у всего футера */
+    gap: 32px;                /* единый гэп между блоками */
   }
-  .site-footer__left  { grid-column: span 1; }
-  .site-footer__right { grid-column: span 1; }
+
+  .site-footer__left,
+  .site-footer__right {
+    grid-column: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    gap: 0;
+  }
+
+  /* 1. Форму обратной связи скрываем на телефоне */
+  .site-footer__right > div:first-child { display: none; }
+
+  /* 3. Соцсети — сверху, по центру */
+  .site-footer__right  { order: 1; }
+  .site-footer__left   { order: 2; }
+  .site-footer__social {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* 2. Копирайт и кредит — в столбик, без гэпа, по центру */
+  .site-footer__meta {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    text-align: center;
+  }
+
+  /* Длинный тэглайн не нужен в компактном мобильном футере */
+  .site-footer__tagline { display: none; }
 }
 
 /* Совсем маленький экран */
@@ -2097,6 +2150,13 @@ html.tooltip-lock body {
 @media screen and (max-width: 767px) {
   .cards-white-grid--habits-desktop { display: none; }
   .caption-label--desktop-only { display: none; }
+
+  /* Боковые отступы для заголовков-подписей, чтобы текст не упирался в край экрана */
+  .caption-label {
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+  }
   .graph-image--scroll-mobile { min-width: 800px; }
   .graph-image--scroll-mobile.graph-image--mw-1000 { min-width: 1000px; }
   .graph-image--scroll-mobile.graph-image--mw-1200 { min-width: 1200px; }
@@ -4025,12 +4085,41 @@ html.tooltip-lock body {
     align-items: flex-start;
   }
 
+  /* Колонка с цифрой: позиционируем стрелку относительно неё */
   .edu-chain__num {
+    position: relative;
     font-size: 16px;
     opacity: 1;
     font-weight: 700;
     min-width: 20px;
     padding-top: 2px;
+    align-self: stretch;
+  }
+
+  /* Аккуратная стрелочка между цифрами, чтобы считывалась последовательность */
+  .edu-chain__item:not(:last-child) .edu-chain__num::after {
+    content: "";
+    position: absolute;
+    left: 25%;
+    top: 26px;
+    bottom: -12px;
+    width: 1.5px;
+    transform: translateX(-50%);
+    background: currentColor;
+    opacity: 0.35;
+  }
+
+  .edu-chain__item:not(:last-child) .edu-chain__num::before {
+    content: "";
+    position: absolute;
+    left: 25%;
+    bottom: -12px;
+    width: 7px;
+    height: 7px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: translate(-50%, 0) rotate(45deg);
+    opacity: 0.35;
   }
 
   .edu-chain__arrow { display: none; }
