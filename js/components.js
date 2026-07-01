@@ -53,7 +53,71 @@
     if (typeof window.initTooltips === 'function') {
       window.initTooltips();
     }
+    initFlipCardHeights();
   }
+
+  /* ─── Динамическая высота флип-карточек (.card-white) ───
+   *
+   * Раньше высота .card-white__inner была жёстко зашита в CSS (380px),
+   * и длинный текст на обороте карточки обрезался (overflow: hidden),
+   * особенно на тач-устройствах шириной ≥768px (например, iPad), где
+   * вместо мобильного слайдера показывается desktop-сетка флип-карточек.
+   *
+   * Вместо фиксированной высоты замеряем реальную высоту лица и оборота
+   * каждой карточки внутри одной сетки (.cards-white-grid) и выставляем
+   * всем инерам единую высоту по самому «высокому» контенту — так карточки
+   * остаются одинаковыми по размеру, но ничего не обрезается.
+   */
+  function adjustFlipCardHeights() {
+    document.querySelectorAll('.cards-white-grid').forEach(grid => {
+      const cards = Array.from(grid.querySelectorAll('.card-white:not(.card-white--no-flip)'));
+      if (!cards.length) return;
+
+      // Сброс инлайн-высоты перед замером, чтобы не накапливать старое значение
+      cards.forEach(card => {
+        const inner = card.querySelector('.card-white__inner');
+        if (inner) inner.style.height = '';
+      });
+
+      let maxHeight = 0;
+      cards.forEach(card => {
+        ['.card-white__front', '.card-white__back'].forEach(sel => {
+          const face = card.querySelector(sel);
+          if (!face) return;
+          // Лицо/оборот абсолютно спозиционированы (inset: 0) — на время замера
+          // возвращаем их в нормальный поток, чтобы scrollHeight отражал реальный контент.
+          const prevPosition = face.style.position;
+          face.style.position = 'static';
+          maxHeight = Math.max(maxHeight, face.scrollHeight);
+          face.style.position = prevPosition;
+        });
+      });
+
+      if (maxHeight > 0) {
+        cards.forEach(card => {
+          const inner = card.querySelector('.card-white__inner');
+          if (inner) inner.style.height = maxHeight + 'px';
+        });
+      }
+    });
+  }
+
+  function initFlipCardHeights() {
+    if (!document.querySelector('.cards-white-grid')) return;
+
+    adjustFlipCardHeights();
+    // Иконки могут догрузиться позже и изменить высоту лица карточки
+    window.addEventListener('load', adjustFlipCardHeights);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(adjustFlipCardHeights);
+    }
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(adjustFlipCardHeights, 150);
+    });
+  }
+  window.adjustFlipCardHeights = adjustFlipCardHeights;
 
   /* ─── Горизонтальный скролл на тач-устройствах ─── */
   /*
