@@ -155,8 +155,10 @@
   function initProgressBar() {
     const bar      = document.getElementById('scroll-progress');
     const header   = document.querySelector('.site-header');
-    /* Молочные (светлые) секции, над которыми текст шапки должен быть чёрным */
-    const lightEls = document.querySelectorAll('.content');
+    /* Молочные (светлые) секции, над которыми текст шапки должен быть чёрным.
+       Список глав на главной (.content.chapters) — тёмные фоновые экраны,
+       логотип над ними должен оставаться белым, поэтому исключаем его. */
+    const lightEls = document.querySelectorAll('.content:not(.chapters)');
 
     function update() {
       if (bar) {
