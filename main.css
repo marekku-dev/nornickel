@@ -101,6 +101,28 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+/* Поэкранный скролл-снап только на главной (класс is-home на <html>).
+   Каждый экран (герой и полноэкранные главы) «доводится» до верха окна. */
+html.is-home {
+  scroll-snap-type: y mandatory;
+}
+
+html.is-home .hero,
+html.is-home .chapter-screen {
+  scroll-snap-align: start;
+}
+
+/* Последний экран выше вьюпорта (внутри футер) — не залипаем на нём
+   принудительно, чтобы футер оставался доступен прокруткой */
+html.is-home .chapter-screen--last {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.is-home { scroll-snap-type: none; }
+}
+
 body {
   margin: 0;
   color: var(--color-text);
@@ -495,6 +517,20 @@ ol {
   object-fit: cover;
 }
 
+/* На главной фон героя закрепляем как в главах — контент «пролистывается»
+   поверх неподвижной картинки. Собственную <img> прячем. */
+.hero--home {
+  background-image: url('img/ch0-hero.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.hero--home .hero__bg {
+  display: none;
+}
+
 
 .hero__content {
   position: relative;
@@ -682,7 +718,7 @@ ol {
   font-family: var(--font-heading);
   font-size: 74px;
   font-weight: 700;
-  line-height: 56px;
+  line-height: 64px;
   margin-left: -0.07em;
 }
 
@@ -2142,6 +2178,7 @@ html.tooltip-lock body {
     padding: 80px 24px;
     background-attachment: scroll;   /* fixed ненадёжен на мобильных */
   }
+  .hero--home { background-attachment: scroll; }
   .chapter-screen--last { padding-bottom: 280px; }
   .chapter-screen--left,
   .chapter-screen--right { justify-content: center; }
