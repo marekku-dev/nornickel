@@ -43,6 +43,7 @@
     initChaptersNav();
     initActiveChapter();
     initReveal();
+    initScreenTransition();
     initHorizontalScroll();
     // Убираем висячие предлоги во всём документе (включая вставленные
     // компоненты header/footer). Функция из no-hanging-prepositions.js.
@@ -229,6 +230,49 @@
     }, { threshold: 0.08 });
 
     targets.forEach(el => obs.observe(el));
+  }
+
+  /* ─── Плавный уход с главной при переходе в главу ───
+   *
+   * При клике по блоку главы на главной странице плавно гасим текст и
+   * затемнение (фон-картинка остаётся на месте), затем переходим на
+   * страницу главы. Там плашка с заголовком проявляется анимацией из CSS
+   * (.hero:not(.hero--home) .hero__content). Так переход выглядит цельным,
+   * ведь фон на обоих экранах одинаковый.
+   */
+  function initScreenTransition() {
+    const links = document.querySelectorAll('a.chapter-screen__content[href]');
+    if (!links.length) return;
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    links.forEach(link => {
+      link.addEventListener('click', (e) => {
+        // Пропускаем модификаторы/среднюю кнопку — пусть работают как обычно
+        if (e.defaultPrevented || e.button !== 0 ||
+            e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+        const href = link.getAttribute('href');
+        if (!href) return;
+
+        e.preventDefault();
+
+        if (reduce) { window.location.href = href; return; }
+
+        const screen = link.closest('.chapter-screen');
+        if (screen) screen.classList.add('is-leaving');
+
+        // Переходим после завершения анимации; таймаут — страховка
+        let navigated = false;
+        const go = () => {
+          if (navigated) return;
+          navigated = true;
+          window.location.href = href;
+        };
+        link.addEventListener('transitionend', go, { once: true });
+        setTimeout(go, 550);
+      });
+    });
   }
 
   /* ─── Универсальный drag-follow свайп для слайдеров ───
