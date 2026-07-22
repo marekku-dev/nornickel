@@ -563,7 +563,7 @@ ol {
   width: 100%;
   height: 100%;
   max-width: none;
-  padding: clamp(88px, 12vh, 150px) 24px clamp(96px, 12vh, 130px);
+  padding: 44px 24px 96px;
   background: none;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
@@ -575,7 +575,7 @@ ol {
   display: flex;
   flex-flow: column;
   align-items: center;
-  gap: clamp(16px, 2.2vw, 28px);
+  gap: 16px;
   width: 100%;
 }
 
@@ -598,7 +598,7 @@ ol {
   text-align: center;
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: clamp(34px, 6vw, 150px);
+  font-size: clamp(34px, 5.5vw, 150px);
   line-height: 0.9;
   color: rgba(255, 255, 255, 0.92);
   text-wrap: balance;
@@ -2165,10 +2165,13 @@ html.tooltip-lock body {
   /* Герой */
   .heading-xl       { font-size: 15vw; line-height: 12vw; }
   .hero__intro-text { font-size: 16px; line-height: 22px; }
-  /* Титульный экран главной */
-  .hero--home .hero__content    { gap: 24px; padding: 96px 20px 96px; }
-  .hero--home .hero__intro-text { font-size: 16px; line-height: 24px; }
-  .hero--home .hero__title      { font-size: clamp(30px, 11vw, 72px); }
+  /* Титульный экран главной: заголовок — сверху, вводный текст — снизу
+     у иконки скролла; нижний абзац скрыт. */
+  .hero--home .hero__content    { gap: 24px; padding: 96px 20px 96px; justify-content: space-between; }
+  .hero--home .hero__top        { display: contents; }          /* разгруппируем */
+  .hero--home .hero__title      { order: 1; font-size: clamp(30px, 10vw, 72px); }
+  .hero--home .hero__eyebrow    { order: 2; }
+  .hero--home .hero__intro-text { display: none; }
 
   /* Контент */
   .content { gap: 48px; padding-top: 60px; padding-bottom: 60px; }
@@ -2218,7 +2221,7 @@ html.tooltip-lock body {
   .chapter-screen--last { padding-bottom: 280px; }
   .chapter-screen--left,
   .chapter-screen--right { justify-content: center; }
-  .chapter-screen__content { max-width: 100%; align-items: center; text-align: center; }
+  .chapter-screen__content { max-width: 100%; align-items: center; text-align: center; gap: 8px; }
   .chapter-screen--left  .chapter-screen__overlay,
   .chapter-screen--right .chapter-screen__overlay {
     background: linear-gradient(
