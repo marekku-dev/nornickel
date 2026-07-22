@@ -99,6 +99,10 @@
 html {
   height: 100%;
   -webkit-text-size-adjust: 100%;
+  /* Тёмный «холст» под цвет снимков: смягчает микропроблеск при переходе
+     между страницами (промежуточная перерисовка красится тёмным, а не белым).
+     Светлый фон контента даёт body, поэтому на страницах это не видно. */
+  background-color: #0f1412;
 }
 
 /* Поэкранный скролл-снап только на главной (класс is-home на <html>).
@@ -507,6 +511,7 @@ ol {
   align-items: center;
   height: 100vh;
   overflow: hidden;
+  background-color: #0f1412;
 }
 
 .hero__bg {
@@ -659,6 +664,7 @@ ol {
   text-decoration: none;
   color: var(--color-white);
   /* фон по секциям с эффектом параллакса */
+  background-color: #0f1412;
   background-image: var(--chapter-bg);
   background-size: cover;
   background-position: center;
