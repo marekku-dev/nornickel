@@ -142,9 +142,9 @@
     },
     {
       question: 'Какой процент всей воды на&nbsp;Земле — пресная?',
-      min: 0, max: 10, step: 0.1, correct: 0.5,
-      fact: 'Лишь 0,5% водных ресурсов Земли доступны и&nbsp;пригодны для питья',
-      source: 'https://public.wmo.int/en/media/press-release/wake-looming-water-crisis-report-warns',
+      min: 0, max: 10, step: 0.1, correct: 2.5,
+      fact: 'Пресная вода составляет всего около 2,5% от&nbsp;общего объёма воды на&nbsp;Земле, и&nbsp;лишь около 1,2% из&nbsp;неё — относительно доступная поверхностная вода (реки, озёра, почвенная влага)',
+      source: 'https://www.usgs.gov/water-science-school/science/where-earths-water',
     },
     {
       question: 'Сколько процентов людей в&nbsp;мире зависят от&nbsp;воды горных ледников?',
