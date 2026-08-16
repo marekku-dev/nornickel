@@ -2032,6 +2032,27 @@ html.tooltip-lock body {
   background: var(--color-accent);
 }
 
+/* Модификатор для термина на цветном/тёмном фоне (например, внутри
+   .card-expanding, где фон сам того же зелёного цвета — обычные
+   --color-accent-hover/--color-accent сливаются с ним и рамка с иконкой
+   становятся не видны). Добавлять вторым классом: term-tooltip term-tooltip--light */
+.term-tooltip--light {
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.term-tooltip--light::after {
+  background: var(--color-white);
+}
+
+.term-tooltip--light.term-tooltip--active {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--color-white);
+}
+
+.term-tooltip--light.term-tooltip--active::after {
+  background: var(--color-white);
+}
+
 /* ─── Мобильная шторка снизу (нативный <dialog> в модальном режиме) ─── */
 @media screen and (max-width: 768px) {
   /* Открытый модальный <dialog> по умолчанию центрируется (margin:auto,

@@ -143,7 +143,7 @@
       source: 'https://www.unesco.org/ru/sustainable-development/education?hub=761',
     },
     {
-      question: 'Какой процент учителей уверенно говорит о&nbsp;климате?',
+      question: 'Какой процент учителей уверенно говорит об&nbsp;изменениях климата?',
       min: 0, max: 100, step: 1, correct: 40,
       fact: '40% учителей по&nbsp;всему миру уверенно рассказывают о&nbsp;проблемах изменения климата. Но&nbsp;только половина из&nbsp;них (20% от&nbsp;общего числа) могут объяснить ученикам, как можно бороться с&nbsp;этой проблемой',
       source: 'https://www.unesco.org/ru/sustainable-development/education?hub=761',
@@ -155,7 +155,7 @@
       source: 'https://www.unesco.org/ru/sustainable-development/education?hub=761',
     },
     {
-      question: 'Сколько стран готовят инициативы по&nbsp;ОУР?',
+      question: 'Сколько стран готовят инициативы по&nbsp;ОУР (образованию в&nbsp;интересах устойчивого развития)?',
       min: 0, max: 200, step: 1, correct: 50,
       fact: '50 стран готовят национальные программы по&nbsp;образованию в&nbsp;интересах устойчивого развития (ОУР) до&nbsp;2030 года',
       source: 'https://www.unesco.org/ru/sustainable-development/education?hub=761',
