@@ -112,6 +112,24 @@
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(adjustFlipCardHeights);
     }
+
+    // Иконки внутри карточек — с loading="lazy", то есть браузер откладывает их
+    // загрузку до момента, когда карточка приближается к области видимости.
+    // Если сетка изначально ниже экрана, к моменту window.load/fonts.ready иконки
+    // ещё не загружены — замер высоты получается заниженным, и это не исправляется
+    // повторно (отсюда нестабильность: то обрезано, то нет, в зависимости от того,
+    // успела ли иконка догрузиться из кэша). Пересчитываем высоту ещё раз при
+    // догрузке каждой такой иконки.
+    let lazyIconRecalcTimer;
+    const scheduleLazyIconRecalc = () => {
+      clearTimeout(lazyIconRecalcTimer);
+      lazyIconRecalcTimer = setTimeout(adjustFlipCardHeights, 50);
+    };
+    document.querySelectorAll('.cards-white-grid .card-white__icon[loading="lazy"]').forEach(img => {
+      if (img.complete) return; // уже загружена — учтена в первом замере
+      img.addEventListener('load', scheduleLazyIconRecalc, { once: true });
+    });
+
     let resizeTimer;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
