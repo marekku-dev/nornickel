@@ -384,12 +384,80 @@
   }
 
   /* ════════════════════════════════════════════════════════════
+   *  УЧЁНЫЕ — флип-карточки (desktop-сетка)
+   *  Оборот абсолютно спозиционирован, поэтому высоту карточек
+   *  выравниваем по самому высокому лицу/обороту в каждом ряду —
+   *  иначе длинное описание обрезалось бы.
+   * ════════════════════════════════════════════════════════════ */
+
+  function initScientistFlip() {
+    const grid = document.querySelector('.scientists-grid');
+    if (!grid) return;
+    const items = Array.from(grid.querySelectorAll('.scientist-item'));
+
+    function adjust() {
+      if (getComputedStyle(grid).display === 'none') return;
+      items.forEach(it => { it.querySelector('.scientist-item__inner').style.height = ''; });
+
+      // Группируем по рядам (одинаковый offsetTop)
+      const rows = new Map();
+      items.forEach(it => {
+        const top = it.offsetTop;
+        if (!rows.has(top)) rows.set(top, []);
+        rows.get(top).push(it);
+      });
+
+      rows.forEach(row => {
+        let max = 0;
+        row.forEach(it => {
+          const front = it.querySelector('.scientist-item__card');
+          const back  = it.querySelector('.scientist-item__overlay');
+          max = Math.max(max, front.offsetHeight);
+          const prev = back.style.position;
+          back.style.position = 'static';
+          back.style.height = 'auto';
+          max = Math.max(max, back.scrollHeight);
+          back.style.position = prev;
+          back.style.height = '';
+        });
+        row.forEach(it => { it.querySelector('.scientist-item__inner').style.height = max + 'px'; });
+      });
+    }
+
+    adjust();
+    window.addEventListener('load', adjust);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(adjust);
+    let t;
+    window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(adjust, 150); });
+    grid.querySelectorAll('img').forEach(img => {
+      if (!img.complete) img.addEventListener('load', adjust, { once: true });
+    });
+
+    // Тач-устройства без hover: флип по тапу, одновременно открыта одна карточка
+    if (!window.matchMedia('(hover: hover)').matches) {
+      items.forEach(it => {
+        it.addEventListener('click', () => {
+          const was = it.classList.contains('scientist-item--flipped');
+          items.forEach(i => i.classList.remove('scientist-item--flipped'));
+          if (!was) it.classList.add('scientist-item--flipped');
+        });
+      });
+      document.addEventListener('click', e => {
+        if (!e.target.closest('.scientist-item')) {
+          items.forEach(i => i.classList.remove('scientist-item--flipped'));
+        }
+      });
+    }
+  }
+
+  /* ════════════════════════════════════════════════════════════
    *  INIT
    * ════════════════════════════════════════════════════════════ */
 
   document.addEventListener('DOMContentLoaded', () => {
     initSlider('slider-causes');
     initSlider('slider-scientists');
+    initScientistFlip();
     initImageSync();
 
     // p5.js запускаем в idle, чтобы не задерживать FID

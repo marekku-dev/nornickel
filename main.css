@@ -186,7 +186,9 @@ ol {
   font-family: var(--font-heading);
   font-size: 5vw;
   font-weight: 700;
-  line-height: 4vw;
+  /* Было 4vw (0.8 от кегля) — строки слипались, и верх/низ букв
+     выходил за пределы размытой плашки героя. */
+  line-height: 4.6vw;
   margin: 0;
 }
 
@@ -293,7 +295,7 @@ ol {
 }
 
 .label-chapter {
-  /* «ГЛАВА 1» и «ВСЕ ГЛАВЫ» */
+  /* «ГЛАВА 1» */
   letter-spacing: .15vw;
   text-transform: uppercase;
   font-family: var(--font-heading);
@@ -496,6 +498,83 @@ ol {
 
 .nav-chapters__toggle[aria-expanded="true"] .nav-chapters__arrow {
   transform: rotate(180deg);
+}
+
+/* ----- Группы шапки: логотип + соцсети слева, язык + содержание справа ----- */
+.site-header__left,
+.site-header__right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.site-header__right { gap: 8px; }
+
+.site-header__social {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.site-header__social-link {
+  display: flex;
+  color: var(--header-color);
+  transition: color .3s ease, opacity .2s ease;
+}
+
+.site-header__social-link:hover { opacity: .7; }
+
+/* ----- Переключатель языка RU / EN ----- */
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  /* Без плашки: цвет следует за шапкой (светлый над фото, тёмный над светлым фоном) */
+  padding: 8px 4px;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+  letter-spacing: .15vw;
+  color: var(--header-color);
+  transition: color .3s ease;
+}
+
+.lang-switch__item { padding: 0 6px; }
+.lang-switch__item + .lang-switch__item { border-left: 1px solid currentColor; }
+/* EN пока неактивен — английской версии ещё нет */
+.lang-switch__item--disabled { opacity: .45; cursor: default; }
+a.lang-switch__item:hover { opacity: .7; }
+
+/* Соцсети внутри меню «Содержание» — показываются только на мобильных */
+.nav-chapters__social {
+  display: none;
+  gap: 16px;
+  margin-top: 8px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(26, 26, 26, 0.1);
+}
+
+.nav-chapters__social-link {
+  display: flex;
+  color: var(--color-text);
+}
+
+@media screen and (max-width: 600px) {
+  .site-header__social   { display: none; }
+  .nav-chapters__social  { display: flex; }
+  .lang-switch           { padding: 8px 2px; }
+  .nav-chapters          { padding: 8px 12px; }
+  .nav-chapters__toggle  { white-space: nowrap; }
+}
+
+@media screen and (max-width: 480px) {
+  .site-header .site-header__logo { width: 100px; }
+  .lang-switch,
+  .nav-chapters__toggle  { font-size: 12px; letter-spacing: .08em; }
+  .lang-switch           { padding: 8px 0; }
+  .nav-chapters          { padding: 8px 10px; }
+  .nav-chapters__arrow   { margin-left: 4px; }
 }
 
 
@@ -1626,29 +1705,64 @@ ol {
   line-height: 18px;
 }
 
-/* Hover-оверлей с описанием */
-.scientist-item__overlay {
-  position: absolute;
-  top: 0;
-  z-index: 5;
-  display: none;
-  flex-flow: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: calc(100% + 2vw);
-  min-height: calc(100% + 2vw);
-  margin-top: -1vw;
-  margin-left: -1vw;
-  padding: 15px 20px 20px;
-  color: var(--color-white);
-  background-color: var(--color-accent-hover);
-  border-radius: 10px;
-  -webkit-backdrop-filter: blur(5px);
-  backdrop-filter: blur(5px);
+/* Флип-карточка учёного: лицо — портрет, оборот — описание
+   (та же механика, что у .card-white в гл. 3). Высоту .scientist-item__inner
+   выравнивает по ряду js/chapter-1.js, чтобы текст на обороте не обрезался. */
+.scientist-item {
+  perspective: 1000px;
 }
 
-.scientist-item:hover .scientist-item__overlay {
+.scientist-item__inner {
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+  transition: transform .55s cubic-bezier(.4, 0, .2, 1);
+}
+
+@media (hover: hover) {
+  .scientist-item:hover .scientist-item__inner {
+    transform: rotateY(180deg);
+  }
+}
+
+/* Тачскрин (планшеты с desktop-сеткой) — флип по тапу, класс ставит JS */
+.scientist-item--flipped .scientist-item__inner {
+  transform: rotateY(180deg);
+}
+
+.scientist-item__card {
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Оборот с описанием */
+.scientist-item__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
   display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 16px;
+  color: var(--color-text);
+  background-color: var(--color-card-bg);
+  border-radius: var(--radius-md);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: rotateY(180deg);
+  overflow: hidden;
+  hyphens: auto;
+}
+
+.scientist-item__overlay .caption-regular {
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.scientists-hint {
+  margin-top: 20px;
 }
 
 .scientist-item__overlay-name {
@@ -1656,7 +1770,7 @@ ol {
   z-index: 1;
   margin-bottom: 8px;
   font-family: var(--font-main);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   line-height: 20px;
   text-align: left;
@@ -1899,6 +2013,31 @@ ol {
   opacity: .7;
 }
 
+/* Обратная связь (правый нижний угол футера) */
+.site-footer__feedback {
+  position: relative;
+  z-index: 1;
+  max-width: 400px;
+  text-align: right;
+  font-family: var(--font-main);
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--color-white);
+}
+
+.site-footer__feedback-link {
+  color: var(--color-white);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+
+.site-footer__feedback-link:hover { opacity: .7; }
+
+@media screen and (max-width: 767px) {
+  .site-footer__feedback { text-align: center; max-width: none; }
+}
+
 
 /* =============================================================================
   20. ТУЛТИП
@@ -2138,7 +2277,11 @@ html.tooltip-lock body {
   .factors-block            { width: calc(100% - 24px); padding: 20px 16px; border-radius: var(--radius-md); }
 
   /* Герой */
-  .heading-xl       { font-size: 15vw; line-height: 12vw; }
+  /* Было 15vw — на ширинах ~480–767px длинное слово («проявляются»)
+     не помещалось в плашку и вылезало за её края. Кегль подобран так,
+     чтобы самое длинное слово заголовка (11 букв) влезало в плашку. */
+  .heading-xl       { font-size: clamp(34px, 10.5vw, 72px); line-height: 0.95; }
+  .hero:not(.hero--home) .hero__content { padding: 32px 24px; max-width: calc(100vw - 20px); }
   .hero__intro-text { font-size: 16px; line-height: 22px; }
   /* Титульный экран главной: заголовок — сверху, вводный текст — снизу
      у иконки скролла; нижний абзац скрыт. */
@@ -2210,6 +2353,7 @@ html.tooltip-lock body {
 
   /* Учёные */
   .scientists-grid { display: none; }
+  .scientists-hint { display: none; }
   .scientist-item  { width: 100px; min-width: 90px; }
 
   /* Учреждения */
@@ -2267,7 +2411,7 @@ html.tooltip-lock body {
     max-width: calc(100vw - 20px);
   }
   .hero--home .hero__content { padding: 84px 16px 84px; max-width: none; }
-  .heading-xl        { font-size: 12vw; line-height: 10vw; }
+  .heading-xl        { font-size: clamp(30px, 10.5vw, 48px); line-height: 0.95; }
   .two-col           { gap: 24px; padding: 0 10px; }
   .adaptation-col__list { gap: 0; }
 }
