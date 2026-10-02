@@ -3654,6 +3654,44 @@ html.tooltip-lock body {
   overflow: hidden;
 }
 
+/* Примеры климатических проектов (гл. 3) — две колонки
+   в стилистике прежней SVG-таблицы: жирная шапка с линией, список под ней */
+.project-types {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 32px;
+  width: 100%;
+}
+
+.project-types__head {
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--color-text);
+  font-family: var(--font-main);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.project-types__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-main);
+  font-size: 16px;
+  line-height: 20px;
+}
+
+@media screen and (max-width: 767px) {
+  .project-types { gap: 0 16px; }
+  .project-types__head,
+  .project-types__list { font-size: 14px; line-height: 18px; }
+  .project-types__list { hyphens: auto; }
+}
+
 .card-s__svg-wrap img,
 .card-s__svg-wrap svg {
   width: 100%;
