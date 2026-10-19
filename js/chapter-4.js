@@ -52,7 +52,20 @@
     precip:     ['RU-IRK','RU-PRI','RU-AMU','RU-PER','RU-KHA','RU-KYA','RU-ARK','RU-SVE','RU-LEN','RU-ZAB'],
   };
 
-  const RISK_LABELS = {
+  const IS_EN = document.documentElement.lang === 'en';
+  // Корень сайта относительно текущей страницы (английская версия лежит в /en/)
+  const SITE_ROOT = IS_EN ? '../' : '';
+
+  // Английские названия регионов для тултипа карты (в SVG — русские title)
+  const REGION_NAMES_EN = {"RU-AD": "Republic of Adygea", "RU-ALT": "Altai Krai", "RU-AMU": "Amur Oblast", "RU-ARK": "Arkhangelsk Oblast", "RU-AST": "Astrakhan Oblast", "RU-BA": "Republic of Bashkortostan", "RU-BEL": "Belgorod Oblast", "RU-BRY": "Bryansk Oblast", "RU-BU": "Republic of Buryatia", "RU-CE": "Chechen Republic", "RU-CHE": "Chelyabinsk Oblast", "RU-CHU": "Chukotka Autonomous Okrug", "RU-CU": "Chuvash Republic", "RU-DA": "Republic of Dagestan", "RU-AL": "Altai Republic", "RU-IN": "Republic of Ingushetia", "RU-IRK": "Irkutsk Oblast", "RU-IVA": "Ivanovo Oblast", "RU-KB": "Kabardino-Balkarian Republic", "RU-KC": "Karachay-Cherkess Republic", "RU-KDA": "Krasnodar Krai", "RU-KEM": "Kemerovo Oblast", "RU-KLU": "Kaluga Oblast", "RU-KHA": "Khabarovsk Krai", "RU-KR": "Republic of Karelia", "RU-KK": "Republic of Khakassia", "RU-KL": "Republic of Kalmykia", "RU-KHM": "Khanty-Mansi Autonomous Okrug", "RU-KGD": "Kaliningrad Oblast", "RU-KO": "Komi Republic", "RU-KAM": "Kamchatka Krai", "RU-KRS": "Kursk Oblast", "RU-KOS": "Kostroma Oblast", "RU-KGN": "Kurgan Oblast", "RU-KIR": "Kirov Oblast", "RU-KYA": "Krasnoyarsk Krai", "RU-LEN": "Leningrad Oblast", "RU-LIP": "Lipetsk Oblast", "RU-MOW": "Moscow", "RU-ME": "Mari El Republic", "RU-MAG": "Magadan Oblast", "RU-MUR": "Murmansk Oblast", "RU-MO": "Republic of Mordovia", "RU-MOS": "Moscow Oblast", "RU-NGR": "Novgorod Oblast", "RU-NEN": "Nenets Autonomous Okrug", "RU-SE": "Republic of North Ossetia–Alania", "RU-NVS": "Novosibirsk Oblast", "RU-NIZ": "Nizhny Novgorod Oblast", "RU-ORE": "Orenburg Oblast", "RU-ORL": "Oryol Oblast", "RU-OMS": "Omsk Oblast", "RU-PER": "Perm Krai", "RU-PRI": "Primorsky Krai", "RU-PSK": "Pskov Oblast", "RU-PNZ": "Penza Oblast", "RU-ROS": "Rostov Oblast", "RU-RYA": "Ryazan Oblast", "RU-SAM": "Samara Oblast", "RU-SA": "Sakha Republic (Yakutia)", "RU-SAK": "Sakhalin Oblast", "RU-SMO": "Smolensk Oblast", "RU-SPE": "Saint Petersburg", "RU-SAR": "Saratov Oblast", "RU-STA": "Stavropol Krai", "RU-SVE": "Sverdlovsk Oblast", "RU-TAM": "Tambov Oblast", "RU-TOM": "Tomsk Oblast", "RU-TUL": "Tula Oblast", "RU-TA": "Republic of Tatarstan", "RU-TY": "Tuva Republic", "RU-TVE": "Tver Oblast", "RU-TYU": "Tyumen Oblast", "RU-UD": "Udmurt Republic", "RU-ULY": "Ulyanovsk Oblast", "RU-VGG": "Volgograd Oblast", "RU-VLA": "Vladimir Oblast", "RU-YAN": "Yamalo-Nenets Autonomous Okrug", "RU-VLG": "Vologda Oblast", "RU-VOR": "Voronezh Oblast", "RU-YAR": "Yaroslavl Oblast", "RU-YEV": "Jewish Autonomous Oblast", "RU-ZAB": "Zabaykalsky Krai"};
+
+  const RISK_LABELS = IS_EN ? {
+    heat:       'Heatwaves',
+    drought:    'Water stress',
+    fire:       'Wildfires',
+    permafrost: 'Permafrost',
+    precip:     'Heavy precipitation',
+  } : {
     heat:       'Волны тепла',
     drought:    'Водный стресс',
     fire:       'Лесные пожары',
@@ -77,7 +90,7 @@
     if (!stage || !tabs.length) return;
 
     // Загружаем SVG-карту и инжектим её инлайн (чтобы красить регионы и ловить наведение)
-    fetch('img/russia.svg')
+    fetch(SITE_ROOT + 'img/russia.svg')
       .then(r => r.text())
       .then(markup => {
         const tmp = document.createElement('div');
@@ -104,7 +117,7 @@
 
       // Тултип при наведении
       regions.forEach(path => {
-        const name = path.getAttribute('title') || '';
+        const name = (IS_EN && REGION_NAMES_EN[path.id]) || path.getAttribute('title') || '';
         path.addEventListener('mousemove', e => showTip(e, name));
         path.addEventListener('mouseenter', () => path.classList.add('is-hover'));
         path.addEventListener('mouseleave', () => {
@@ -219,6 +232,18 @@
         quote: '«Однозначно, что влияние человека привело к потеплению атмосферы, океана и суши».',
       },
     ];
+
+    if (IS_EN) {
+      const REPORTS_EN = [
+        { label: 'IPCC’s First Assessment Report', quote: '“Emissions resulting from human activities are substantially increasing the atmospheric concentrations of the greenhouse gases. This will lead to additional warming of Earth’s surface.”' },
+        { label: 'IPCC’s Second Assessment Report', quote: '“Atmospheric concentrations of greenhouse gases have increased significantly. These trends are largely attributable to human influence on global climate.”' },
+        { label: 'IPCC’s Third Assessment Report', quote: '“There is new and stronger evidence that most of the warming observed over the last 50 years is attributable to human activities.”' },
+        { label: 'IPCC’s Fourth Assessment Report', quote: '“Warming of the climate system is unequivocal. Most of the observed increase in global temperatures since the mid-20th century is very likely due to the observed increase in anthropogenic GHG concentrations.”' },
+        { label: 'IPCC’s Fifth Assessment Report', quote: '“Human influence on the climate system is clear, and recent anthropogenic emissions of greenhouse gases are the highest in history.”' },
+        { label: 'IPCC’s Sixth Assessment Report', quote: '“It is unequivocal that human influence has warmed the atmosphere, ocean, and land.”' }
+      ];
+      REPORTS.forEach((r, i) => Object.assign(r, REPORTS_EN[i]));
+    }
 
     const ACCENT  = '#c49a2a';
     const LINECOL = '#1a1a1a';

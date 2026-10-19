@@ -35,7 +35,7 @@
         const dot = document.createElement('button');
         dot.className = 'slider__dot' + (i === 0 ? ' slider__dot--active' : '');
         dot.type      = 'button';
-        dot.setAttribute('aria-label', `Слайд ${i + 1}`);
+        dot.setAttribute('aria-label', (document.documentElement.lang === 'en' ? 'Slide ' : 'Слайд ') + (i + 1));
         dot.setAttribute('role', 'tab');
         dot.addEventListener('click', () => goToSlide(id, i));
         nav.appendChild(dot);
@@ -133,6 +133,8 @@
    *  3. QUIZ
    * ════════════════════════════════════════════════════════════ */
 
+  const IS_EN = document.documentElement.lang === 'en';
+
   const QUIZ_DATA = [
     {
       question: 'Сколько человек в&nbsp;мире не&nbsp;имеют доступа к&nbsp;пресной воде?',
@@ -172,6 +174,42 @@
     },
   ];
 
+  // Английские тексты теста (порядок совпадает с QUIZ_DATA)
+  const QUIZ_EN = [
+    { question: 'How many people worldwide lack access to fresh water?',
+      fact: 'Around 2 billion people lack access to clean drinking water' },
+    { question: 'What percentage of all the water on Earth is fresh water?',
+      fact: 'Fresh water accounts for only about 2.5% of all the water on Earth, and only around 1.2% of that is relatively accessible surface water, such as rivers, lakes, and soil moisture' },
+    { question: 'What percentage of the world’s population depends on water from mountain glaciers?',
+      fact: 'Around one in six people worldwide depends on water from mountain glaciers' },
+    { question: 'What percentage of all fresh water is used in agriculture?',
+      fact: 'Around 70% of fresh water consumed is used in agriculture' },
+    { question: 'How many litres of water are needed to produce enough food for one person for one day?',
+      fact: 'Producing enough food for one person for one day requires between 2 thousand and 5 thousand litres of water' },
+    { question: 'By what percentage have floods become more frequent over the past 25 years?',
+      fact: 'The number of floods has increased by around 134% over the past 20 years' }
+  ];
+  if (IS_EN) {
+    QUIZ_DATA.forEach((q, i) => {
+      if (!QUIZ_EN[i]) return;
+      q.question = QUIZ_EN[i].question;
+      q.fact     = QUIZ_EN[i].fact;
+      q.source   = q.source.replace('unesco.org/ru/', 'unesco.org/en/');
+    });
+  }
+
+  const QUIZ_UI = IS_EN ? {
+    guess: 'Take a guess', submit: 'This much', next: 'Next', source: 'Source',
+    progress: (n, m) => `Question ${n} of ${m}`,
+    done: 'Quiz complete!', final: 'You’ve answered all the questions about fresh water.', restart: 'Try again',
+    reactions: ["You’re right!", "Very close!", "Pretty close", "Not bad, but you could be more precise", "Quite far from the correct answer"],
+  } : {
+    guess: 'Предположите', submit: 'Вот столько', next: 'Дальше', source: 'Источник',
+    progress: (n, m) => `Вопрос ${n} из ${m}`,
+    done: 'Тест завершён!', final: 'Вы ответили на все вопросы о пресной воде.', restart: 'Пройти заново',
+    reactions: ['Вы правы!', 'Очень близко!', 'Вы довольно близки', 'Неплохо, но можно точнее', 'Довольно далеко от правильного ответа'],
+  };
+
   function initQuiz() {
     const app = document.getElementById('quiz-app');
     if (!app) return;
@@ -179,7 +217,7 @@
     let current = 0;
 
     function fmt(num) {
-      return Number(num).toLocaleString('ru-RU');
+      return Number(num).toLocaleString(IS_EN ? 'en-US' : 'ru-RU');
     }
 
     function updateFill(range) {
@@ -189,23 +227,23 @@
 
     function getReaction(userVal, correct) {
       const pct = Math.abs(userVal - correct) / correct;
-      if (pct <= 0.05) return 'Вы правы!';
-      if (pct <= 0.10) return 'Очень близко!';
-      if (pct <= 0.20) return 'Вы довольно близки';
-      if (pct <= 0.40) return 'Неплохо, но можно точнее';
-      return 'Довольно далеко от правильного ответа';
+      if (pct <= 0.05) return QUIZ_UI.reactions[0];
+      if (pct <= 0.10) return QUIZ_UI.reactions[1];
+      if (pct <= 0.20) return QUIZ_UI.reactions[2];
+      if (pct <= 0.40) return QUIZ_UI.reactions[3];
+      return QUIZ_UI.reactions[4];
     }
 
     function renderQuestion() {
       const q = QUIZ_DATA[current];
       app.innerHTML = `
-        <div class="quiz__label">Предположите</div>
+        <div class="quiz__label">${QUIZ_UI.guess}</div>
         <div class="quiz__question">${q.question}</div>
         <div class="quiz__value" id="quiz-value">${fmt(q.min)}</div>
         <input type="range" class="quiz__range" id="quiz-range"
                min="${q.min}" max="${q.max}" step="${q.step}" value="${q.min}">
-        <button class="quiz__button" id="quiz-submit" type="button">Вот столько</button>
-        <div class="quiz__progress">Вопрос ${current + 1} из ${QUIZ_DATA.length}</div>
+        <button class="quiz__button" id="quiz-submit" type="button">${QUIZ_UI.submit}</button>
+        <div class="quiz__progress">${QUIZ_UI.progress(current + 1, QUIZ_DATA.length)}</div>
       `;
       const range = $('#quiz-range', app);
       const value = $('#quiz-value', app);
@@ -224,9 +262,9 @@
       app.innerHTML = `
         <div class="quiz__label">${getReaction(userVal, q.correct)}</div>
         <div class="quiz__answer">${q.fact}</div>
-        <button class="quiz__button" id="quiz-next" type="button">Дальше</button>
-        <div class="quiz__progress">Вопрос ${current + 1} из ${QUIZ_DATA.length}</div>
-        <div class="quiz__source"><a href="${q.source}" target="_blank" rel="noopener">Источник</a></div>
+        <button class="quiz__button" id="quiz-next" type="button">${QUIZ_UI.next}</button>
+        <div class="quiz__progress">${QUIZ_UI.progress(current + 1, QUIZ_DATA.length)}</div>
+        <div class="quiz__source"><a href="${q.source}" target="_blank" rel="noopener">${QUIZ_UI.source}</a></div>
       `;
       $('#quiz-next', app).addEventListener('click', () => {
         current++;
@@ -240,9 +278,9 @@
 
     function renderFinal() {
       app.innerHTML = `
-        <div class="quiz__label">Тест завершён!</div>
-        <div class="quiz__answer">Вы ответили на все вопросы о пресной воде.</div>
-        <button class="quiz__button" id="quiz-restart" type="button">Пройти заново</button>
+        <div class="quiz__label">${QUIZ_UI.done}</div>
+        <div class="quiz__answer">${QUIZ_UI.final}</div>
+        <button class="quiz__button" id="quiz-restart" type="button">${QUIZ_UI.restart}</button>
       `;
       $('#quiz-restart', app).addEventListener('click', () => {
         current = 0;

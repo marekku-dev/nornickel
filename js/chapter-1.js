@@ -43,7 +43,7 @@
         const dot = document.createElement('button');
         dot.className   = 'slider__dot' + (i === 0 ? ' slider__dot--active' : '');
         dot.type        = 'button';
-        dot.setAttribute('aria-label', `Слайд ${i + 1}`);
+        dot.setAttribute('aria-label', (document.documentElement.lang === 'en' ? 'Slide ' : 'Слайд ') + (i + 1));
         dot.setAttribute('role', 'tab');
         dot.addEventListener('click', () => goToSlide(id, i));
         nav.appendChild(dot);

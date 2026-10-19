@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="../img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How the world is responding to climate change – Nornickel</title>
+  <meta name="description" content="UN Framework Convention on Climate Change, Kyoto Protocol, Paris Agreement, Sustainable Development Goals, and Russia’s climate policy.">
+
+  <!-- Open Graph -->
+  <meta property="og:title"       content="How the world is responding to climate change – Nornickel">
+  <meta property="og:description" content="UN Framework Convention on Climate Change, Kyoto Protocol, Paris Agreement, Sustainable Development Goals, and Russia’s climate policy.">
+  <meta property="og:image"       content="../img/ch4-hero-bg.jpg">
+  <meta property="og:type"        content="article">
+
+  <!-- Preload критичных ресурсов -->
+  <link rel="preload" href="../img/ch4-hero-bg.jpg" as="image" fetchpriority="high">
+  <link rel="preload" href="../js/components.js" as="script">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../main.css">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=112658568', 'ym');
+
+    ym(112658568, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+  </script>
+  <!-- /Yandex.Metrika counter -->
+  <link rel="alternate" hreflang="ru" href="../chapter-4.html">
+  <link rel="alternate" hreflang="en" href="chapter-4.html">
+</head>
+<body>
+<noscript><div><img src="https://mc.yandex.ru/watch/112658568" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+<!-- Шапка — компонент -->
+<div data-component="header"></div>
+
+<!-- MAIN WRAPPER -->
+<div class="page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__content">
+      <div class="label-chapter">Chapter 4</div>
+      <h1 class="heading-xl">How the world is responding to climate change</h1>
+      <p class="hero__intro-text">The shift from treating climate change as a niche scientific issue to recognising it as a major concern of global politics began in 1979, at the First World Climate Conference. It was then that evidence of human influence on the climate first caught the public’s attention and later that of governments.</p>
+    </div>
+    <img src="../assets/scroll.svg" loading="lazy" alt="" class="hero__scroll-icon" aria-hidden="true">
+    <img src="../img/ch4-hero-bg.jpg" fetchpriority="high" alt="" class="hero__bg">
+  </section>
+
+  <!-- CONTENT -->
+  <main class="content">
+
+    <!-- SECTION 1: Международное климатическое сотрудничество / МГЭИК -->
+    <section class="section reveal">
+      <div class="text-block">
+        <p class="body-text">Climate change had become too big a problem for individual companies or countries to tackle alone. To address the problem collectively, countries are entering into international agreements and developing national strategies to reduce emissions.</p>
+      </div>
+    </section>
+
+    <section class="section reveal" aria-labelledby="heading-cooperation">
+      <div class="text-block">
+        <h2 class="heading-lg" id="heading-cooperation">International climate cooperation</h2>
+        <p class="body-text">In 1988, the United Nations officially recognised climate change as a major concern for humanity.</p>
+          <p class="body-text">To better understand the problem, the UN and the World Meteorological Organization (WMO) established the Intergovernmental Panel on Climate Change (IPCC) that same year.</p>
+      </div>
+
+      <!-- Аккордеон: структура МГЭИК -->
+      <div class="expanding-group reveal">
+        <div class="card-expanding">
+          <div class="card-expanding__header">
+            <span class="card-expanding__title">How the IPCC works</span>
+            <span class="card-expanding__arrow">
+              <svg viewBox="0 0 20 20"><polyline points="4 7 10 13 16 7"/></svg>
+            </span>
+          </div>
+          <div class="card-expanding__body">
+            <p>The IPCC was established by the World Meteorological Organization (WMO) and the United Nations Environment Programme (UNEP). It is governed by its Plenary, Bureau, and Executive Committee, supported by the Secretariat.</p>
+            <p>Most of its activities are carried out by three working groups and one task force:</p>
+            <ul>
+              <li><strong>Working Group I</strong> – The Physical Science Basis.</li>
+              <li><strong>Working Group II</strong> – Impacts, Adaptation and Vulnerability.</li>
+              <li><strong>Working Group III</strong> – Mitigation of Climate Change.</li>
+              <li><strong>Task Force</strong> on National Greenhouse Gas Inventories.</li>
+            </ul>
+            <p>IPCC reports are prepared with the involvement of authors, contributing authors, and reviewers – scientists selected for each report.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-block reveal">
+        <p class="body-text">The IPCC published its first Assessment Report in 1990. In it, scientists confirmed that climate change posed a real threat and was directly linked to human activity. In subsequent reports, the IPCC continued to refine its assessments based on the latest scientific evidence.</p>
+      </div>
+
+      <div class="reveal" style="width:100%; display:flex; flex-flow:column; align-items:center;">
+        <div class="graph-mid" style="margin-bottom:0;">
+          <div class="caption-label">Key IPCC findings since 1990</div>
+          <div class="caption-label" style="font-weight: 400; text-transform: none; letter-spacing: 0; margin-top: 4px; margin-bottom: 16px; font-size: 14px; opacity: 0.6;">Atmospheric CO₂ concentration (ppm) continues to rise</div>
+          <div class="graph-scroll" style="overflow-x: auto;">
+            <canvas id="ipcc-chart" style="display: block; width: 100%; cursor: default;" class="ipcc-chart-canvas"></canvas>
+          </div>
+        </div>
+        <p class="source-caption" style="margin-top: 18px;">Source: IPCC; CO₂ data from Mauna Loa Observatory, Hawaii (Dr Pieter Tans, NOAA/GML, and Dr Ralph Keeling, Scripps Institution of Oceanography)</p>
+      </div>
+    </section>
+
+    <!-- SECTION 1B: 17 целей ООН (перенесено ближе к началу главы) -->
+    <section class="section" aria-labelledby="heading-sdg">
+      <div class="text-block reveal">
+        <h2 class="heading-lg" id="heading-sdg">The UN’s 17 Sustainable Development Goals</h2>
+        <p class="body-text">Tackling climate change is part of the broader global challenge of achieving sustainable development. This concept rests on three pillars – economic growth, social well-being, and environmental protection, and climate change directly affects all three.</p>
+        <p class="body-text">In September 2015, at the UN General Assembly, 193 countries adopted the 2030 Agenda for Sustainable Development. At its heart are the 17 Sustainable Development Goals (SDGs), designed to guide action by all countries and encourage international cooperation in areas of critical importance for humanity and the planet.</p>
+      </div>
+
+      <div class="sdg-grid reveal">
+        <div class="sdg-grid__item"><img src="img/goals/Sustainable_Development_Goal_01NoPoverty.svg" loading="lazy" alt="Goal 1: No Poverty"></div>
+        <div class="sdg-grid__item"><img src="img/goals/Sustainable_Development_Goal_02ZeroHunger.svg" loading="lazy" alt="Goal 2: Zero Hunger"></div>
+        <div class="sdg-grid__item"><img src="img/goals/Sustainable_Development_Goal_03GoodHealth.svg" loading="lazy" alt="Goal 3: Good Health and Well-Being"></div>
+        <div class="sdg-grid__item"><img src="img/goals/Sustainable_Development_Goal_04QualityEducation.svg" loading="lazy" alt="Goal 4: Quality Education"></div>
+        <div class="sdg-grid__item"><img src="img/goals/Sustainable_Development_Goal_05GenderEquality.svg" loading="lazy" alt="Goal 5: Gender Equality"></div>
+        <div class="sdg-grid__item"><img src="img/goals/Sustainable_Development_Goal_06CleanWaterSanitation.svg" loading="lazy" alt="Goal 6: Clean Water and Sanitation"></div>
+        <div class="sdg-grid__item"><img src="img/goals/Sustainable_Development_Goal_07CleanEnergy.svg" loading="lazy" alt="Goal 7: Affordable and Clean Energy"></div>
+        <div class="sdg-grid__item"><img src="img/goals/Sustainable_Development_Goal_08DecentWork.svg" loading="lazy" alt="Goal 8: Decent Work and Economic Growth"></div>
+        <div class="sdg-grid__item"><img src="img/goals/Sustainable_Development_Goal_09Industry.svg" loading="lazy" alt="Goal 9: Industry, Innovation and Infrastructure"></div>
+        <div class="sdg-grid__item"><img src="img/goals/Sustainable_Development_Goal_10ReducedInequalities.svg" loading="lazy" alt="Goal 10: Reduced Inequalities"></div>
+        <div class="sdg-grid__item"><img src="img/goals/Sustainable_Development_Goal_11SustainableCities.svg" loading="lazy" alt="Goal 11: Sustainable Cities and Communities"></div>
+        <div class="sdg-grid__item"><img src="img/goals/Sustainable_Development_Goal_12ResponsibleConsumption.svg" loading="lazy" alt="Goal 12: Responsible Consumption and Production"></div>
+        <div class="sdg-grid__item"><img src="img/goals/Sustainable_Development_Goal_13Climate.svg" loading="lazy" alt="Goal 13: Climate Action"></div>
+        <div class="sdg-grid__item"><img src="img/goals/Sustainable_Development_Goal_14LifeBelowWater.svg" loading="lazy" alt="Goal 14: Life Below Water"></div>
+        <div class="sdg-grid__item"><img src="img/goals/Sustainable_Development_Goal_15LifeOnLand.svg" loading="lazy" alt="Goal 15: Life on Land"></div>
+        <div class="sdg-grid__item"><img src="img/goals/Sustainable_Development_Goal_16PeaceJusticeInstitutions.svg" loading="lazy" alt="Goal 16: Peace, Justice and Strong Institutions"></div>
+        <div class="sdg-grid__item"><img src="img/goals/Sustainable_Development_Goal_17Partnerships.svg" loading="lazy" alt="Goal 17: Partnerships for the Goals"></div>
+      </div>
+
+      <div class="text-block reveal">
+        <p class="body-text">Although Goal 13 focuses specifically on climate action, climate change is, in fact, an issue that cuts across all 17 goals. It directly threatens efforts to end hunger, ensure access to clean water, improve healthcare, and promote economic growth. It is therefore clear that most of the Sustainable Development Goals cannot be achieved without decisive action on climate change.</p>
+      </div>
+
+    </section>
+
+
+    <!-- SECTION 2: РКИК ООН -->
+    <section class="section" aria-labelledby="heading-unfccc">
+      <div class="text-block reveal">
+        <h2 class="heading-lg" id="heading-unfccc">United Nations Framework Convention on Climate Change (UNFCCC)</h2>
+        <p class="body-text">By the early 1990s, scientists had concluded that tackling climate change required a global effort, with the UN providing the best platform for international cooperation. In 1992, countries agreed to work together and adopted the main international agreement in this area – the United Nations Framework Convention on Climate Change (UNFCCC).</p>
+        <p class="body-text">The Convention’s primary objective is to prevent dangerous human interference with the climate system by stabilising greenhouse gas concentrations in the atmosphere. It is based on the principle of common but differentiated responsibilities: although all countries share responsibility for addressing climate change, developed countries should take the lead and provide financial and technological support to developing countries.</p>
+      </div>
+
+      <!-- Аккордеон: Три столпа РКИК -->
+      <div class="expanding-group reveal">
+        <div class="card-expanding card-expanding--green">
+          <div class="card-expanding__header">
+            <span class="card-expanding__title">How the UNFCCC is governed</span>
+            <span class="card-expanding__arrow">
+              <svg viewBox="0 0 20 20"><polyline points="4 7 10 13 16 7"/></svg>
+            </span>
+          </div>
+          <div class="card-expanding__body">
+            <p>The Convention’s supreme decision-making body is the Conference of the Parties (COP), which meets annually. It is supported by two subsidiary bodies:</p>
+            <ul>
+              <li><strong>SBSTA</strong> – the Subsidiary Body for Scientific and Technological Advice, which provides scientific and technical guidance.</li>
+              <li><strong>SBI</strong> – the Subsidiary Body for Implementation, which assesses how countries are meeting their commitments.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-block reveal">
+        <p class="body-text">To assess progress, countries report to the UNFCCC. Every four to five years, they prepare national communications on their climate policies, and every two years, they submit national greenhouse gas inventories. Both types of reporting are now incorporated into Biennial Transparency Reports (BTRs). Nationally Determined Contributions (NDCs), however, are part of the Paris Agreement, which we will explore later.</p>
+        <p class="body-text">The UNFCCC Secretariat is based in Bonn, Germany.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 3: Киотский протокол -->
+    <section class="section" aria-labelledby="heading-kyoto">
+       <div class="image-medium reveal">
+        <img src="../img/ch4-kioto.png" loading="lazy" alt="Third Conference of the Parties to the UNFCCC in Kyoto" class="image-fullscreen__img">
+        <p class="source-caption" style="text-align:center; margin-top: 12px;">Third Conference of the Parties to the UNFCCC in Kyoto</p>
+      </div>
+
+      <div class="text-block reveal">
+        <h2 class="heading-lg" id="heading-kyoto">Kyoto Protocol</h2>
+        <p class="body-text">The climate convention governed countries’ climate actions only until the beginning of the 21st century. Therefore, at the first Conference of the Parties in 1995, the participating countries decided to develop a new, more specific agreement. Following difficult negotiations, they adopted the Kyoto Protocol in Kyoto, Japan, in December 1997.</p>
+        <p class="body-text">For the first time, the Protocol established specific emissions reduction targets and deadlines, introducing market-based mechanisms, including emissions trading, to help achieve them. It required countries to take action primarily at the national level but also provided three flexible mechanisms to support their efforts:</p>
+        <ul class="body-text" style="padding-left: 1.4em; margin-top: -8px;">
+          <li>International Emissions Trading</li>
+          <li>Clean Development Mechanism (CDM)</li>
+          <li>Joint Implementation (JI)</li>
+        </ul>
+        <p class="body-text">The idea behind these mechanisms was simple: reduce emissions wherever it costs the least – for example, in developing countries. This also encouraged green investment and helped businesses replace outdated, polluting technologies with cleaner alternatives.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 4: Парижское соглашение -->
+    <section class="section" aria-labelledby="heading-paris">
+      <div class="image-medium reveal">
+        <img src="../img/ch4-conf2.png" loading="lazy" alt="Paris Agreement signing ceremony" class="image-fullscreen__img">
+        <!-- Note: ch4-paris-signing.jpg not yet available; replace when exported from Figma -->
+        <p class="source-caption" style="text-align:center; margin-top: 12px;">Paris Agreement signing ceremony</p>
+      </div>
+
+      <div class="text-block reveal">
+        <h2 class="heading-lg" id="heading-paris">Paris Agreement</h2>
+        <p class="body-text">The Kyoto Protocol had limited effectiveness because some of the world’s largest emitters, including the United States, did not ratify it, while Canada withdrew. Nevertheless, it set an important precedent: for the first time, it established legally binding emissions targets and laid the groundwork for market-based mechanisms, paving the way for a new, more ambitious agreement.</p>
+        <p class="body-text">In 2012, countries agreed to begin negotiations on a new global climate agreement. These negotiations led to the adoption of the Paris Agreement in 2015.</p>
+      </div>      
+
+      <div class="text-block reveal">
+        <div class="caption-block">
+          <p class="caption-italic" style="font-size: 20px; line-height: 1.4;">The Agreement’s primary goal is to hold the increase in the global average temperature to well below 2 °C above pre-industrial levels and pursue efforts to limit the temperature increase to 1.5 °C.</p>
+        </div>
+        <p class="body-text">To achieve this, each country sets and submits its own long-term emissions reduction targets for 2030, known as Nationally Determined Contributions (NDCs), and updates them every five years. In addition, countries should develop long-term low greenhouse gas emission development strategies and plans to adapt to the already unavoidable impacts of climate change.</p>
+      </div>
+
+      <div class="card-s reveal">
+        <div class="caption-label">Countries’ goals under the Paris Agreement</div>
+        <div class="graph-scroll">
+          <img src="img/ch4-paris.svg" loading="lazy" alt="Countries’ goals under the Paris Agreement matrix" class="graph-image graph-image--scroll-mobile">
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: НКО, общественные движения и активизм -->
+    <section class="section" aria-labelledby="heading-ngo">
+      <div class="text-block reveal">
+        <h2 class="heading-lg" id="heading-ngo">NGOs, social movements, and activism</h2>
+        <p class="body-text">Non-governmental organisations (NGOs), social movements, and activists also play a key role in tackling climate change, alongside governments. They shape public opinion, raise awareness of climate issues, and press governments and businesses to take meaningful action.</p>
+      </div>
+
+      <div class="expanding-group reveal">
+        <div class="card-expanding card-expanding--green">
+          <div class="card-expanding__header">
+            <span class="card-expanding__title">What NGOs do</span>
+            <span class="card-expanding__arrow">
+              <svg viewBox="0 0 20 20"><polyline points="4 7 10 13 16 7"/></svg>
+            </span>
+          </div>
+          <div class="card-expanding__body">
+            <ul>
+              <li><strong>Educate.</strong> Explain climate change to the public and show people how they can help tackle it.</li>
+              <li><strong>Monitor.</strong> Check whether companies and governments comply with environmental regulations.</li>
+              <li><strong>Advise.</strong> Help governments and businesses develop practical plans to reduce emissions and adapt to changing climate conditions.</li>
+              <li><strong>Organise.</strong> Hold public demonstrations and hearings to draw the attention of the public and policymakers to climate issues.</li>
+              <li><strong>Research.</strong> Collect and analyse scientific data, conduct independent research, and publish reports that complement official information.</li>
+              <li><strong>Recruit volunteers.</strong> Bring people together to work on practical projects, from planting trees and cleaning up public spaces to monitoring pollution.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: Мировые практики -->
+    <section class="section" aria-labelledby="heading-practices">
+      <div class="text-block reveal">
+        <h2 class="heading-lg" id="heading-practices">Climate policy instruments and regulation</h2>
+        <p class="body-text">Countries use several key approaches to regulate emissions effectively:</p>
+      </div>
+
+      <div class="cards-white-grid reveal">
+
+        <div class="card-white card-white--no-flip">
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="../img/ch4/ch4-ill1.png" loading="lazy" alt="Carbon markets" class="card-white__icon">
+              <span class="card-white__label">Establishing carbon markets</span>
+              <p class="caption-italic text-center" style="padding: 0 12px;">Systems for trading emissions allowances and carbon credits</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-white card-white--no-flip">
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="../img/ch4/ch4-ill2.png" loading="lazy" alt="Tax incentives and subsidies" class="card-white__icon">
+              <span class="card-white__label">Tax incentives and subsidies</span>
+              <p class="caption-italic text-center" style="padding: 0 12px;">For companies adopting green technologies</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-white card-white--no-flip">
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="../img/ch4/ch4-ill3.png" loading="lazy" alt="National strategies" class="card-white__icon">
+              <span class="card-white__label">National low-carbon development strategies</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-white card-white--no-flip">
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="../img/ch4/ch4-ill4.png" loading="lazy" alt="Green finance" class="card-white__icon">
+              <span class="card-white__label">Green finance</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-white card-white--no-flip">
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="../img/ch4/ch4-ill5.png" loading="lazy" alt="Cross-border mechanisms" class="card-white__icon">
+              <span class="card-white__label">Cross-border mechanisms</span>
+              <p class="caption-italic text-center" style="padding: 0 12px;">Account for the carbon footprint of imported goods</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-white card-white--no-flip">
+          <div class="card-white__inner">
+            <div class="card-white__front">
+              <img src="../img/ch4/ch4-ill6.png" loading="lazy" alt="International cooperation" class="card-white__icon">
+              <span class="card-white__label">International cooperation</span>
+              <p class="caption-italic text-center" style="padding: 0 12px;">To share experience</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 7: CCPI — индекс эффективности -->
+    <section class="section" aria-labelledby="heading-ccpi">
+      <div class="text-block reveal">
+        <h2 class="heading-lg" id="heading-ccpi">How is countries’ climate performance measured?</h2>
+        <p class="body-text">The Climate Change Performance Index (CCPI) was developed to assess how effectively countries are tackling climate change. It evaluates 57 countries and the European Union, which together account for more than 90% of global greenhouse gas emissions.</p>
+      </div>
+
+      <div class="card-s reveal">
+        <p class="heading-sm" style="margin-bottom: 16px;">CCPI ranking</p>
+        <p class="body-text" style="margin-bottom: 12px;">The index is based on 14 indicators grouped into four categories:</p>
+        <ul class="body-text" style="margin: 0 0 24px; padding-left: 20px;">
+          <li>Greenhouse gas emissions (weight: <span style="color: #e07b3a; font-weight: 600;">40%</span>).</li>
+          <li>Renewable energy (weight: <span style="color: #5a9e5a; font-weight: 600;">20%</span>).</li>
+          <li>Energy use (weight: <span style="color: #7b6bbf; font-weight: 600;">20%</span>).</li>
+          <li>Climate policy (weight: <span style="color: #c49a2a; font-weight: 600;">20%</span>).</li>
+        </ul>
+        <div class="card-s__svg-wrap">
+          <picture>
+            <source media="(max-width: 767px)" srcset="img/ch4-ccpi-mobile.svg">
+            <img src="img/ch4-ccpi.svg" loading="lazy" alt="CCPI ranking">
+          </picture>
+        </div>
+      </div>
+      <p class="source-caption">Source: <a href="https://ccpi.org" target="_blank" style="text-decoration: none;">ccpi.org</a></p>
+
+      <div class="text-block reveal">
+        <p class="body-text"><strong>The key finding of the most recent CCPI ranking</strong> is that no country received a “very high” rating. No country is fully meeting the Paris Agreement’s goal of holding global warming to below 2 °C. That is why the top three places in the ranking are traditionally left vacant.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 8: Государственная политика России -->
+    <section class="section" aria-labelledby="heading-russia">
+      <div class="text-block reveal">
+        <h2 class="heading-lg" id="heading-russia">Government policy and climate regulation in Russia</h2>
+        <p class="body-text">To participate in international climate cooperation, every country needs its own domestic climate policy. In Russia, this policy focuses on two key areas: regulating emissions and adapting to the impacts of climate change.</p>
+      </div>
+
+      <div class="text-block reveal">
+        <h3 class="heading-md">Emissions regulation</h3>
+        <p class="body-text">Russia’s climate policy is built around its participation in international agreements. Russia joined the UN Framework Convention on Climate Change, ratified the Kyoto Protocol in 2004, and joined the Paris Agreement in 2019, reaffirming its emissions reduction commitments.</p>
+      </div>
+
+      <!-- Ключевые документы -->
+      <div class="resources-block reveal">
+        <div class="caption-label resources-block__label">Key national policy documents</div>
+        <div class="resources-block__grid resources-block__grid--1col">
+
+          <div class="resources-block__item">
+            <img src="../img/ch5-res3.png" loading="lazy" alt="" class="resources-block__logo">
+            <p class="resources-block__title">Climate Doctrine of the Russian Federation</p>
+            <p class="resources-block__text">The principal document setting out the country’s overall climate policy and its goal of achieving carbon neutrality by 2060.</p>
+            <a href="http://www.kremlin.ru/acts/bank/49910" target="_blank" class="resources-block__link">View →</a>
+          </div>
+
+          <div class="resources-block__item">
+            <img src="../img/ch5-res3.png" loading="lazy" alt="" class="resources-block__logo">
+            <p class="resources-block__title">Low-Carbon Development Strategy until 2050</p>
+            <p class="resources-block__text">Sets out specific measures to achieve carbon neutrality, including developing renewable energy, improving energy efficiency, and harnessing the absorptive capacity of forests.</p>
+            <a href="http://government.ru/news/43708/" target="_blank" class="resources-block__link">View →</a>
+          </div>
+
+          <div class="resources-block__item">
+            <img src="../img/ch5-res3.png" loading="lazy" alt="" class="resources-block__logo">
+            <p class="resources-block__title">Federal Law No. 296-FZ on Limiting Greenhouse Gas Emissions (2021)</p>
+            <p class="resources-block__text">Introduced mandatory carbon reporting for large companies, a framework for climate projects, and a system of carbon credits.</p>
+            <a href="http://publication.pravo.gov.ru/Document/View/0001202107020031" target="_blank" class="resources-block__link">View →</a>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="text-block reveal">
+        <p class="body-text">These key documents are supplemented by other legislation, such as the Federal Law on Environmental Protection, and implementing regulations that specify how climate policy mechanisms work.</p>
+        <p class="body-text">The Russian <a href="https://www.economy.gov.ru/" target="_blank">Ministry of Economic Development</a> is responsible for developing government policy and regulations on limiting greenhouse gas emissions.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 9: Адаптация -->
+    <section class="section" aria-labelledby="heading-adaptation">
+      <div class="text-block reveal">
+        <h2 class="heading-lg" id="heading-adaptation">Adapting to the impacts of climate change</h2>
+        <p class="body-text">Alongside reducing emissions, Russia is actively preparing for the impacts of climate change that are already unavoidable. This phased effort is being driven through national adaptation plans and is based on the <a href="https://docs.cntd.ru/document/1300943426" target="_blank">National Adaptation Strategy</a> approved in 2019 to protect people, infrastructure, and ecosystems.</p>
+        <p class="body-text">Several key documents provide the framework for adaptation. The Climate Doctrine of the Russian Federation identifies proactive adaptation as a priority and states that all measures should take international agreements into account. The Spatial Development Strategy to 2030, in turn, emphasises the need to reduce vulnerability to the adverse impacts of climate change while taking advantage of its potential benefits.</p>
+      </div>
+
+      <!-- Этапы национального плана адаптации -->
+      <div class="text-block reveal">
+        <h3 class="heading-md">Stages of the national adaptation plan</h3>
+        <p class="body-text">The first stage of the national adaptation plan was completed in 2022. It focused on establishing an integrated adaptation system in Russia, including national, sectoral, and regional plans, along with a methodological framework. Its primary aim was to help regions and industries identify climate risks, understand their nature and potential financial impacts, and select measures to adapt to them and prevent adverse consequences.</p>
+      </div>
+
+      <!-- Этапы национального плана адаптации (продолжение) -->
+      <div class="text-block reveal">
+        <p class="body-text">The next step was the national plan for the second stage of adaptation, covering the period up to 2025. The plan focused on updating existing sectoral, regional, and corporate plans using the methodologies developed during the first stage.</p>
+        <p class="body-text">A system of climate risk profiles was introduced to assess risks across regions. To ensure a consistent approach to assessing risks and their financial impacts, selecting adaptation measures, and monitoring their implementation, the Russian Ministry of Economic Development approved relevant guidelines.</p>
+        <p class="body-text">As a result, Russia developed a multilevel system for managing climate adaptation, with national plans serving as the primary coordination tool. The second stage ended in 2025, and the third began, this time spanning five years rather than three, through to 2030. <a href="https://tass.ru/ekonomika/27856405" target="_blank" rel="noopener">According to the Russian Ministry of Economic Development</a>, the Russian Government approved the plan for the third stage of adaptation on 25 June 2026. As of October 2025, 10 sectoral and 82 regional adaptation plans had been approved in Russia.</p>
+        <p class="body-text">The first two stages generated a wealth of information about climate risks in different regions and their financial impacts. The third plan therefore focuses on several major challenges, including falling water levels in the Caspian Sea, permafrost degradation in the Arctic, reducing flood impacts, and restoring natural resources.</p>
+      </div>
+
+      <!-- Интерактивная карта рисков -->
+      <div class="risk-map-block reveal">
+        <div class="caption-label" style="margin-bottom: 20px;">Common climate risks</div>
+
+        <div class="risk-map__tabs" role="tablist" aria-label="Climate risk type">
+          <button class="risk-map__tab risk-map__tab--active" data-risk="heat" role="tab" aria-selected="true">Heatwaves</button>
+          <button class="risk-map__tab" data-risk="drought" role="tab" aria-selected="false">Water stress</button>
+          <button class="risk-map__tab" data-risk="fire" role="tab" aria-selected="false">Wildfires</button>
+          <button class="risk-map__tab" data-risk="permafrost" role="tab" aria-selected="false">Permafrost</button>
+          <button class="risk-map__tab" data-risk="precip" role="tab" aria-selected="false">Heavy precipitation</button>
+        </div>
+
+        <div class="risk-map__stage" id="risk-map-stage">
+          <!-- SVG-карта России инжектится скриптом -->
+          <div class="risk-map__legend" id="risk-map-legend" aria-hidden="true">
+            <div class="risk-map__legend-title" id="risk-map-legend-title">Heatwaves</div>
+            <div class="risk-map__legend-item">
+              <span class="risk-map__legend-dot risk-map__legend-dot--top"></span>
+              <span>Top 10 regions most at risk</span>
+            </div>
+            <div class="risk-map__legend-item">
+              <span class="risk-map__legend-dot risk-map__legend-dot--rest"></span>
+              <span>Other regions</span>
+            </div>
+          </div>
+          <div class="risk-map__tooltip" id="risk-map-tooltip" role="status" aria-live="polite"></div>
+        </div>
+
+
+        <p class="source-caption" style="margin-top: 18px;">
+          Source: HSE University, Ranking of Russian Regions by the Need for Climate Change Adaptation. The top 10 regions are highlighted for each risk (national view, SSP2-4.5 scenario).
+        </p>
+      </div>
+
+    </section>
+
+    <!-- SECTION 10: Сахалинский эксперимент -->
+    <section class="section" aria-labelledby="heading-sakhalin">
+      <div class="text-block reveal">
+        <h2 class="heading-lg" id="heading-sakhalin">Sakhalin Experiment</h2>
+        <p class="body-text">The Sakhalin Experiment marked an important step towards establishing a national carbon market in Russia. Launched in 2021, this pilot project operates on a simple principle: companies in the region are allocated greenhouse gas emissions allowances. If a company reduces its emissions and has excess carbon allowances, it can sell them to other participants. This gives businesses a direct financial incentive to adopt cleaner technologies.</p>
+      </div>
+
+      <div class="reveal" style="width:100%; display:flex; flex-flow:column; align-items:center;">
+        <div class="graph-mid" style="margin-bottom:0;">
+          <div class="caption-label">Regional stakeholder model</div>
+          <div class="caption-label" style="font-weight: 400; text-transform: none; letter-spacing: 0; margin-top: -12px; margin-bottom: 16px; font-size: 14px; opacity: 0.6;">Prototype of a national carbon regulation ecosystem</div>
+          <div class="graph-scroll graph-scroll--no-swipe" style="overflow-x: auto;">
+            <picture>
+              <source srcset="img/ch4-role-model-mobile.svg" media="(max-width: 767px)">
+              <img src="img/ch4-role-model.svg" loading="lazy" alt="Regional stakeholder model for carbon regulation: coordinator, authorised body, regulated organisations, registry operator, trading platforms, and climate projects within the experiment’s scope" class="graph-image graph-image--fit" style="width: 100%;">
+            </picture>
+          </div>
+        </div>
+        <p class="source-caption" style="margin-top: 18px;">Source: Sakhalin. Eco &amp; Sustainability</p>
+      </div>
+
+      <!-- Контейнер .sakhalin-goals временно отключён
+      <div class="sakhalin-goals reveal">
+
+        <div class="sakhalin-goals__section">
+          <div class="sakhalin-goals__label">Цель</div>
+          <div class="sakhalin-goals__row sakhalin-goals__row--center">
+            <div class="sakhalin-goals__card sakhalin-goals__card--blue">
+              Достижение углеродной нейтральности на&nbsp;территории Сахалинской области не&nbsp;позднее 31&nbsp;декабря 2025
+            </div>
+          </div>
+        </div>
+
+        <div class="sakhalin-goals__section">
+          <div class="sakhalin-goals__label">Задачи</div>
+          <div class="sakhalin-goals__row sakhalin-goals__row--3">
+            <div class="sakhalin-goals__card sakhalin-goals__card--yellow">
+              Стимулирование внедрения технологий сокращения выбросов парниковых газов и&nbsp;увеличения их&nbsp;поглощения
+            </div>
+            <div class="sakhalin-goals__card sakhalin-goals__card--yellow">
+              Формирование системы независимой верификации (углеродной отчётности)
+            </div>
+            <div class="sakhalin-goals__card sakhalin-goals__card--yellow">
+              Создание системы обращения углеродных единиц и&nbsp;единиц выполнения квоты
+            </div>
+          </div>
+        </div>
+
+        <div class="sakhalin-goals__section">
+          <div class="sakhalin-goals__label">Результаты</div>
+          <div class="sakhalin-goals__row sakhalin-goals__row--4">
+            <div class="sakhalin-goals__card sakhalin-goals__card--gray">
+              <strong>Газификация ЖКХ</strong>
+              <p>Перевод котельных с&nbsp;угля на&nbsp;газ, модернизация угольных котельных и&nbsp;повышение их&nbsp;энергоэффективности</p>
+            </div>
+            <div class="sakhalin-goals__card sakhalin-goals__card--gray">
+              <strong>Декарбонизация транспорта</strong>
+              <p>Перевод транспортных средств на&nbsp;ГМТ и&nbsp;электрическую тягу, развитие общественного транспорта и&nbsp;электрокаршеринга</p>
+            </div>
+            <div class="sakhalin-goals__card sakhalin-goals__card--gray">
+              <strong>Развитие системы обращения с&nbsp;отходами</strong>
+              <p>Ликвидация свалок и&nbsp;рекультивация территорий, создание условий для&nbsp;вторичной переработки отходов</p>
+            </div>
+            <div class="sakhalin-goals__card sakhalin-goals__card--gray">
+              <strong>Развитие возобновляемой энергетики</strong>
+              <p>Увеличение доли ВИЭ в&nbsp;электропотреблении</p>
+            </div>
+          </div>
+          <div class="sakhalin-goals__row sakhalin-goals__row--3 sakhalin-goals__row--offset">
+            <div class="sakhalin-goals__card sakhalin-goals__card--gray">
+              <strong>Развитие водородной энергетики</strong>
+              <p>Реализация пилотных водородных проектов и&nbsp;подготовка кадров в&nbsp;рамках создания на&nbsp;Сахалине Восточного водородного кластера</p>
+            </div>
+            <div class="sakhalin-goals__card sakhalin-goals__card--gray">
+              <strong>Повышение энергоэффективности и&nbsp;энергосбережение</strong>
+              <p>Усиление тепловой защиты и&nbsp;повышение энергоэффективности зданий, установка светодиодных светильников, модернизация производства с&nbsp;внедрением энергоэффективных технологий и&nbsp;оборудования</p>
+            </div>
+            <div class="sakhalin-goals__card sakhalin-goals__card--gray">
+              <strong>Устойчивое управление природными экосистемами</strong>
+              <p>Реализация климатических проектов по&nbsp;лесовосстановлению и&nbsp;защите лесов, устойчивому сельскому хозяйству, управлению болотными экосистемами, развитию аквакультуры</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      -->
+
+      <div class="text-block reveal">
+        <h3 class="heading-md">Results of the Sakhalin Experiment</h3>
+        <p class="body-text">The experiment achieved its primary goal ahead of schedule: the region reached carbon neutrality in 2024, a full year before the deadline of 31 December 2025 set in 2021. <a href="https://www.kommersant.ru/doc/7940568" target="_blank" rel="noopener">According to Kommersant daily</a>, the region cut greenhouse gas emissions by two-thirds, while increasing its gross regional product by one-third. Gas infrastructure expansion played a major role, with gas penetration rising to 68% by 2026, up from 14% in 2019. A total of 58 boiler houses were already running on gas, with another 6 scheduled to come online in 2026 and more than 40 slated for completion by 2030.</p>
+        <p class="body-text">More than 5,800 vehicles were converted to run on gas in 2024. The region registered 420 electric vehicles and 840 hybrids and purchased 253 gas-powered buses. The charging network expanded to 329 charging points. An electric car-sharing service operates in Yuzhno-Sakhalinsk.</p>
+        <p class="body-text">In 2024, roofs and façades were repaired across 392 apartment buildings. Over 12 thousand streetlights were replaced with energy-efficient alternatives. The region reduced its annual energy consumption by 28 million kWh of electricity and 123 thousand Gcal of heat.</p>
+        <p class="body-text">A solar power plant was commissioned on Iturup Island in 2022. By the end of 2024, total green energy capacity had reached 9 MW, generating 24 million kWh of clean electricity annually and reducing emissions by 18 kt of CO₂ equivalent.</p>
+        <p class="body-text">The first hydrogen technology testing site in the Russian Far East opened in 2024. Sakhalin is now developing the Eastern Hydrogen Cluster. Plans for 2026 include launching a 30 ktpa hydrogen production plant, a hydrogen-powered train, and a dedicated centre of excellence.</p>
+        <p class="body-text">Separate waste collection was introduced throughout the region, achieving 100% coverage. By the end of 2024, the share of waste sorted at landfill sites had risen to 38%. New and revamped wastewater treatment facilities reached a combined capacity of 1 million cubic metres per year.</p>
+        <p class="body-text">By the end of 2024, forest area had increased by 8 thousand hectares, boosting CO₂ absorption by 350 ktpa of CO₂ equivalent. Scientists also assessed the amount of carbon stored in coastal and wetland ecosystems for the first time.</p>
+        <p class="body-text">The regional carbon market is also growing. In 2025, 131 thousand carbon credits were retired for compliance purposes (eight times more than a year earlier), while the total volume of emissions allowances reached 266 kt of CO₂ equivalent. Thirty-five companies participate in the expanded carbon reporting system. By early 2026, 98 climate projects had been registered and 36.5 million carbon credits had been issued, with the projects’ combined potential exceeding 101.5 million credits.</p>
+        <p class="body-text">In June 2026, Valery Limarenko, Governor of the Sakhalin Region, proposed <a href="https://www.interfax.ru/business/1098299" target="_blank" rel="noopener">ending the experiment two years earlier</a> than the deadline established by federal law – on 31 December 2026 rather than at the end of 2028. He argued that the emissions cap, fixed for the entire duration of the experiment, was restricting capacity expansion and production growth under current economic conditions.</p>
+      </div>
+
+      <div class="reveal" style="width:100%; display:flex; flex-flow:column; align-items:center;">
+        <div class="graph-mid" style="margin-bottom:0;">
+          <div class="caption-label">CO₂ emissions reductions achieved through the experiment</div>
+          <div class="graph-scroll graph-scroll--no-swipe">
+            <picture>
+              <source srcset="img/ch4-co2-graph-mobile.svg" media="(max-width: 767px)">
+              <img src="img/ch4-co2-graph.svg" loading="lazy" alt="Sakhalin Experiment – progress by year" class="graph-image graph-image--fit" style="width: 100%;">
+            </picture>
+          </div>
+        </div>
+
+        <p class="source-caption" style="margin-top: 18px;">Source: <a href="https://inveb-docs.ru/attachments/article/2024_11/Sahalinskiy_experiment_rezultaty_summary.pdf" target="_blank">Research Expertise Institute</a></p>
+      </div>
+
+      <div class="text-block reveal">
+        <p class="body-text">International agreements and national strategies provide the foundation for tackling climate change. But they cannot succeed without each of us playing a part.</p>
+        <p class="body-text">The final chapter explores how you can help address the problem, how our everyday habits affect the planet, and the role education plays in tackling climate change.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- OUTRO: Переход к Главе 5 -->
+  <section class="outro">
+    <div class="outro__content">
+      <div class="label-chapter">Chapter 5</div>
+      <h2 class="outro__next-title">How we can slow climate change</h2>
+      <a href="chapter-5.html" class="btn-next-chapter">Explore</a>
+    </div>
+    <img src="../img/ch4-outro-bg.jpg" loading="lazy" alt="" class="outro__bg">
+
+    <!-- Слот подвала -->
+    <div data-component="footer"></div>
+  </section>
+
+</div><!-- /.page -->
+
+<!-- Scripts -->
+  <script src="../js/no-hanging-prepositions.js"></script>
+  <script src="../js/tooltips.js"></script>
+<script src="../js/components.js"></script>
+<script src="../js/chapter-4.js"></script>
+
+</body>
+</html>

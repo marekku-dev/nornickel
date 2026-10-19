@@ -18,6 +18,7 @@
 
   var MIN_SCALE = 1;
   var MAX_SCALE = 6;
+  var IS_EN = document.documentElement.lang === 'en';
   var DBL_SCALE = 2.5;       // во сколько раз увеличивает двойной тап/клик
 
   var dlg, stage, img, hint;
@@ -34,13 +35,13 @@
     dlg.id = 'image-lightbox';
     dlg.className = 'lightbox';
     dlg.innerHTML =
-      '<button type="button" class="lightbox__close" aria-label="Закрыть">' +
+      '<button type="button" class="lightbox__close" aria-label="' + (IS_EN ? 'Close' : 'Закрыть') + '">' +
         '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>' +
       '</button>' +
       '<div class="lightbox__stage">' +
         '<img class="lightbox__img" alt="">' +
       '</div>' +
-      '<div class="lightbox__hint">Колесо, двойной тап или щипок — приблизить</div>';
+      '<div class="lightbox__hint">' + (IS_EN ? 'Use the mouse wheel, double-tap, or pinch to zoom' : 'Колесо, двойной тап или щипок — приблизить') + '</div>';
     document.body.appendChild(dlg);
 
     stage = dlg.querySelector('.lightbox__stage');

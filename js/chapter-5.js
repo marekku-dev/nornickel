@@ -89,7 +89,7 @@
         dot.className = 'slider__dot' + (i === 0 ? ' slider__dot--active' : '');
         dot.setAttribute('role', 'tab');
         dot.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
-        dot.setAttribute('aria-label', `Слайд ${i + 1}`);
+        dot.setAttribute('aria-label', (document.documentElement.lang === 'en' ? 'Slide ' : 'Слайд ') + (i + 1));
         dot.addEventListener('click', () => {
           const current = parseInt(mask.dataset.current || '0', 10);
           window.slideChange(sliderId, i - current);
@@ -128,6 +128,8 @@
   /* ════════════════════════════════════════════════════════════
    *  3. QUIZ (интерактивный тест со слайдером)
    * ════════════════════════════════════════════════════════════ */
+
+  const IS_EN = document.documentElement.lang === 'en';
 
   const QUIZ_DATA = [
     {
@@ -186,6 +188,48 @@
     },
   ];
 
+  // Английские тексты теста (порядок совпадает с QUIZ_DATA)
+  const QUIZ_EN = [
+    { question: 'What percentage of school curricula make no mention of climate change?',
+      fact: '47% of school curricula make no mention of climate change. Almost half of national school curricula across 100 countries contain no information about climate change' },
+    { question: 'What percentage of young people cannot explain what climate change is?',
+      fact: '70% of young people surveyed were unable to explain what climate change is. They also expressed concern about the poor quality of teaching on the subject' },
+    { question: 'What percentage of teachers feel confident discussing climate change?',
+      fact: '40% of teachers worldwide feel confident discussing climate change. However, only half of them (20% of all teachers) can explain to students what they can do to tackle the problem' },
+    { question: 'How many experts adopted the Berlin Declaration?',
+      fact: '2,800 stakeholders from 161 countries adopted the Berlin Declaration on Education for Sustainable Development (ESD), which calls for education to play a central role in climate action' },
+    { question: 'How many countries are developing Education for Sustainable Development (ESD) initiatives?',
+      fact: '50 countries are developing national programmes for Education for Sustainable Development (ESD) through to 2030' },
+    { question: 'How many countries are taking part in efforts to green education?',
+      fact: 'A total 97 countries and over 1,900 organisations have already joined the Greening Education Partnership' },
+    { question: 'How many schools worldwide have already gone green?',
+      fact: 'A total 96,000 schools across 93 countries already meet the green school quality standard' },
+    { question: 'What percentage of climate finance goes to education?',
+      fact: 'Less than 2% of global climate finance currently goes towards education projects' },
+    { question: 'What percentage of schools should go green by 2030?',
+      fact: 'Under the quality standard, half of all schools in each participating country should go green by 2030' }
+  ];
+  if (IS_EN) {
+    QUIZ_DATA.forEach((q, i) => {
+      if (!QUIZ_EN[i]) return;
+      q.question = QUIZ_EN[i].question;
+      q.fact     = QUIZ_EN[i].fact;
+      q.source   = q.source.replace('unesco.org/ru/', 'unesco.org/en/');
+    });
+  }
+
+  const QUIZ_UI = IS_EN ? {
+    guess: 'Take a guess', submit: 'This much', next: 'Next', source: 'Source',
+    progress: (n, m) => `Question ${n} of ${m}`,
+    done: 'Quiz complete!', final: 'You’ve answered all the questions about climate education.', restart: 'Try again',
+    reactions: ["You’re right!", "Very close!", "Pretty close", "Not bad, but you could be more precise", "Quite far from the correct answer"],
+  } : {
+    guess: 'Предположите', submit: 'Вот столько', next: 'Дальше', source: 'Источник',
+    progress: (n, m) => `Вопрос ${n} из ${m}`,
+    done: 'Тест завершён!', final: 'Вы ответили на&nbsp;все вопросы о&nbsp;климатическом образовании.', restart: 'Пройти заново',
+    reactions: ['Вы правы!', 'Очень близко!', 'Вы довольно близки', 'Неплохо, но можно точнее', 'Довольно далеко от правильного ответа'],
+  };
+
   function initQuiz() {
     const app = document.getElementById('quiz-app');
     if (!app) return;
@@ -195,7 +239,7 @@
     let current = 0;
 
     function fmt(num) {
-      return Number(num).toLocaleString('ru-RU');
+      return Number(num).toLocaleString(IS_EN ? 'en-US' : 'ru-RU');
     }
 
     function updateFill(range) {
@@ -205,23 +249,23 @@
 
     function getReaction(userVal, correct) {
       const pct = Math.abs(userVal - correct) / correct;
-      if (pct <= 0.05) return 'Вы правы!';
-      if (pct <= 0.10) return 'Очень близко!';
-      if (pct <= 0.20) return 'Вы довольно близки';
-      if (pct <= 0.40) return 'Неплохо, но можно точнее';
-      return 'Довольно далеко от правильного ответа';
+      if (pct <= 0.05) return QUIZ_UI.reactions[0];
+      if (pct <= 0.10) return QUIZ_UI.reactions[1];
+      if (pct <= 0.20) return QUIZ_UI.reactions[2];
+      if (pct <= 0.40) return QUIZ_UI.reactions[3];
+      return QUIZ_UI.reactions[4];
     }
 
     function renderQuestion() {
       const q = QUIZ_DATA[current];
       app.innerHTML = `
-        <div class="quiz__label">Предположите</div>
+        <div class="quiz__label">${QUIZ_UI.guess}</div>
         <div class="quiz__question">${q.question}</div>
         <div class="quiz__value" id="quiz-value">${fmt(q.min)}</div>
         <input type="range" class="quiz__range" id="quiz-range"
                min="${q.min}" max="${q.max}" step="${q.step}" value="${q.min}">
-        <button class="quiz__button" id="quiz-submit" type="button">Вот столько</button>
-        <div class="quiz__progress">Вопрос ${current + 1} из ${QUIZ_DATA.length}</div>
+        <button class="quiz__button" id="quiz-submit" type="button">${QUIZ_UI.submit}</button>
+        <div class="quiz__progress">${QUIZ_UI.progress(current + 1, QUIZ_DATA.length)}</div>
       `;
       const range = $('#quiz-range', app);
       const value = $('#quiz-value', app);
@@ -240,9 +284,9 @@
       app.innerHTML = `
         <div class="quiz__label">${getReaction(userVal, q.correct)}</div>
         <div class="quiz__answer">${q.fact}</div>
-        <button class="quiz__button" id="quiz-next" type="button">Дальше</button>
-        <div class="quiz__progress">Вопрос ${current + 1} из ${QUIZ_DATA.length}</div>
-        <div class="quiz__source"><a href="${q.source}" target="_blank" rel="noopener">Источник</a></div>
+        <button class="quiz__button" id="quiz-next" type="button">${QUIZ_UI.next}</button>
+        <div class="quiz__progress">${QUIZ_UI.progress(current + 1, QUIZ_DATA.length)}</div>
+        <div class="quiz__source"><a href="${q.source}" target="_blank" rel="noopener">${QUIZ_UI.source}</a></div>
       `;
       $('#quiz-next', app).addEventListener('click', () => {
         current++;
@@ -256,9 +300,9 @@
 
     function renderFinal() {
       app.innerHTML = `
-        <div class="quiz__label">Тест завершён!</div>
-        <div class="quiz__answer">Вы ответили на&nbsp;все вопросы о&nbsp;климатическом образовании.</div>
-        <button class="quiz__button" id="quiz-restart" type="button">Пройти заново</button>
+        <div class="quiz__label">${QUIZ_UI.done}</div>
+        <div class="quiz__answer">${QUIZ_UI.final}</div>
+        <button class="quiz__button" id="quiz-restart" type="button">${QUIZ_UI.restart}</button>
       `;
       $('#quiz-restart', app).addEventListener('click', () => {
         current = 0;
@@ -282,7 +326,7 @@
 
     document.querySelectorAll('.cards-white-hint').forEach(hint => {
       hint.classList.add('cards-white-hint--touch');
-      hint.textContent = 'Нажмите на карточку';
+      hint.textContent = document.documentElement.lang === 'en' ? 'Tap the card' : 'Нажмите на карточку';
     });
 
     cards.forEach(card => {

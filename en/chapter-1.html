@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="../img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What is climate change? – Nornickel</title>
+  <meta name="description" content="Weather and climate, the greenhouse effect, and global warming – explore the fundamentals of climate change with Nornickel.">
+
+  <!-- Open Graph -->
+  <meta property="og:title"       content="What is climate change? – Nornickel">
+  <meta property="og:description" content="Weather and climate, the greenhouse effect, and global warming – explore the fundamentals.">
+  <meta property="og:image"       content="../img/hero-bg.jpg">
+  <meta property="og:type"        content="article">
+
+  <!-- Preload критичных ресурсов -->
+  <link rel="preload" href="../img/hero-bg.jpg" as="image" fetchpriority="high">
+  <link rel="preload" href="../js/components.js" as="script">
+
+  <!-- Fonts -->
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../main.css">
+
+  <!-- p5.js (defer — грузится после HTML) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js" defer></script>
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=112658568', 'ym');
+
+    ym(112658568, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+  </script>
+  <!-- /Yandex.Metrika counter -->
+  <link rel="alternate" hreflang="ru" href="../chapter-1.html">
+  <link rel="alternate" hreflang="en" href="chapter-1.html">
+</head>
+<body>
+<noscript><div><img src="https://mc.yandex.ru/watch/112658568" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+<!-- Слот шапки — заменяется components.js на содержимое components/header.html -->
+<div data-component="header"></div>
+
+<!-- MAIN WRAPPER -->
+<div class="page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__content">
+      <div class="label-chapter">Chapter 1</div>
+      <h1 class="heading-xl">What is climate change?</h1>
+      <p class="hero__intro-text">“What’s happening today?” – that’s weather. “How likely is this to happen?” – that’s climate. Let’s explore why individual records do not invalidate long-term trends and how to tell weather and climate apart.</p>
+    </div>
+    <img src="../assets/scroll.svg" loading="lazy" alt="" class="hero__scroll-icon" aria-hidden="true">
+    <img src="../img/hero-bg.jpg" fetchpriority="high" alt="" class="hero__bg">
+  </section>
+
+  <!-- CONTENT -->
+  <main class="content">
+
+    <!-- SECTION 1: Погода vs Климат -->
+    <section class="section reveal" aria-labelledby="heading-weather">
+      <div id="climate" class="two-col">
+        <div class="two-col__col">
+          <h2 class="heading-sm" id="heading-weather">Weather</h2>
+          <p class="body-text">Weather describes atmospheric conditions at a particular place and time. It can change rapidly: it may be raining in the morning, with the sun coming out by lunchtime. Meteorology is the science that studies and forecasts the weather.</p>
+          <div class="caption-block">
+            <p class="caption-italic">Even the ancient Greeks wrote about the weather. Aristotle, for example, sought natural explanations for weather phenomena in his Meteorologica.</p>
+          </div>
+          <div class="col-image">
+            <img src="../img/weather-photo.webp" loading="lazy" alt="Weather – atmospheric conditions at a particular place and time">
+          </div>
+        </div>
+        <div class="two-col__col">
+          <h2 class="heading-sm">Climate</h2>
+          <p class="body-text">Climate is the range of conditions across all components of the climate system – the atmosphere, hydrosphere, biosphere, cryosphere, and the upper layer of the lithosphere – that are characteristic of a particular area. Climate change is a process that takes place over decades and sometimes even millennia.</p>
+          <div class="caption-block">
+            <p class="caption-italic"><em>As early as 400 BC, Greek philosophers were studying how climate influenced the development of societies and differences between peoples.</em></p>
+          </div>
+          <div class="col-image">
+            <img src="../img/climate-photo.webp" loading="lazy" alt="Climate – long-term patterns in atmospheric conditions">
+          </div>
+        </div>
+      </div>
+      <div class="text-block">
+        <p class="body-text">Weather describes current atmospheric conditions, while climate describes the conditions typically experienced in a particular region over a long period of time.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 2: Климат Земли -->
+    <section class="section reveal" aria-labelledby="heading-earth-climate">
+      <div class="text-block">
+        <h2 class="heading-lg" id="heading-earth-climate">Earth’s climate</h2>
+        <p class="body-text">Earth’s climate has changed throughout the planet’s history. Our planet has experienced ice ages and periods of warming, while the configuration of the continents, the composition of the atmosphere, and plant and animal life have also changed over time.</p>
+      </div>
+      <div class="graph-wide-wrapper">
+        <div class="graph-wide">
+          <div class="caption-label">Air temperature on Earth</div>
+          <div class="graph-scroll">
+            <img src="img/graph-1-temperature-history.png" loading="lazy" alt="Changes in air temperature throughout Earth’s history" class="graph-image graph-image--scroll-mobile graph-image--mw-1200">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: Парниковый эффект -->
+    <section class="section" aria-labelledby="heading-greenhouse">
+      <div class="text-block reveal">
+        <h2 class="heading-lg" id="heading-greenhouse">The Greenhouse effect</h2>
+        <p class="body-text">Earth’s atmosphere naturally regulates the planet’s temperature. It retains heat and creates the conditions necessary for life. The planet’s temperature is determined not only by its distance from the Sun but also by the greenhouse gases in the atmosphere.</p>
+      </div>
+
+      <div class="sticky-section">
+        <div class="sticky-images">
+          <!-- Десктопные фото -->
+          <img src="img/earth-1.jpg" loading="lazy" alt="Earth from space – the natural greenhouse effect" class="sticky-images__img sticky-images__img--desktop sticky-images__img--visible">
+          <img src="img/earth-2.jpg" loading="lazy" alt="Earth – comfortable temperatures" class="sticky-images__img sticky-images__img--desktop">
+          <img src="img/earth-3.jpg" loading="lazy" alt="Earth – an enhanced greenhouse effect" class="sticky-images__img sticky-images__img--desktop">
+          <!-- Мобильные фото -->
+          <img src="img/earth-mobile-1.jpg" loading="lazy" alt="" class="sticky-images__img sticky-images__img--mobile sticky-images__img--visible">
+          <img src="img/earth-mobile-2.jpg" loading="lazy" alt="" class="sticky-images__img sticky-images__img--mobile">
+          <img src="img/earth-mobile-3.jpg" loading="lazy" alt="" class="sticky-images__img sticky-images__img--mobile">
+        </div>
+
+        <div class="sticky-text-card">
+          <p class="body-text">Greenhouse gases trap infrared radiation emitted by Earth’s surface, preventing all of it from escaping into space. This causes air temperatures to rise.</p>
+        </div>
+        <div class="sticky-text-card">
+          <p class="body-text">The greenhouse effect keeps Earth’s average air temperature at a comfortable level of around +15 °C. Without it, the average temperature on Earth would be −18 °C.</p>
+        </div>
+        <div class="sticky-text-card">
+          <p class="body-text">Intensive human industrial activity increases greenhouse gas concentrations in the atmosphere, amplifying the greenhouse effect.</p>
+        </div>
+      </div>
+
+      <div class="text-block reveal">
+        <p class="body-text">As greenhouse gas concentrations grow, the greenhouse effect becomes stronger and air temperatures in the lower atmosphere rise. This leads to global warming.</p>
+        <p class="body-text">The terms “global warming” and “climate change” are often confused or used interchangeably, but they mean different things.</p>
+        <p class="body-text"><span id="span-warming" class="term-tooltip" tabindex="0">Global warming</span> is the increase in the combined near-surface air and sea surface temperatures averaged across the globe over a 30-year period.</p>
+      </div>
+
+      <div class="graph-mid reveal">
+        <div class="graph-mid__title">Earth’s average surface temperature has risen by 1.5 °C</div>
+        <p class="body-text">The chart clearly shows that global warming is accelerating. While temperatures changed relatively little until the mid-20th century, the past 50 years have seen an unprecedentedly rapid rise.</p>
+        <div class="graph-scroll">
+          <img src="img/ch1-temp-average.png" loading="lazy" alt="Rise in Earth’s average surface temperature" class="graph-image">
+        </div>
+      </div>
+
+      <div class="text-block reveal">
+        <p class="body-text">Climate change encompasses a much broader range of changes, with global warming being only one part of it. These changes have been taking place since the mid-19th century, driven by rising greenhouse gas emissions from human activities.</p>
+      </div>
+
+      <!-- Mobile slider: causes -->
+      <div class="slider reveal" id="slider-causes" aria-label="Causes of climate change">
+        <div class="slider__track" id="slider-causes-mask">
+          <div class="slider__slide">
+            <div class="slide-card">
+              <div class="slide-card__footer">
+                <span class="step-badge" aria-label="Step 1">1</span>
+                <p class="caption-italic text-center">Human activities – agriculture, industry, deforestation, and urbanisation – place increasing pressure on the environment</p>
+              </div>
+              <img src="../img/cause-1.jpg" loading="lazy" alt="Human activities" class="slide-card__image">
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="slide-card">
+              <div class="slide-card__footer">
+                <span class="step-badge" aria-label="Step 2">2</span>
+                <p class="caption-italic text-center">This leads to higher concentrations of greenhouse gases (CH₄, CO₂, N₂O) and disrupts the carbon cycle</p>
+              </div>
+              <img src="../img/cause-2.jpg" loading="lazy" alt="Rising greenhouse gas concentrations" class="slide-card__image">
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="slide-card">
+              <div class="slide-card__footer">
+                <span class="step-badge" aria-label="Step 3">3</span>
+                <p class="caption-italic text-center">As a result, the greenhouse effect intensifies, trapping more heat in the atmosphere</p>
+              </div>
+              <img src="../img/cause-3.jpg" loading="lazy" alt="Enhanced greenhouse effect" class="slide-card__image">
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="slide-card">
+              <div class="slide-card__footer">
+                <span class="step-badge" aria-label="Step 4">4</span>
+                <p class="caption-italic text-center">This drives changes in climate, including warming temperatures, changing precipitation patterns, ice loss, rising sea levels, and shifts in ocean currents</p>
+              </div>
+              <img src="../img/cause-4.jpg" loading="lazy" alt="Climate change" class="slide-card__image">
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="slide-card">
+              <div class="slide-card__footer">
+                <span class="step-badge" aria-label="Step 5">5</span>
+                <p class="caption-italic text-center">These changes, in turn, have serious consequences, including urban flooding, mounting damage, disasters, disease, and biodiversity loss</p>
+              </div>
+              <img src="../img/cause-5.jpg" loading="lazy" alt="Impacts on people and nature" class="slide-card__image">
+            </div>
+          </div>
+        </div>
+        <button class="slider__arrow slider__arrow--prev" onclick="slideChange('slider-causes', -1)" aria-label="Previous slide">
+          <img src="../img/arrow-left.svg" alt="" class="slider__arrow-icon" aria-hidden="true">
+        </button>
+        <button class="slider__arrow slider__arrow--next" onclick="slideChange('slider-causes', 1)" aria-label="Next slide">
+          <img src="../img/arrow-right.svg" alt="" class="slider__arrow-icon" aria-hidden="true">
+        </button>
+        <div class="slider__dots" id="slider-causes-nav" role="tablist" aria-label="Slides"></div>
+      </div>
+
+      <!-- Desktop 5-cards: causes -->
+      <div class="causes-grid reveal">
+        <div class="cause-card">
+          <span class="cause-card__badge step-badge">1</span>
+          <img src="../img/cause-1.jpg" loading="lazy" alt="" class="cause-card__image">
+          <p class="caption-italic text-center cause-card__caption">Human activities – agriculture, industry, deforestation, and urbanisation – place increasing pressure on the environment</p>
+        </div>
+        <div class="cause-card">
+          <span class="cause-card__badge step-badge">2</span>
+          <img src="../img/cause-2.jpg" loading="lazy" alt="" class="cause-card__image">
+          <p class="caption-italic text-center cause-card__caption">This leads to higher concentrations of greenhouse gases (CH₄, CO₂, N₂O) and disrupts the carbon cycle</p>
+        </div>
+        <div class="cause-card">
+          <span class="cause-card__badge step-badge">3</span>
+          <img src="../img/cause-3.jpg" loading="lazy" alt="" class="cause-card__image">
+          <p class="caption-italic text-center cause-card__caption">As a result, the greenhouse effect intensifies, trapping more heat in the atmosphere</p>
+        </div>
+        <div class="cause-card">
+          <span class="cause-card__badge step-badge">4</span>
+          <img src="../img/cause-4.jpg" loading="lazy" alt="" class="cause-card__image">
+          <p class="caption-italic text-center cause-card__caption">This drives changes in climate, including warming temperatures, changing precipitation patterns, ice loss, rising sea levels, and shifts in ocean currents</p>
+        </div>
+        <div class="cause-card">
+          <span class="cause-card__badge step-badge">5</span>
+          <img src="../img/cause-5.jpg" loading="lazy" alt="" class="cause-card__image">
+          <p class="caption-italic text-center cause-card__caption">These changes, in turn, have serious consequences, including urban flooding, mounting damage, disasters, disease, and biodiversity loss</p>
+        </div>
+      </div>
+
+      <div class="text-block reveal">
+        <p class="body-text">Different sectors of the economy generate different greenhouse gases in varying amounts. This depends on the technologies and resources they use.</p>
+        <p class="body-text">The energy sector is the largest source of carbon dioxide (CO₂). Agriculture primarily generates methane (CH₄). Nitrous oxide (N₂O) and fluorinated gases make up a significant share of emissions from the chemical industry.</p>
+      </div>
+
+      <div class="graph-fullwidth-wrapper reveal">
+        <img src="img/graph-2-gases-desktop.png" loading="lazy" alt="Greenhouse gas emissions by sector" class="graph-fullwidth--desktop">
+        <img src="img/graph-2-gases-mobile.png" loading="lazy" alt="Greenhouse gas emissions by sector" class="graph-fullwidth--mobile">
+        <p class="source-caption">Source: <a href="https://ourworldindata.org/ghg-emissions-by-sector" target="_blank" rel="noopener">Our World in Data</a></p>
+      </div>
+    </section>
+
+    <!-- SECTION 4: Прогнозирование + физика -->
+    <section class="section" aria-labelledby="heading-forecast">
+      <div class="text-block reveal">
+        <h2 class="heading-lg" id="heading-forecast">Can we predict climate change?</h2>
+        <p class="body-text">Climate change can be projected, and scientists have developed global climate models for this purpose. To improve the reliability of projections, scientists use ensembles of models. One widely used initiative is the World Climate Research Programme’s Coupled Model Intercomparison Project (CMIP). Among the models used in the project is a climate model developed by the Institute of Numerical Mathematics of the Russian Academy of Sciences.</p>
+        <p class="body-text">At the heart of a climate model is a system of equations describing interactions between the atmosphere, oceans, land, glaciers, and the biosphere. Based on physical, chemical, and biological processes, the models calculate key climate variables such as temperature, pressure, humidity, and wind.</p>
+      </div>
+
+      <div class="physics-cards reveal">
+        <div class="physics-card">
+          <div class="physics-card__canvas" id="energy-container"></div>
+          <div class="physics-card__info">
+            <div class="caption-regular text-center">Law of conservation of energy</div>
+            <p class="physics-card__desc">Energy does not disappear but is converted from one form to another</p>
+          </div>
+        </div>
+        <div class="physics-card">
+          <div class="physics-card__canvas" id="stefan-container"></div>
+          <div class="physics-card__info">
+            <div class="caption-regular text-center">Stefan–Boltzmann law</div>
+            <p class="physics-card__desc">Describes how radiation depends on temperature and helps explain the greenhouse effect</p>
+          </div>
+        </div>
+        <div class="physics-card">
+          <div class="physics-card__canvas" id="clausius-container"></div>
+          <div class="physics-card__info">
+            <div class="caption-regular text-center">Clausius–Clapeyron equation</div>
+            <p class="physics-card__desc">Shows how water vapour pressure depends on temperature</p>
+          </div>
+        </div>
+        <div class="physics-card">
+          <div class="physics-card__canvas" id="navier-container"></div>
+          <div class="physics-card__info">
+            <div class="caption-regular text-center">Navier–Stokes equations</div>
+            <p class="physics-card__desc">Describe the motion of fluids and gases in the atmosphere and ocean</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-block reveal">
+        <p class="body-text">To assess how well a climate model performs, its outputs are compared with actual data from a selected historical period. This helps determine the model’s accuracy and whether its parameters need to be refined.</p>
+        <p class="body-text">Scientists around the world test model calculations against actual observations and compare the results. Repeated validation of this kind increases confidence in climate models.</p>
+      </div>
+
+      <div class="factors-block reveal">
+        <div>
+          <h3 class="heading-md">What goes into a climate model?</h3>
+          <p class="body-text">The accuracy of a climate model depends on how comprehensively it represents the real world. Models incorporate a wide range of complex natural processes and features to produce reliable projections.</p>
+        </div>
+        <div class="factors-grid">
+          <div class="factor-tag">Vegetation</div>
+          <div class="factor-tag">Chemical processes</div>
+          <div class="factor-tag">Carbon cycle</div>
+          <div class="factor-tag">Volcanic activity</div>
+          <div class="factor-tag">Ocean biogeochemical cycles</div>
+          <div class="factor-tag">Anthropogenic aerosol emissions</div>
+          <div class="factor-tag">Ocean circulation</div>
+          <div class="factor-tag">Solar radiation</div>
+          <div class="factor-tag">Rivers, lakes, and wetlands</div>
+          <div class="factor-tag">Anthropogenic greenhouse gas emissions</div>
+          <div class="factor-tag">Aerosols</div>
+          <div class="factor-tag">Ocean dynamics</div>
+          <div class="factor-tag">Land surface effects</div>
+          <div class="factor-tag">Snow cover, mountain glaciers, and ice sheets</div>
+          <div class="factor-tag">Clouds and precipitation</div>
+          <div class="factor-tag">Atmospheric dynamics</div>
+          <div class="factor-tag">Turbulence</div>
+          <div class="factor-tag">Atmospheric electricity</div>
+        </div>
+      </div>
+
+      <div class="text-block reveal">
+        <p class="body-text">Since the 1970s, climate models have evolved to incorporate an increasing number of factors and have become progressively more accurate. The 2021 Nobel Prize in Physics was awarded for the physical modelling of Earth’s climate, quantifying variability, and reliably predicting global warming.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 5: Российские учёные -->
+    <section class="section" aria-labelledby="heading-scientists">
+      <div class="text-block reveal">
+        <h2 class="heading-lg" id="heading-scientists">Modern climate science in Russia</h2>
+        <p class="body-text">The Russian scientific community has also made a major contribution to the development of climate science. The development of climate science in Russia began long before the advent of computer models and has involved a number of outstanding scientists.</p>
+      </div>
+
+      <!-- Mobile slider: scientists -->
+      <div class="slider reveal" id="slider-scientists" aria-label="Russian climate scientists">
+        <div class="slider__track" id="slider-scientists-mask">
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="../img/scientist-alisov.jpg" alt="Boris Alisov" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Boris Alisov</div>
+                <div class="caption-date">1891–1976</div>
+                <p class="caption-regular">In the mid-20th century, he developed a regional classification of climates in the Soviet Union and identified the country’s main climate zones. He studied how air masses influence climate and weather.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="../img/scientist-budyko.jpg" alt="Mikhail Budyko" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Mikhail Budyko</div>
+                <div class="caption-date">1920–2001</div>
+                <p class="caption-regular">One of the pioneers of research into the thermal structure of Earth’s atmosphere and water balance. He developed the well-known theory of the positive ice–albedo feedback in the climate system. He studied global warming from the mid-20th century onwards.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="../img/scientist-voyeykov.jpg" alt="Alexander Voeikov" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Alexander Voeikov</div>
+                <div class="caption-date">1842–1916</div>
+                <p class="caption-regular">The founder of Russian climate science. He was the first in the world to publish a scientific work on the subject. He also pioneered large-scale studies of Russia’s climate and introduced the concept of climatic zoning.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="../img/scientist-golitsyn.jpg" alt="Georgy Golitsyn" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Georgy Golitsyn</div>
+                <div class="caption-date">1935–2026</div>
+                <p class="caption-regular">A member of the Russian Academy of Sciences who made an internationally significant contribution to the development of the theory of “nuclear winter”. His research into the physics of planetary atmospheres and the theory of turbulence helped improve our understanding of how large-scale disasters can affect Earth’s climate.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="../img/scientist-gulyev.jpg" alt="Sergey Gulev" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Sergey Gulev</div>
+                <div class="caption-date">Born in 1958</div>
+                <p class="caption-regular">A specialist in ocean–atmosphere interactions. His research focuses on how processes in the global ocean influence long-term climate variability and the development of destructive marine storms.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="../img/scientist-izrael.jpg" alt="Yuri Izrael" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Yuri Izrael</div>
+                <div class="caption-date">1933–2014</div>
+                <p class="caption-regular">Established the national environmental monitoring system in the Soviet Union and Russia. Helped shape international initiatives on climate and environmental protection, led the State Committee for Hydrometeorology and Environmental Monitoring, and served as Vice-Chair of the IPCC and Vice-President of the WMO.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="../img/scientist-kotlyakov.jpg" alt="Vladimir Kotlyakov" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Vladimir Kotlyakov</div>
+                <div class="caption-date">Born in 1931</div>
+                <p class="caption-regular">A leading glaciologist who recovered Antarctic ice cores revealing the relationship between temperatures and greenhouse gas concentrations.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="../img/scientist-lappo.jpg" alt="Sergei Lappo" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Sergei Lappo</div>
+                <div class="caption-date">1938–2006</div>
+                <p class="caption-regular">An oceanographer who demonstrated the crucial role of the North Atlantic in the global ocean “conveyor belt” of currents. Studied how heat exchange between the ocean and atmosphere in energy-active zones influences climate change across the planet.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="../img/scientist-marchuk.jpg" alt="Gury Marchuk" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Gury Marchuk</div>
+                <div class="caption-date">1925–2013</div>
+                <p class="caption-regular">An outstanding mathematician who developed numerical methods for weather forecasting and climate modelling. Established the mathematical foundations of modern computer models used to project climate change. Served as President of the USSR Academy of Sciences.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="../img/scientist-moiseev.jpg" alt="Nikita Moiseyev" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Nikita Moiseyev</div>
+                <div class="caption-date">1917–2000</div>
+                <p class="caption-regular">A mathematician and thinker who led the development of a mathematical model of “nuclear winter”. Formulated the principles of co-evolution – the joint development of humanity and the biosphere – and demonstrated the need to protect the climate system.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="../img/scientist-monin.jpg" alt="Andrei Monin" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Andrei Monin</div>
+                <div class="caption-date">1921–2007</div>
+                <p class="caption-regular">Co-author of the fundamental Monin–Obukhov similarity theory, which describes processes in the atmospheric surface layer. His work on the theory of turbulence and ocean dynamics underpins modern climate models.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="../img/scientist-mokhov.jpg" alt="Igor Mokhov" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Igor Mokhov</div>
+                <div class="caption-date">1950–2025</div>
+                <p class="caption-regular">A leading expert in climate change diagnostics and modelling. Studied the causes of extreme weather events and the dynamics of global warming and succeeded Georgy Golitsyn as head of the Institute of Atmospheric Physics of the Russian Academy of Sciences (IAP RAS).</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="../img/scientist-obukhov.jpg" alt="Alexander Obukhov" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Alexander Obukhov</div>
+                <div class="caption-date">1918–1989</div>
+                <p class="caption-regular">Founder and first director of the IPA RAS, which now bears his name. Developed the fundamental theory of the local structure of turbulence, which underpins modern calculations of air-mass motion.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slider__slide">
+            <div class="scientist-slide-card">
+              <img src="../img/scientist-khromov.jpg" alt="Sergei Khromov" class="scientist-slide-card__photo">
+              <div class="scientist-slide-card__info">
+                <div class="scientist-item__name">Sergei Khromov</div>
+                <div class="caption-date">1904–1977</div>
+                <p class="caption-regular">Author of textbooks and monographs on synoptic meteorology and climatology. Developed a number of methods for analysing and interpreting meteorological data.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="slider__arrow slider__arrow--prev" onclick="slideChange('slider-scientists', -1)" aria-label="Previous scientist">
+          <img src="../img/arrow-left.svg" alt="" class="slider__arrow-icon" aria-hidden="true">
+        </button>
+        <button class="slider__arrow slider__arrow--next" onclick="slideChange('slider-scientists', 1)" aria-label="Next scientist">
+          <img src="../img/arrow-right.svg" alt="" class="slider__arrow-icon" aria-hidden="true">
+        </button>
+        <div class="slider__dots" id="slider-scientists-nav" role="tablist"></div>
+      </div>
+
+      <!-- Desktop scientists grid (флип-карточки, как в гл. 3) -->
+      <p class="cards-white-hint scientists-hint">Hover over the card</p>
+      <div class="scientists-grid reveal">
+        <div class="scientist-item"><div class="scientist-item__inner"><div class="scientist-item__card"><img src="../img/scientist-alisov.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Boris Alisov</div><div class="caption-date">1891–1976</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Boris Alisov</div><p class="caption-regular">In the mid-20th century, he developed a regional classification of climates in the Soviet Union and identified the country’s main climate zones. He studied how air masses influence climate and weather.</p></div></div></div>
+        <div class="scientist-item"><div class="scientist-item__inner"><div class="scientist-item__card"><img src="../img/scientist-budyko.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Mikhail Budyko</div><div class="caption-date">1920–2001</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Mikhail Budyko</div><p class="caption-regular">One of the pioneers of research into the thermal structure of Earth’s atmosphere and water balance. He developed the well-known theory of the positive ice–albedo feedback in the climate system. He studied global warming from the mid-20th century onwards.</p></div></div></div>
+        <div class="scientist-item"><div class="scientist-item__inner"><div class="scientist-item__card"><img src="../img/scientist-voyeykov.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Alexander Voeikov</div><div class="caption-date">1842–1916</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Alexander Voeikov</div><p class="caption-regular">The founder of Russian climate science. He was the first in the world to publish a scientific work on the subject. He also pioneered large-scale studies of Russia’s climate and introduced the concept of climatic zoning.</p></div></div></div>
+        <div class="scientist-item"><div class="scientist-item__inner"><div class="scientist-item__card"><img src="../img/scientist-golitsyn.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Georgy Golitsyn</div><div class="caption-date">1935–2026</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Georgy Golitsyn</div><p class="caption-regular">A member of the Russian Academy of Sciences who made an internationally significant contribution to the development of the theory of “nuclear winter”. His research into the physics of planetary atmospheres and the theory of turbulence helped improve our understanding of how large-scale disasters can affect Earth’s climate.</p></div></div></div>
+        <div class="scientist-item"><div class="scientist-item__inner"><div class="scientist-item__card"><img src="../img/scientist-gulyev.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Sergey Gulev</div><div class="caption-date">Born in 1958</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Sergey Gulev</div><p class="caption-regular">A specialist in ocean–atmosphere interactions. His research focuses on how processes in the global ocean influence long-term climate variability and the development of destructive marine storms.</p></div></div></div>
+        <div class="scientist-item"><div class="scientist-item__inner"><div class="scientist-item__card"><img src="../img/scientist-izrael.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Yuri Izrael</div><div class="caption-date">1933–2014</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Yuri Izrael</div><p class="caption-regular">Established the national environmental monitoring system in the Soviet Union and Russia. Helped shape international initiatives on climate and environmental protection, led the State Committee for Hydrometeorology and Environmental Monitoring, and served as Vice-Chair of the IPCC and Vice-President of the WMO.</p></div></div></div>
+        <div class="scientist-item"><div class="scientist-item__inner"><div class="scientist-item__card"><img src="../img/scientist-kotlyakov.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Vladimir Kotlyakov</div><div class="caption-date">Born in 1931</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Vladimir Kotlyakov</div><p class="caption-regular">A leading glaciologist who recovered Antarctic ice cores revealing the relationship between temperatures and greenhouse gas concentrations.</p></div></div></div>
+        <div class="scientist-item"><div class="scientist-item__inner"><div class="scientist-item__card"><img src="../img/scientist-lappo.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Sergei Lappo</div><div class="caption-date">1938–2006</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Sergei Lappo</div><p class="caption-regular">An oceanographer who demonstrated the crucial role of the North Atlantic in the global ocean “conveyor belt” of currents. Studied how heat exchange between the ocean and atmosphere in energy-active zones influences climate change across the planet.</p></div></div></div>
+        <div class="scientist-item"><div class="scientist-item__inner"><div class="scientist-item__card"><img src="../img/scientist-marchuk.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Gury Marchuk</div><div class="caption-date">1925–2013</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Gury Marchuk</div><p class="caption-regular">An outstanding mathematician who developed numerical methods for weather forecasting and climate modelling. Established the mathematical foundations of modern computer models used to project climate change. Served as President of the USSR Academy of Sciences.</p></div></div></div>
+        <div class="scientist-item"><div class="scientist-item__inner"><div class="scientist-item__card"><img src="../img/scientist-moiseev.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Nikita Moiseyev</div><div class="caption-date">1917–2000</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Nikita Moiseyev</div><p class="caption-regular">A mathematician and thinker who led the development of a mathematical model of “nuclear winter”. Formulated the principles of co-evolution – the joint development of humanity and the biosphere – and demonstrated the need to protect the climate system.</p></div></div></div>
+        <div class="scientist-item"><div class="scientist-item__inner"><div class="scientist-item__card"><img src="../img/scientist-monin.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Andrei Monin</div><div class="caption-date">1921–2007</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Andrei Monin</div><p class="caption-regular">Co-author of the fundamental Monin–Obukhov similarity theory, which describes processes in the atmospheric surface layer. His work on the theory of turbulence and ocean dynamics underpins modern climate models.</p></div></div></div>
+        <div class="scientist-item"><div class="scientist-item__inner"><div class="scientist-item__card"><img src="../img/scientist-mokhov.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Igor Mokhov</div><div class="caption-date">1950–2025</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Igor Mokhov</div><p class="caption-regular">A leading expert in climate change diagnostics and modelling. Studied the causes of extreme weather events and the dynamics of global warming and succeeded Georgy Golitsyn as head of the Institute of Atmospheric Physics of the Russian Academy of Sciences (IAP RAS).</p></div></div></div>
+        <div class="scientist-item"><div class="scientist-item__inner"><div class="scientist-item__card"><img src="../img/scientist-obukhov.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Alexander Obukhov</div><div class="caption-date">1918–1989</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Alexander Obukhov</div><p class="caption-regular">Founder and first director of the IPA RAS, which now bears his name. Developed the fundamental theory of the local structure of turbulence, which underpins modern calculations of air-mass motion.</p></div></div></div>
+        <div class="scientist-item"><div class="scientist-item__inner"><div class="scientist-item__card"><img src="../img/scientist-khromov.jpg" alt="" class="scientist-item__photo"><div class="scientist-item__name">Sergei Khromov</div><div class="caption-date">1904–1977</div></div><div class="scientist-item__overlay"><div class="scientist-item__overlay-name">Sergei Khromov</div><p class="caption-regular">Author of textbooks and monographs on synoptic meteorology and climatology. Developed a number of methods for analysing and interpreting meteorological data.</p></div></div></div>
+      </div>
+
+      <div class="text-block reveal">
+        <p class="body-text">Several leading institutions in Russia conduct research into climate change. Here are just some of them.</p>
+      </div>
+
+      <div class="resources-block reveal">
+        <div class="caption-label resources-block__label">Leading Institutions</div>
+        <div class="resources-block__grid resources-block__grid--3col">
+          <div class="resources-block__item">
+            <img src="../img/inst-ggo.png" loading="lazy" alt="MGO" class="resources-block__logo">
+            <p class="resources-block__title">MGO</p>
+            <p class="resources-block__text">Voeikov Main Geophysical Observatory</p>
+          </div>
+          <div class="resources-block__item">
+            <img src="../img/inst-ifa.png" loading="lazy" alt="IAP RAS" class="resources-block__logo">
+            <p class="resources-block__title">IAP RAS</p>
+            <p class="resources-block__text">Obukhov Institute of Atmospheric Physics of the Russian Academy of Sciences</p>
+          </div>
+          <div class="resources-block__item">
+            <img src="../img/inst-igke.png" loading="lazy" alt="IGCE" class="resources-block__logo">
+            <p class="resources-block__title">IGCE</p>
+            <p class="resources-block__text">Yu. A. Izrael Institute of Global Climate and Ecology</p>
+          </div>
+          <div class="resources-block__item">
+            <img src="../img/inst-mgu.png" loading="lazy" alt="MSU" class="resources-block__logo">
+            <p class="resources-block__title">MSU</p>
+            <p class="resources-block__text">Lomonosov Moscow State University</p>
+          </div>
+          <div class="resources-block__item">
+            <img src="../img/inst-ivm.png" loading="lazy" alt="INM RAS" class="resources-block__logo">
+            <p class="resources-block__title">INM RAS</p>
+            <p class="resources-block__text">Institute of Numerical Mathematics of the Russian Academy of Sciences</p>
+          </div>
+          <div class="resources-block__item">
+            <img src="../img/inst-imkas.png" loading="lazy" alt="IMCES SB RAS" class="resources-block__logo">
+            <p class="resources-block__title">IMCES SB RAS</p>
+            <p class="resources-block__text">Institute of Monitoring of Climatic and Ecological Systems, Siberian Branch of the Russian Academy of Sciences</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-block reveal">
+        <p class="body-text">Now that we have explored the science behind climate change, we can turn to its visible effects. In the next chapter, we will look at how glaciers are melting, how the ocean is changing, and what is happening to permafrost.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- OUTRO -->
+  <section class="outro">
+    <div class="outro__content">
+      <div class="label-chapter">Chapter 2</div>
+      <h2 class="outro__next-title">What climate change looks like</h2>
+      <a href="chapter-2.html" class="btn-next-chapter">Explore</a>
+    </div>
+    <img src="../img/outro-bg.jpg" loading="lazy" alt="" class="outro__bg">
+
+    <!-- Слот подвала -->
+    <div data-component="footer"></div>
+  </section>
+
+</div><!-- /.page -->
+
+<!-- TOOLTIP: контейнер (<dialog>) создаёт js/tooltips.js, статический div не нужен -->
+
+<!-- Загрузчик компонентов (header, footer, прогресс-бар, меню, fade-in) -->
+  <script src="../js/no-hanging-prepositions.js"></script>
+  <script src="../js/tooltips.js"></script>
+<script src="../js/components.js"></script>
+<!-- Интерактивность страницы (слайдеры, sticky, tooltips, физика) -->
+<script src="../js/chapter-1.js"></script>
+
+</body>
+</html>

@@ -83,8 +83,11 @@
 
   /* Чистая строковая версия — годится и для текста, которого ещё нет в DOM
      (например, текст тултипа перед вставкой). Идемпотентна. */
+  // Правила — для русского текста; в английской версии ничего не трогаем
+  const IS_EN = document.documentElement.lang === 'en';
+
   function fixHangingText(str) {
-    if (!str) return str;
+    if (!str || IS_EN) return str;
     return str
       .replace(RE,         (m, w) => w + NBSP)
       .replace(RE_INITIAL, (m, w) => w + NBSP)
@@ -102,7 +105,7 @@
   /* ─── Обход всех текстовых узлов в корне ─── */
   function fixHangingPrepositions(root) {
     root = root || document.body;
-    if (!root) return;
+    if (!root || IS_EN) return;
 
     const walker = document.createTreeWalker(
       root,

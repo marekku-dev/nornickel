@@ -50,6 +50,19 @@
       'являющийся углеродным налогом на импорт.',
   };
 
+  // Английские тексты подсказок (для страниц с <html lang="en">)
+  const TOOLTIPS_EN = {
+    'span-warming':
+      'Definition by the Intergovernmental Panel on Climate Change (IPCC).',
+    'span-albedo':
+      'Albedo is a measure of how much light a surface reflects rather than absorbs. Snow has a high albedo: it reflects sunlight well, while asphalt has a low albedo and absorbs most of the sunlight that reaches it.',
+    'span-arctic':
+      'National Plan for the Second Stage of Adaptation. Instruction of the Russian Government No. 559-r dated 11 March 2023.',
+    'span-cbam':
+      'Carbon Border Adjustment Mechanism (CBAM) is the European Union’s carbon border adjustment mechanism, essentially a carbon tax on imports.',
+  };
+  if (document.documentElement.lang === 'en') Object.assign(TOOLTIPS, TOOLTIPS_EN);
+
   const MOBILE_BREAKPOINT = 768;
 
   // Раскладка: шторка или поповер. Должно совпадать с медиазапросом в CSS.

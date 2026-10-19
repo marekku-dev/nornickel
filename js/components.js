@@ -37,8 +37,26 @@
     initAll();   // инициализируем логику после вставки HTML
   }
 
+  /* ─── Переключатель RU / EN ───
+   * Ведёт на ту же страницу в другой версии: chapter-2.html ↔ en/chapter-2.html.
+   * Английская версия лежит в /en/, поэтому пути относительные. Якорь (#…)
+   * берём в момент клика — чтобы остаться на том же блоке. */
+  function initLangSwitch() {
+    const link = document.querySelector('[data-lang-switch]');
+    if (!link) return;
+    const isEn = document.documentElement.lang === 'en';
+    const file = location.pathname.split('/').pop();
+    const page = /^(index|chapter-\d+)\.html$/.test(file) ? file : '';
+    const base = (isEn ? '../' : 'en/') + page;
+    link.setAttribute('href', base);
+    link.addEventListener('click', () => {
+      link.setAttribute('href', base + location.hash);
+    });
+  }
+
   /* ─── Инициализация всей интерактивности ─── */
   function initAll() {
+    initLangSwitch();
     initProgressBar();
     initChaptersNav();
     initActiveChapter();

@@ -56,7 +56,7 @@
     const hint = document.querySelector('.cards-white-hint');
     if (hint) {
       hint.classList.add('cards-white-hint--touch');
-      hint.textContent = 'Нажмите на карточку';
+      hint.textContent = document.documentElement.lang === 'en' ? 'Tap the card' : 'Нажмите на карточку';
     }
 
     cards.forEach(card => {
@@ -105,7 +105,7 @@
       const dot = document.createElement('button');
       dot.className = 'slider__dot' + (i === 0 ? ' slider__dot--active' : '');
       dot.type = 'button';
-      dot.setAttribute('aria-label', `Карточка ${i + 1}`);
+      dot.setAttribute('aria-label', (document.documentElement.lang === 'en' ? 'Card ' : 'Карточка ') + (i + 1));
       dot.addEventListener('click', () => go(i));
       nav.appendChild(dot);
     });
@@ -172,7 +172,7 @@
       const dot = document.createElement('button');
       dot.className = 'slider__dot' + (i === 0 ? ' slider__dot--active' : '');
       dot.type = 'button';
-      dot.setAttribute('aria-label', `Шаг ${i + 1}`);
+      dot.setAttribute('aria-label', (document.documentElement.lang === 'en' ? 'Step ' : 'Шаг ') + (i + 1));
       dot.addEventListener('click', () => go(i));
       nav.appendChild(dot);
     });

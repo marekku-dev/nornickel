@@ -398,6 +398,11 @@ ol {
   mask: url(img/logo.svg) no-repeat center / contain;
   transition: background-color .3s ease;
 }
+/* Английская версия: свой логотип — замените файл en/img/logo.svg */
+html[lang="en"] .site-header__logo {
+  -webkit-mask-image: url(en/img/logo.svg);
+  mask-image: url(en/img/logo.svg);
+}
 
 /* ----- Навигация по главам ----- */
 .nav-chapters {
@@ -545,6 +550,7 @@ ol {
 /* EN пока неактивен — английской версии ещё нет */
 .lang-switch__item--disabled { opacity: .45; cursor: default; }
 a.lang-switch__item:hover { opacity: .7; }
+a.lang-switch__item { color: inherit; text-decoration: none; }
 
 /* Соцсети внутри меню «Содержание» — показываются только на мобильных */
 .nav-chapters__social {
