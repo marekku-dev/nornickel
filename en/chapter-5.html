@@ -15,12 +15,12 @@
 
   <!-- Preload критичных ресурсов -->
   <link rel="preload" href="../img/ch5-hero-bg.jpg" as="image" fetchpriority="high">
-  <link rel="preload" href="../js/components.js" as="script">
+  <link rel="preload" href="../js/components.js?v=20261019b" as="script">
 
   <!-- Fonts -->
 
   <!-- Styles -->
-  <link rel="stylesheet" href="../main.css">
+  <link rel="stylesheet" href="../main.css?v=20261019b">
   <!-- Yandex.Metrika counter -->
   <script type="text/javascript">
     (function(m,e,t,r,i,k,a){
@@ -121,73 +121,10 @@
           <p class="body-text">For frequent travellers, it is also possible to calculate the carbon footprint of individual journeys. Specialised tools, such as the <a href="https://icec.icao.int/" target="_blank" rel="noopener">ICAO (International Civil Aviation Organisation) Carbon Emissions Calculator</a>, <a href="https://www.aeroflot.ru/ru-ru/about/calculator_co2" target="_blank" rel="noopener">Aeroflot’s calculator</a>, and services such as <a href="https://carbonfree.aviasales.ru/" target="_blank" rel="noopener">Aviasales</a>, can help you estimate CO₂ emissions from flights and other modes of transport.</p>
         </div>
 
-        <div class="caption-label caption-label--mobile-only" style="text-align:center; margin-bottom: 24px;">How can you reduce your carbon footprint in everyday life?</div>
-
-        <!-- Мобильный слайдер: как уменьшить углеродный след -->
-      <div class="slider reveal" id="slider-footprint" aria-label="How to reduce your carbon footprint">
-        <div class="slider__track" id="slider-footprint-mask">
-          <div class="slider__slide">
-            <div class="slide-card">
-              <img src="../img/ch5-icon3.png" loading="lazy" alt="Separate waste collection" class="slide-card__image">
-              <div class="slide-card__footer">
-                <p class="caption-italic text-center">Separate waste collection</p>
-              </div>
-            </div>
-          </div>
-          <div class="slider__slide">
-            <div class="slide-card">
-              <img src="../img/ch5-icon2.png" loading="lazy" alt="Resource stewardship" class="slide-card__image">
-              <div class="slide-card__footer">
-                <p class="caption-italic text-center">Resource stewardship</p>
-              </div>
-            </div>
-          </div>
-          <div class="slider__slide">
-            <div class="slide-card">
-              <img src="../img/ch5-icon5.png" loading="lazy" alt="Switching to greener transport" class="slide-card__image">
-              <div class="slide-card__footer">
-                <p class="caption-italic text-center">Switching to greener transport</p>
-              </div>
-            </div>
-          </div>
-          <div class="slider__slide">
-            <div class="slide-card">
-              <img src="../img/ch5-icon2.png" loading="lazy" alt="Avoiding disposable products" class="slide-card__image">
-              <div class="slide-card__footer">
-                <p class="caption-italic text-center">Avoiding disposable products</p>
-              </div>
-            </div>
-          </div>
-          <div class="slider__slide">
-            <div class="slide-card">
-              <img src="../img/ch5-icon7.jpg" loading="lazy" alt="Energy efficiency at home" class="slide-card__image">
-              <div class="slide-card__footer">
-                <p class="caption-italic text-center">Energy efficiency at home</p>
-              </div>
-            </div>
-          </div>
-          <div class="slider__slide">
-            <div class="slide-card">
-              <img src="../img/ch5-icon6.png" loading="lazy" alt="Digital hygiene" class="slide-card__image">
-              <div class="slide-card__footer">
-                <p class="caption-italic text-center">Digital hygiene</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <button class="slider__arrow slider__arrow--prev" onclick="slideChange('slider-footprint', -1)" aria-label="Previous slide">
-          <img src="../img/arrow-left.svg" alt="" class="slider__arrow-icon" aria-hidden="true">
-        </button>
-        <button class="slider__arrow slider__arrow--next" onclick="slideChange('slider-footprint', 1)" aria-label="Next slide">
-          <img src="../img/arrow-right.svg" alt="" class="slider__arrow-icon" aria-hidden="true">
-        </button>
-        <div class="slider__dots" id="slider-footprint-nav" role="tablist" aria-label="Slides"></div>
-      </div>
-
-      <!-- Карточки привычек (desktop: 6 flip-cards) -->
-      <div class="caption-label caption-label--desktop-only" style="text-align:center; margin-bottom: 24px;">How can you reduce your carbon footprint in everyday life?</div>
+      <!-- Карточки привычек (6 flip-cards; на мобильном — тап, сетка 2×3) -->
+      <div class="caption-label" style="text-align:center; margin-bottom: 24px;">How can you reduce your carbon footprint in everyday life?</div>
       <p class="cards-white-hint">Hover over the card</p>
-      <div class="cards-white-grid cards-white-grid--habits-desktop cards-white-grid--tall-label reveal">
+      <div class="cards-white-grid cards-white-grid--tall-label reveal">
         <div class="card-white">
           <div class="card-white__inner">
             <div class="card-white__front">
@@ -645,11 +582,11 @@
 <!-- TOOLTIP: контейнер (<dialog>) создаёт js/tooltips.js, статический div не нужен -->
 
 <!-- Загрузчик компонентов -->
-  <script src="../js/no-hanging-prepositions.js"></script>
-  <script src="../js/tooltips.js"></script>
-<script src="../js/components.js"></script>
+  <script src="../js/no-hanging-prepositions.js?v=20261019b"></script>
+  <script src="../js/tooltips.js?v=20261019b"></script>
+<script src="../js/components.js?v=20261019b"></script>
 <!-- Интерактивность страницы -->
-<script src="../js/chapter-5.js" defer></script>
+<script src="../js/chapter-5.js?v=20261019b" defer></script>
 
 </body>
 </html>

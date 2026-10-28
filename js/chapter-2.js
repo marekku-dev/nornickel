@@ -167,9 +167,9 @@
       source: 'https://www.fao.org/3/i7959e/i7959e.pdf',
     },
     {
-      question: 'Насколько чаще (в процентах) стали случаться наводнения за&nbsp;последние 25&nbsp;лет?',
+      question: 'Насколько чаще (в процентах) стали случаться наводнения за&nbsp;последние 20&nbsp;лет?',
       min: 0, max: 200, step: 1, correct: 134,
-      fact: 'Количество наводнений увеличилось примерно на&nbsp;134% за&nbsp;последние 20&nbsp;лет',
+      fact: 'Количество наводнений увеличилось примерно на&nbsp;134% за&nbsp;последние 20&nbsp;лет по&nbsp;сравнению с&nbsp;двумя предыдущими десятилетиями',
       source: 'https://public.wmo.int/en/media/press-release/wake-looming-water-crisis-report-warns',
     },
   ];
@@ -186,8 +186,8 @@
       fact: 'Around 70% of fresh water consumed is used in agriculture' },
     { question: 'How many litres of water are needed to produce enough food for one person for one day?',
       fact: 'Producing enough food for one person for one day requires between 2 thousand and 5 thousand litres of water' },
-    { question: 'By what percentage have floods become more frequent over the past 25 years?',
-      fact: 'The number of floods has increased by around 134% over the past 20 years' }
+    { question: 'By what percentage have floods become more frequent over the past 20 years?',
+      fact: 'The number of floods has increased by around 134% over the past 20 years compared with the previous two decades' }
   ];
   if (IS_EN) {
     QUIZ_DATA.forEach((q, i) => {
@@ -209,6 +209,9 @@
     done: 'Тест завершён!', final: 'Вы ответили на все вопросы о пресной воде.', restart: 'Пройти заново',
     reactions: ['Вы правы!', 'Очень близко!', 'Вы довольно близки', 'Неплохо, но можно точнее', 'Довольно далеко от правильного ответа'],
   };
+
+  // Типограф для текстов теста (висячие предлоги) — функция из no-hanging-prepositions.js
+  const typo = (t) => (typeof window.fixHangingText === 'function') ? window.fixHangingText(t) : t;
 
   function initQuiz() {
     const app = document.getElementById('quiz-app');
@@ -238,7 +241,7 @@
       const q = QUIZ_DATA[current];
       app.innerHTML = `
         <div class="quiz__label">${QUIZ_UI.guess}</div>
-        <div class="quiz__question">${q.question}</div>
+        <div class="quiz__question">${typo(q.question)}</div>
         <div class="quiz__value" id="quiz-value">${fmt(q.min)}</div>
         <input type="range" class="quiz__range" id="quiz-range"
                min="${q.min}" max="${q.max}" step="${q.step}" value="${q.min}">
@@ -261,7 +264,7 @@
       const q = QUIZ_DATA[current];
       app.innerHTML = `
         <div class="quiz__label">${getReaction(userVal, q.correct)}</div>
-        <div class="quiz__answer">${q.fact}</div>
+        <div class="quiz__answer">${typo(q.fact)}</div>
         <button class="quiz__button" id="quiz-next" type="button">${QUIZ_UI.next}</button>
         <div class="quiz__progress">${QUIZ_UI.progress(current + 1, QUIZ_DATA.length)}</div>
         <div class="quiz__source"><a href="${q.source}" target="_blank" rel="noopener">${QUIZ_UI.source}</a></div>

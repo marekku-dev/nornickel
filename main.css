@@ -2434,7 +2434,6 @@ html.tooltip-lock body {
 }
 
 @media screen and (max-width: 767px) {
-  .cards-white-grid--habits-desktop { display: none; }
   .caption-label--desktop-only { display: none; }
 
   /* Боковые отступы для заголовков-подписей, чтобы текст не упирался в край экрана */
@@ -4580,7 +4579,6 @@ html.tooltip-lock body {
   .card-3__img {width: 50%;}
   .cards-three-grid { gap: 16px; }
   .site-footer__tagline { display: none; }
-  #slider-footprint { display: none; }
   .card-white__inner { height: 100%; }
   .card-white--no-flip .card-white__inner { height: auto; }
 }

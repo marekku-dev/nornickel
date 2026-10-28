@@ -81,13 +81,49 @@
     return false;
   }
 
+  /* ─── Английская версия (<html lang="en">) — свои правила ───
+     После коротких служебных слов, перед тире, между числом и единицей
+     измерения и в инициалах ставим неразрывный пробел. */
+  const IS_EN = document.documentElement.lang === 'en';
+  const NBSP_EN = String.fromCharCode(160);   // не литерал — см. заметку про NBSP
+  const EN_SHORT_WORDS = [
+    // артикли и короткие предлоги
+    'a','an','the','of','in','on','at','to','by','for','from','with','into','onto','per','via',
+    // союзы и короткие служебные слова
+    'and','or','but','nor','as','if','is','it','its','we','our','no','not',
+  ];
+  const EN_RE_SHORT = new RegExp(
+    '(?<=^|[\\s\\u00A0(“‘"\'/—–])(' + EN_SHORT_WORDS.join('|') + ')[ \\t]+(?=[^\\s])',
+    'gi'
+  );
+  // «word – next»: тире не должно начинать строку
+  const EN_RE_DASH = /(?<=\S)[ \t]+(?=[–—](?:\s|$))/g;
+  // число + единица/счётное слово: «1.5 °C», «70 %», «2 billion», «30 years», «No. 296»
+  const EN_RE_NUM = /(\d)[ \t]+(?=(?:°|%|‰|ppm\b|million\b|billion\b|trillion\b|thousand\b|tonnes?\b|years?\b|decades?\b|days?\b|months?\b|hours?\b|countries\b|km\b|kg\b|GW\b|MW\b|kWh\b|BC\b|AD\b))/g;
+  const EN_RE_NO = /\b(No\.|p\.|pp\.)[ \t]+(?=\d)/g;
+  // инициалы: «A. M. Obukhov», «Yu. A. Izrael»
+  const EN_RE_INITIAL = /(?<=^|[\s\u00A0])([A-Z][a-z]?\.)[ \t]+(?=[A-Z])/g;
+
+  function fixHangingTextEn(str) {
+    // Два прохода: соседние короткие слова («to the») — за один проход
+    // благодаря lookbehind, второй — на всякий случай (идемпотентно).
+    let out = str;
+    for (let i = 0; i < 2; i++) {
+      out = out
+        .replace(EN_RE_SHORT,   (m, w) => w + NBSP_EN)
+        .replace(EN_RE_INITIAL, (m, w) => w + NBSP_EN)
+        .replace(EN_RE_NO,      (m, w) => w + NBSP_EN)
+        .replace(EN_RE_NUM,     (m, d) => d + NBSP_EN)
+        .replace(EN_RE_DASH,    NBSP_EN);
+    }
+    return out;
+  }
+
   /* Чистая строковая версия — годится и для текста, которого ещё нет в DOM
      (например, текст тултипа перед вставкой). Идемпотентна. */
-  // Правила — для русского текста; в английской версии ничего не трогаем
-  const IS_EN = document.documentElement.lang === 'en';
-
   function fixHangingText(str) {
-    if (!str || IS_EN) return str;
+    if (!str) return str;
+    if (IS_EN) return fixHangingTextEn(str);
     return str
       .replace(RE,         (m, w) => w + NBSP)
       .replace(RE_INITIAL, (m, w) => w + NBSP)
@@ -105,7 +141,7 @@
   /* ─── Обход всех текстовых узлов в корне ─── */
   function fixHangingPrepositions(root) {
     root = root || document.body;
-    if (!root || IS_EN) return;
+    if (!root) return;
 
     const walker = document.createTreeWalker(
       root,

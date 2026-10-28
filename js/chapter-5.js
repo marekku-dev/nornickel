@@ -201,9 +201,9 @@
     { question: 'How many countries are developing Education for Sustainable Development (ESD) initiatives?',
       fact: '50 countries are developing national programmes for Education for Sustainable Development (ESD) through to 2030' },
     { question: 'How many countries are taking part in efforts to green education?',
-      fact: 'A total 97 countries and over 1,900 organisations have already joined the Greening Education Partnership' },
+      fact: 'A total of 97 countries and over 1,900 organisations have already joined the Greening Education Partnership' },
     { question: 'How many schools worldwide have already gone green?',
-      fact: 'A total 96,000 schools across 93 countries already meet the green school quality standard' },
+      fact: 'A total of 96,000 schools across 93 countries already meet the green school quality standard' },
     { question: 'What percentage of climate finance goes to education?',
       fact: 'Less than 2% of global climate finance currently goes towards education projects' },
     { question: 'What percentage of schools should go green by 2030?',
@@ -229,6 +229,9 @@
     done: 'Тест завершён!', final: 'Вы ответили на&nbsp;все вопросы о&nbsp;климатическом образовании.', restart: 'Пройти заново',
     reactions: ['Вы правы!', 'Очень близко!', 'Вы довольно близки', 'Неплохо, но можно точнее', 'Довольно далеко от правильного ответа'],
   };
+
+  // Типограф для текстов теста (висячие предлоги) — функция из no-hanging-prepositions.js
+  const typo = (t) => (typeof window.fixHangingText === 'function') ? window.fixHangingText(t) : t;
 
   function initQuiz() {
     const app = document.getElementById('quiz-app');
@@ -260,7 +263,7 @@
       const q = QUIZ_DATA[current];
       app.innerHTML = `
         <div class="quiz__label">${QUIZ_UI.guess}</div>
-        <div class="quiz__question">${q.question}</div>
+        <div class="quiz__question">${typo(q.question)}</div>
         <div class="quiz__value" id="quiz-value">${fmt(q.min)}</div>
         <input type="range" class="quiz__range" id="quiz-range"
                min="${q.min}" max="${q.max}" step="${q.step}" value="${q.min}">
@@ -283,7 +286,7 @@
       const q = QUIZ_DATA[current];
       app.innerHTML = `
         <div class="quiz__label">${getReaction(userVal, q.correct)}</div>
-        <div class="quiz__answer">${q.fact}</div>
+        <div class="quiz__answer">${typo(q.fact)}</div>
         <button class="quiz__button" id="quiz-next" type="button">${QUIZ_UI.next}</button>
         <div class="quiz__progress">${QUIZ_UI.progress(current + 1, QUIZ_DATA.length)}</div>
         <div class="quiz__source"><a href="${q.source}" target="_blank" rel="noopener">${QUIZ_UI.source}</a></div>
